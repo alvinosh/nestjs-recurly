@@ -8,6 +8,7 @@ export { AccountAcquisitionService } from './v3/accounts/acquisition/acquisition
 export { BillingInfoService } from './v3/accounts/billing/info/info.service'
 export { BillingInfosService } from './v3/accounts/billing/infos/infos.service'
 export { CouponRedemptionService } from './v3/accounts/couponRedemption/couponRedemption.service'
+export { SubscriptionService } from './v3/subscription/subscription.service'
 export { ItemService } from './v3/item/item.service'
 export { PlanService } from './v3/plan/plan.service'
 export { AddOnService } from './v3/plan/addon/addon.service'
@@ -47,6 +48,23 @@ export {
 	RecurlyCouponRedemptionList,
 	RecurlyCouponRedemptionCreate,
 } from './v3/accounts/couponRedemption/couponRedemption.types'
+
+export {
+	RecurlySubscription,
+	RecurlySubscriptionList,
+	RecurlySubscriptionShipping,
+	RecurlyShippingMethodMini,
+	RecurlyDiscount,
+	RecurlyCurrencyAmount,
+	RecurlyTrial,
+	RecurlySubscriptionChange,
+	RecurlySubscriptionAddOn,
+	RecurlyAddOnMini,
+	RecurlyPercentageTier,
+	RecurlySubscriptionRampIntervalResponse,
+	RecurlyTaxInfo,
+	RecurlyPriceSegmentIdOrCode,
+} from './v3/subscription/subscription.types'
 
 export {
 	RecurlyBillingInfo,
@@ -153,6 +171,22 @@ export {
 	RecurlyAccountAcquisitionUpdateDto,
 	RecurlyListAccountAcquisitionQueryDto,
 } from './v3/accounts/acquisition/acquisition.dto'
+
+export {
+	RecurlyListSubscriptionsQueryDto,
+	RecurlySubscriptionCreateDto,
+	RecurlySubscriptionUpdateDto,
+	RecurlyAccountCreateDto,
+	RecurlyPriceSegmentIdDto,
+	RecurlySubscriptionShippingCreateDto,
+	RecurlyShippingAddressCreateDto,
+	RecurlySubscriptionAddOnCreateDto,
+	RecurlyPercentageTierDto,
+	RecurlySubscriptionRampIntervalDto,
+	RecurlySubscriptionShippingUpdateDto,
+	RecurlySubscriptionCancelDto,
+	RecurlySubscriptionPauseDto,
+} from './v3/subscription/subscription.dto'
 
 export {
 	RecurlyListCouponRedemptionsQueryDto,
