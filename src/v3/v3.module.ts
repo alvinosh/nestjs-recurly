@@ -5,8 +5,8 @@ import { CouponModule } from './coupon/coupon.module'
 import { ItemModule } from './item/item.module'
 import { MeasuredUnitModule } from './measuredUnit/measuredUnit.module'
 import { PlanModule } from './plan/plan.module'
-import { SubscriptionModule } from './subscription/subscription.module'
 import { PriceSegmentModule } from './priceSegment/priceSegment.module'
+import { SubscriptionModule } from './subscription/subscription.module'
 import { Module } from '@nestjs/common'
 
 @Module({
@@ -17,9 +17,17 @@ import { Module } from '@nestjs/common'
 		PlanModule,
 		MeasuredUnitModule,
 		CouponModule,
-    PriceSegmentModule,
-		SubscriptionModule
+		PriceSegmentModule,
+		SubscriptionModule,
 	],
-	exports: [AccountsModule, ItemModule, PlanModule, MeasuredUnitModule, CouponModule, PriceSegmentModule, SubscriptionModule],
+	exports: [
+		AccountsModule,
+		ItemModule,
+		PlanModule,
+		MeasuredUnitModule,
+		CouponModule,
+		PriceSegmentModule,
+		SubscriptionModule,
+	],
 })
 export class RecurlyV3Module {}

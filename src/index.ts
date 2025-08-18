@@ -64,7 +64,6 @@ export {
 	RecurlyPercentageTier,
 	RecurlySubscriptionRampIntervalResponse,
 	RecurlyTaxInfo,
-	RecurlyPriceSegmentIdOrCode,
 } from './v3/subscription/subscription.types'
 
 export {

@@ -1,11 +1,11 @@
+import { AccountsService } from '../accounts/accounts.service'
+import { RecurlyAccount } from '../accounts/accounts.types'
+import { RecurlyUpdateBillingInfoDto } from '../accounts/billing/info/info.dto'
+import { BillingInfoService } from '../accounts/billing/info/info.service'
 import { PlanService } from '../plan/plan.service'
 import { RecurlyPlan } from '../plan/plan.types'
 import { canTest } from '../v3.helpers'
 import { RecurlyV3Module } from '../v3.module'
-import { AccountsService } from '../accounts/accounts.service'
-import { RecurlyAccount } from '../accounts/accounts.types'
-import { BillingInfoService } from '../accounts/billing/info/info.service'
-import { RecurlyUpdateBillingInfoDto } from '../accounts/billing/info/info.dto'
 import { SubscriptionService } from './subscription.service'
 import { RecurlySubscription, RecurlySubscriptionList } from './subscription.types'
 import { faker } from '@faker-js/faker'
@@ -224,7 +224,7 @@ describe('Subscriptions', () => {
 		})
 	})
 
-    	afterAll(async () => {
+	afterAll(async () => {
 		// Clean up test data
 		try {
 			if (createdSubscription?.id) {

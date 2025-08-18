@@ -1,3 +1,5 @@
+import { RecurlyPriceSegmentIdOrCode } from '../priceSegment/priceSegment.types'
+
 // Subscription Types
 export interface RecurlySubscription {
 	id?: string
@@ -212,11 +214,6 @@ export interface RecurlyTaxInfo {
 	type?: string
 	region?: string
 	rate?: number
-}
-
-export interface RecurlyPriceSegmentIdOrCode {
-	id?: string
-	code?: string
 }
 
 export interface RecurlyCustomField {

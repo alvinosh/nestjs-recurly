@@ -25,7 +25,6 @@ describe('PriceSegmentService', () => {
 	describe('Price Segment Operations', () => {
 		// READ - List price segments
 		it('should list price segments', async () => {
-
 			const response = await service.listPriceSegments({
 				limit: 10,
 				order: 'asc',
@@ -43,7 +42,6 @@ describe('PriceSegmentService', () => {
 
 		// READ - Get single price segment by ID
 		it('should get a price segment by ID', async () => {
-
 			// Skip if no price segments exist
 			if (!firstPriceSegment || !firstPriceSegment.id) {
 				console.log('No price segments found to test get by ID')
@@ -60,7 +58,6 @@ describe('PriceSegmentService', () => {
 
 		// READ - Get single price segment by code
 		it('should get a price segment by code', async () => {
-
 			// Skip if no price segments exist or no code is available
 			if (!firstPriceSegment || !firstPriceSegment.code) {
 				console.log('No price segments with code found to test get by code')
@@ -77,7 +74,6 @@ describe('PriceSegmentService', () => {
 
 		// READ - List price segments with specific IDs filter
 		it('should list price segments with specific IDs', async () => {
-
 			// Skip if no price segments exist
 			if (!firstPriceSegment || !firstPriceSegment.id) {
 				console.log('No price segments found to test list with IDs filter')
