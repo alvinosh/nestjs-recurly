@@ -16,6 +16,7 @@ export { MeasuredUnitService } from './v3/measuredUnit/measuredUnit.service'
 export { CouponService } from './v3/coupon/coupon.service'
 export { UniqueCouponCodeService } from './v3/coupon/unique/unique.service'
 export { PriceSegmentService } from './v3/priceSegment/priceSegment.service'
+export { ChangeService } from './v3/subscription/change/change.service'
 
 //Config
 export { RecurlyConfigDto } from './config/config.dto'
@@ -162,6 +163,12 @@ export {
 	RecurlyPriceSegmentIdOrCode,
 } from './v3/priceSegment/priceSegment.types'
 
+export {
+  RecurlySubscriptionChange,
+  RecurlySubscriptionChangeBillingInfo,
+  RecurlySubscriptionRampIntervalResponse,
+} from './v3/subscription/change/change.types'
+
 //DTOs
 export {
 	RecurlyListAccountsQueryDto,
@@ -253,3 +260,5 @@ export { CouponListParamsDto, CouponCreateDto, CouponUpdateDto } from './v3/coup
 export { RecurlyGenerateUniqueCouponCodesDto, RecurlyListUniqueCouponCodesDto } from './v3/coupon/unique/unique.dto'
 
 export { RecurlyListPriceSegmentsQueryDto } from './v3/priceSegment/priceSegment.dto'
+
+export { RecurlySubscriptionChangeCreate } from './v3/subscription/change/change.dto'
