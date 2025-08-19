@@ -139,12 +139,14 @@ describe('Billing Infos', () => {
 	})
 
 	afterAll(async () => {
-		if (canTest()) {
-			try {
-				await accountsService.deactivateAccount(testAccountId)
-			} catch {
-				// Ignore errors during cleanup
-			}
+		try {
+			await suppressErrorTesting(
+				accountsService,
+				(id: string) => accountsService.deactivateAccount(id),
+				testAccountId,
+			)
+		} catch {
+			// Ignore errors during cleanup
 		}
 	})
 })

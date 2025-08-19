@@ -8,6 +8,7 @@ export { AccountAcquisitionService } from './v3/accounts/acquisition/acquisition
 export { BillingInfoService } from './v3/accounts/billing/info/info.service'
 export { BillingInfosService } from './v3/accounts/billing/infos/infos.service'
 export { CouponRedemptionService } from './v3/accounts/couponRedemption/couponRedemption.service'
+export { ShippingAddressService } from './v3/accounts/shippingAddress/shippingAddress.service'
 export { SubscriptionService } from './v3/subscription/subscription.service'
 export { ItemService } from './v3/item/item.service'
 export { PlanService } from './v3/plan/plan.service'
@@ -49,6 +50,11 @@ export {
 	RecurlyCouponRedemptionList,
 	RecurlyCouponRedemptionCreate,
 } from './v3/accounts/couponRedemption/couponRedemption.types'
+
+export {
+	RecurlyShippingAddress as RecurlyShippingAddressType,
+	RecurlyShippingAddressList,
+} from './v3/accounts/shippingAddress/shippingAddress.types'
 
 export {
 	RecurlySubscription,
@@ -174,6 +180,12 @@ export {
 } from './v3/accounts/accounts.dto'
 
 export { RecurlyListAccountNotesQueryDto } from './v3/accounts/notes/notes.dto'
+
+export {
+	RecurlyListShippingAddressesQueryDto,
+	RecurlyAccountShippingAddressCreateDto,
+	RecurlyAccountShippingAddressUpdateDto,
+} from './v3/accounts/shippingAddress/shippingAddress.dto'
 
 export {
 	RecurlyAccountAcquisitionCostDto,

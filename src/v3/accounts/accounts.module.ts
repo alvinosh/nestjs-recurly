@@ -6,6 +6,7 @@ import { BillingInfoModule } from './billing/info/info.module'
 import { BillingInfosModule } from './billing/infos/infos.module'
 import { CouponRedemptionModule } from './couponRedemption/couponRedemption.module'
 import { AccountNotesModule } from './notes/notes.module'
+import { ShippingAddressModule } from './shippingAddress/shippingAddress.module'
 import { Module } from '@nestjs/common'
 
 @Module({
@@ -16,6 +17,7 @@ import { Module } from '@nestjs/common'
 		BillingInfoModule,
 		BillingInfosModule,
 		CouponRedemptionModule,
+		ShippingAddressModule,
 	],
 	controllers: [],
 	providers: [AccountsService],
@@ -26,6 +28,7 @@ import { Module } from '@nestjs/common'
 		BillingInfoModule,
 		BillingInfosModule,
 		CouponRedemptionModule,
+		ShippingAddressModule,
 	],
 })
 export class AccountsModule {}

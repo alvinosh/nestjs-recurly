@@ -1,4 +1,4 @@
-import { canTest } from '../../v3.helpers'
+import { canTest, suppressErrorTesting } from '../../v3.helpers'
 import { RecurlyV3Module } from '../../v3.module'
 import { AccountsService } from '../accounts.service'
 import { RecurlyAccount } from '../accounts.types'
@@ -110,7 +110,11 @@ describe('Account Notes', () => {
 	afterAll(async () => {
 		if (testAccount && testAccount.id) {
 			try {
-				await accountsService.deactivateAccount(testAccount.id)
+				await suppressErrorTesting(
+					accountsService,
+					(id: string) => accountsService.deactivateAccount(id),
+					testAccount.id,
+				)
 			} catch (error) {
 				console.error('Failed to cleanup test account:', error)
 			}
