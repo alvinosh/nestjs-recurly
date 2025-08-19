@@ -1,4 +1,3 @@
-import { r } from '@faker-js/faker/dist/airline-CLphikKp'
 import { canTest, suppressErrorTesting } from '../../v3.helpers'
 import { RecurlyV3Module } from '../../v3.module'
 import { AccountsService } from '../accounts.service'
@@ -130,7 +129,7 @@ describe('ShippingAddressService', () => {
 			).resolves.toBeUndefined()
 
 			// Verify deletion by trying to get the address (should throw an error)
-		    await suppressErrorTesting(
+			await suppressErrorTesting(
 				service,
 				(id: string, address_id: string) => service.getShippingAddress(id, address_id),
 				testAccountId,
