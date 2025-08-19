@@ -22,7 +22,7 @@ export { ChangeService } from './v3/subscription/change/change.service'
 export { RecurlyConfigDto } from './config/config.dto'
 
 //Types
-export { RecurlyCurrency } from './v3/v3.types'
+export { RecurlyCurrency, RecurlyCustomField, RecurlyAddress } from './v3/v3.types'
 
 export {
 	RecurlyAccount,
@@ -30,7 +30,6 @@ export {
 	RecurlyAccountListResponse,
 	RecurlyExternalSubscriptionListResponse,
 	RecurlyAccountState,
-	RecurlyAddress,
 	RecurlyShippingAddress,
 } from './v3/accounts/accounts.types'
 
@@ -105,7 +104,6 @@ export {
 	RecurlyItemListResponse,
 	RecurlyItemState,
 	RecurlyRevenueScheduleType,
-	RecurlyCustomField,
 	RecurlyPricing,
 } from './v3/item/item.types'
 
@@ -163,11 +161,7 @@ export {
 	RecurlyPriceSegmentIdOrCode,
 } from './v3/priceSegment/priceSegment.types'
 
-export {
-  RecurlySubscriptionChange,
-  RecurlySubscriptionChangeBillingInfo,
-  RecurlySubscriptionRampIntervalResponse,
-} from './v3/subscription/change/change.types'
+export { RecurlySubscriptionChangeBillingInfo } from './v3/subscription/change/change.types'
 
 //DTOs
 export {
@@ -186,22 +180,6 @@ export {
 	RecurlyAccountAcquisitionUpdateDto,
 	RecurlyListAccountAcquisitionQueryDto,
 } from './v3/accounts/acquisition/acquisition.dto'
-
-export {
-	RecurlyListSubscriptionsQueryDto,
-	RecurlySubscriptionCreateDto,
-	RecurlySubscriptionUpdateDto,
-	RecurlyAccountCreateDto,
-	RecurlyPriceSegmentIdDto,
-	RecurlySubscriptionShippingCreateDto,
-	RecurlyShippingAddressCreateDto,
-	RecurlySubscriptionAddOnCreateDto,
-	RecurlyPercentageTierDto,
-	RecurlySubscriptionRampIntervalDto,
-	RecurlySubscriptionShippingUpdateDto,
-	RecurlySubscriptionCancelDto,
-	RecurlySubscriptionPauseDto,
-} from './v3/subscription/subscription.dto'
 
 export {
 	RecurlyListCouponRedemptionsQueryDto,
@@ -261,4 +239,24 @@ export { RecurlyGenerateUniqueCouponCodesDto, RecurlyListUniqueCouponCodesDto } 
 
 export { RecurlyListPriceSegmentsQueryDto } from './v3/priceSegment/priceSegment.dto'
 
-export { RecurlySubscriptionChangeCreate } from './v3/subscription/change/change.dto'
+export {
+	RecurlyListSubscriptionsQueryDto,
+	RecurlySubscriptionCreateDto,
+	RecurlySubscriptionUpdateDto,
+	RecurlyAccountCreateDto,
+	RecurlyPriceSegmentIdDto,
+	RecurlySubscriptionShippingCreateDto,
+	RecurlyShippingAddressCreateDto,
+	RecurlySubscriptionAddOnCreateDto,
+	RecurlyPercentageTierDto,
+	RecurlySubscriptionRampIntervalDto,
+	RecurlySubscriptionShippingUpdateDto,
+	RecurlySubscriptionCancelDto,
+	RecurlySubscriptionPauseDto,
+} from './v3/subscription/subscription.dto'
+
+export {
+	RecurlyProrationSettings,
+	RecurlySubscriptionChangeBillingInfoCreate,
+	RecurlySubscriptionChangeShippingCreate,
+} from './v3/subscription/change/change.dtos'

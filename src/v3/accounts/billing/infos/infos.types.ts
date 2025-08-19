@@ -1,4 +1,4 @@
-import { RecurlyAddress } from '../../accounts.types'
+import { RecurlyAddress } from '../../../v3.types'
 
 // Enums
 export type RecurlyPaymentMethodObject = 'bacs' | 'becs' | 'credit_card' | 'paypal' | 'bank_account' | 'amazon' | 'roku'

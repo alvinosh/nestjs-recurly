@@ -1,13 +1,9 @@
+import { RecurlyCustomField } from '../v3.types'
+
 // Enums
 export type RecurlyItemState = 'active' | 'inactive'
 
 export type RecurlyRevenueScheduleType = 'at_range_end' | 'at_range_start' | 'evenly' | 'never'
-
-// Custom Field interface
-export interface RecurlyCustomField {
-	name: string
-	value: string | null
-}
 
 // Pricing interface
 export interface RecurlyPricing {
