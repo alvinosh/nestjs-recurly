@@ -6,7 +6,7 @@ import { RecurlyItem } from './item.types'
 import { ConfigModule } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 
-describe('ItemService', () => {
+describe('Item', () => {
 	let service: ItemService
 	let createdItem: RecurlyItem
 

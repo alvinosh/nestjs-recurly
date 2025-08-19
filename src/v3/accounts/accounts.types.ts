@@ -1,3 +1,4 @@
+import { RecurlyAddress, RecurlyCustomField } from '../v3.types'
 import { RecurlyBillingInfo } from './billing/info/info.types'
 
 // Enums
@@ -54,24 +55,6 @@ export type RecurlyCardNetworkPreference = 'Bancontact' | 'other'
 export type RecurlyBankAccountType = 'bacs' | 'checking' | 'savings'
 
 export type RecurlyAcquisitionChannel = 'advertising' | 'social_media' | 'email' | 'blog' | 'other'
-
-// Address interface
-export interface RecurlyAddress {
-	phone?: string
-	street1?: string
-	street2?: string
-	city?: string
-	region?: string
-	postal_code?: string
-	country?: string
-	geo_code?: string
-}
-
-// Custom Field interface
-export interface RecurlyCustomField {
-	name: string
-	value: string | null
-}
 
 // Account Acquisition interface
 export interface RecurlyAccountAcquisition {

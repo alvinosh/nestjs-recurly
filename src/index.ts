@@ -16,12 +16,13 @@ export { MeasuredUnitService } from './v3/measuredUnit/measuredUnit.service'
 export { CouponService } from './v3/coupon/coupon.service'
 export { UniqueCouponCodeService } from './v3/coupon/unique/unique.service'
 export { PriceSegmentService } from './v3/priceSegment/priceSegment.service'
+export { ChangeService } from './v3/subscription/change/change.service'
 
 //Config
 export { RecurlyConfigDto } from './config/config.dto'
 
 //Types
-export { RecurlyCurrency } from './v3/v3.types'
+export { RecurlyCurrency, RecurlyCustomField, RecurlyAddress } from './v3/v3.types'
 
 export {
 	RecurlyAccount,
@@ -29,7 +30,6 @@ export {
 	RecurlyAccountListResponse,
 	RecurlyExternalSubscriptionListResponse,
 	RecurlyAccountState,
-	RecurlyAddress,
 	RecurlyShippingAddress,
 } from './v3/accounts/accounts.types'
 
@@ -104,7 +104,6 @@ export {
 	RecurlyItemListResponse,
 	RecurlyItemState,
 	RecurlyRevenueScheduleType,
-	RecurlyCustomField,
 	RecurlyPricing,
 } from './v3/item/item.types'
 
@@ -162,6 +161,8 @@ export {
 	RecurlyPriceSegmentIdOrCode,
 } from './v3/priceSegment/priceSegment.types'
 
+export { RecurlySubscriptionChangeBillingInfo } from './v3/subscription/change/change.types'
+
 //DTOs
 export {
 	RecurlyListAccountsQueryDto,
@@ -179,22 +180,6 @@ export {
 	RecurlyAccountAcquisitionUpdateDto,
 	RecurlyListAccountAcquisitionQueryDto,
 } from './v3/accounts/acquisition/acquisition.dto'
-
-export {
-	RecurlyListSubscriptionsQueryDto,
-	RecurlySubscriptionCreateDto,
-	RecurlySubscriptionUpdateDto,
-	RecurlyAccountCreateDto,
-	RecurlyPriceSegmentIdDto,
-	RecurlySubscriptionShippingCreateDto,
-	RecurlyShippingAddressCreateDto,
-	RecurlySubscriptionAddOnCreateDto,
-	RecurlyPercentageTierDto,
-	RecurlySubscriptionRampIntervalDto,
-	RecurlySubscriptionShippingUpdateDto,
-	RecurlySubscriptionCancelDto,
-	RecurlySubscriptionPauseDto,
-} from './v3/subscription/subscription.dto'
 
 export {
 	RecurlyListCouponRedemptionsQueryDto,
@@ -253,3 +238,25 @@ export { CouponListParamsDto, CouponCreateDto, CouponUpdateDto } from './v3/coup
 export { RecurlyGenerateUniqueCouponCodesDto, RecurlyListUniqueCouponCodesDto } from './v3/coupon/unique/unique.dto'
 
 export { RecurlyListPriceSegmentsQueryDto } from './v3/priceSegment/priceSegment.dto'
+
+export {
+	RecurlyListSubscriptionsQueryDto,
+	RecurlySubscriptionCreateDto,
+	RecurlySubscriptionUpdateDto,
+	RecurlyAccountCreateDto,
+	RecurlyPriceSegmentIdDto,
+	RecurlySubscriptionShippingCreateDto,
+	RecurlyShippingAddressCreateDto,
+	RecurlySubscriptionAddOnCreateDto,
+	RecurlyPercentageTierDto,
+	RecurlySubscriptionRampIntervalDto,
+	RecurlySubscriptionShippingUpdateDto,
+	RecurlySubscriptionCancelDto,
+	RecurlySubscriptionPauseDto,
+} from './v3/subscription/subscription.dto'
+
+export {
+	RecurlyProrationSettings,
+	RecurlySubscriptionChangeBillingInfoCreate,
+	RecurlySubscriptionChangeShippingCreate,
+} from './v3/subscription/change/change.dtos'
