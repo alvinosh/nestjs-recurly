@@ -18,6 +18,7 @@ export { CouponService } from './v3/coupon/coupon.service'
 export { UniqueCouponCodeService } from './v3/coupon/unique/unique.service'
 export { PriceSegmentService } from './v3/priceSegment/priceSegment.service'
 export { ChangeService } from './v3/subscription/change/change.service'
+export { PurchaseService } from './v3/purchase/purchase.service'
 
 //Config
 export { RecurlyConfigDto } from './config/config.dto'
@@ -272,3 +273,34 @@ export {
 	RecurlySubscriptionChangeBillingInfoCreate,
 	RecurlySubscriptionChangeShippingCreate,
 } from './v3/subscription/change/change.dtos'
+
+// Purchase Types
+export {
+	RecurlyInvoiceCollection,
+	RecurlyInvoice,
+	RecurlyCreditPayment,
+	RecurlyInvoiceMini,
+	RecurlyBillingAddress,
+	RecurlyPaymentGatewayUsed,
+	RecurlyLineItem,
+	RecurlyTaxDetail,
+	RecurlyInvoiceAddress,
+	RecurlyFraudRiskRule,
+} from './v3/purchase/purchase.types'
+
+// Purchase DTOs
+export {
+	RecurlyPurchaseCreateDto,
+	RecurlyAccountPurchaseDto,
+	RecurlyBillingInfoDto,
+	RecurlyAccountAcquisitionDto,
+	RecurlyCostDto,
+	RecurlySubscriptionPurchaseDto,
+	RecurlySubscriptionAddOnDto,
+	RecurlyTierDto,
+	RecurlySubscriptionShippingDto,
+	RecurlyLineItemCreateDto,
+	RecurlyShippingPurchaseDto,
+	RecurlyShippingFeeCreateDto,
+	RecurlyTransactionDto,
+} from './v3/purchase/purchase.dto'
