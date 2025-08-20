@@ -6,6 +6,7 @@ import { ItemModule } from './item/item.module'
 import { MeasuredUnitModule } from './measuredUnit/measuredUnit.module'
 import { PlanModule } from './plan/plan.module'
 import { PriceSegmentModule } from './priceSegment/priceSegment.module'
+import { PurchaseModule } from './purchase/purchase.module'
 import { SubscriptionModule } from './subscription/subscription.module'
 import { Module } from '@nestjs/common'
 
@@ -18,6 +19,7 @@ import { Module } from '@nestjs/common'
 		MeasuredUnitModule,
 		CouponModule,
 		PriceSegmentModule,
+		PurchaseModule,
 		SubscriptionModule,
 	],
 	exports: [
@@ -27,6 +29,7 @@ import { Module } from '@nestjs/common'
 		MeasuredUnitModule,
 		CouponModule,
 		PriceSegmentModule,
+		PurchaseModule,
 		SubscriptionModule,
 	],
 })
