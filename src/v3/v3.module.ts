@@ -2,6 +2,7 @@ import { RecurlyConfigDto } from '../config/config.dto'
 import { ConfigValidationModule } from '../config/config.module'
 import { AccountsModule } from './accounts/accounts.module'
 import { CouponModule } from './coupon/coupon.module'
+import { GiftCardModule } from './giftCards/giftCards.module'
 import { ItemModule } from './item/item.module'
 import { MeasuredUnitModule } from './measuredUnit/measuredUnit.module'
 import { PlanModule } from './plan/plan.module'
@@ -18,6 +19,7 @@ import { Module } from '@nestjs/common'
 		PlanModule,
 		MeasuredUnitModule,
 		CouponModule,
+		GiftCardModule,
 		PriceSegmentModule,
 		PurchaseModule,
 		SubscriptionModule,
@@ -28,6 +30,7 @@ import { Module } from '@nestjs/common'
 		PlanModule,
 		MeasuredUnitModule,
 		CouponModule,
+		GiftCardModule,
 		PriceSegmentModule,
 		PurchaseModule,
 		SubscriptionModule,

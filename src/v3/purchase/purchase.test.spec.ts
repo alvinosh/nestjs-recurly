@@ -220,7 +220,11 @@ describe('PurchaseService', () => {
 				],
 			}
 
-            await suppressErrorTesting(service, (dto: RecurlyPurchaseCreateDto) => service.createPurchase(dto), purchaseDto)
+			await suppressErrorTesting(
+				service,
+				(dto: RecurlyPurchaseCreateDto) => service.createPurchase(dto),
+				purchaseDto,
+			)
 		})
 
 		it('should handle invalid plan code', async () => {
@@ -238,7 +242,11 @@ describe('PurchaseService', () => {
 				],
 			}
 
-            await suppressErrorTesting(service, (dto: RecurlyPurchaseCreateDto) => service.createPurchase(dto), purchaseDto)
+			await suppressErrorTesting(
+				service,
+				(dto: RecurlyPurchaseCreateDto) => service.createPurchase(dto),
+				purchaseDto,
+			)
 		})
 	})
 
