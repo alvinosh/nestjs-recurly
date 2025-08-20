@@ -67,7 +67,6 @@ describe.skip('Gift Card', () => {
 	describe('Gift Card CRUD Operations', () => {
 		// CREATE
 		it('should create a gift card', async () => {
-
 			const createDto: RecurlyCreateGiftCardDto = {
 				product_code: 'gift_card',
 				unit_amount: 50.0,
@@ -100,7 +99,6 @@ describe.skip('Gift Card', () => {
 
 		// READ - Get single gift card
 		it('should get a gift card by ID', async () => {
-
 			const giftCard = await service.getGiftCard(createdGiftCard.id!)
 
 			expect(giftCard).toBeDefined()
@@ -112,7 +110,6 @@ describe.skip('Gift Card', () => {
 
 		// READ - List gift cards
 		it('should list gift cards', async () => {
-
 			const response = await service.listGiftCards({
 				limit: 10,
 				order: 'desc',
@@ -131,7 +128,6 @@ describe.skip('Gift Card', () => {
 
 		// PREVIEW
 		it('should preview a gift card', async () => {
-
 			const previewDto: RecurlyCreateGiftCardDto = {
 				product_code: 'gift_card',
 				unit_amount: 100.0,
@@ -162,7 +158,6 @@ describe.skip('Gift Card', () => {
 
 		// REDEEM
 		it('should redeem a gift card', async () => {
-
 			const redeemDto: RecurlyRedeemGiftCardDto = {
 				recipient_account: {
 					code: recipientAccount.code,
@@ -180,7 +175,6 @@ describe.skip('Gift Card', () => {
 
 		// READ after REDEEM - Verify redemption
 		it('should verify gift card redemption', async () => {
-
 			const giftCard = await service.getGiftCard(createdGiftCard.id!)
 
 			expect(giftCard).toBeDefined()
@@ -191,7 +185,6 @@ describe.skip('Gift Card', () => {
 	})
 
 	afterAll(async () => {
-
 		// Clean up accounts
 		if (gifterAccount?.id) {
 			await suppressErrorTesting(

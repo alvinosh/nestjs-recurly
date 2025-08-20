@@ -2,7 +2,6 @@ import { RecurlyGiftCardDeliveryMethod } from './giftCards.types'
 import { Type } from 'class-transformer'
 import {
 	IsArray,
-	IsBoolean,
 	IsOptional,
 	IsString,
 	IsEnum,
