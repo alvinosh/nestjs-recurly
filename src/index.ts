@@ -19,6 +19,7 @@ export { UniqueCouponCodeService } from './v3/coupon/unique/unique.service'
 export { PriceSegmentService } from './v3/priceSegment/priceSegment.service'
 export { ChangeService } from './v3/subscription/change/change.service'
 export { PurchaseService } from './v3/purchase/purchase.service'
+export { GiftCardService } from './v3/giftCards/giftCards.service'
 
 //Config
 export { RecurlyConfigDto } from './config/config.dto'
@@ -304,3 +305,25 @@ export {
 	RecurlyShippingFeeCreateDto,
 	RecurlyTransactionDto,
 } from './v3/purchase/purchase.dto'
+
+// Gift Card Types
+export {
+	RecurlyGiftCard,
+	RecurlyGiftCardListResponse,
+	RecurlyGiftCardDelivery,
+	RecurlyGiftCardDeliveryMethod,
+	RecurlyAddress as RecurlyGiftCardAddress,
+	RecurlyAccountPurchase,
+	RecurlyAccountReference,
+} from './v3/giftCards/giftCards.types'
+
+// Gift Card DTOs
+export {
+	RecurlyListGiftCardsQueryDto,
+	RecurlyCreateGiftCardDto,
+	RecurlyRedeemGiftCardDto,
+	RecurlyGiftCardDeliveryCreateDto,
+	RecurlyAddressDto as RecurlyGiftCardAddressDto,
+	RecurlyAccountPurchaseDto as RecurlyGiftCardAccountPurchaseDto,
+	RecurlyAccountReferenceDto,
+} from './v3/giftCards/giftCards.dto'
