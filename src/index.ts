@@ -20,6 +20,7 @@ export { PriceSegmentService } from './v3/priceSegment/priceSegment.service'
 export { ChangeService } from './v3/subscription/change/change.service'
 export { PurchaseService } from './v3/purchase/purchase.service'
 export { GiftCardService } from './v3/giftCards/giftCards.service'
+export { InvoiceService } from './v3/invoice/invoice.service'
 
 //Config
 export { RecurlyConfigDto } from './config/config.dto'
@@ -277,15 +278,11 @@ export {
 
 // Purchase Types
 export {
-	RecurlyInvoiceCollection,
-	RecurlyInvoice,
 	RecurlyCreditPayment,
-	RecurlyInvoiceMini,
 	RecurlyBillingAddress,
 	RecurlyPaymentGatewayUsed,
 	RecurlyLineItem,
 	RecurlyTaxDetail,
-	RecurlyInvoiceAddress,
 	RecurlyFraudRiskRule,
 } from './v3/purchase/purchase.types'
 
@@ -327,3 +324,42 @@ export {
 	RecurlyAccountPurchaseDto as RecurlyGiftCardAccountPurchaseDto,
 	RecurlyAccountReferenceDto,
 } from './v3/giftCards/giftCards.dto'
+
+// Invoice Types
+export {
+	RecurlyInvoice,
+	RecurlyInvoiceCollection,
+	RecurlyInvoiceListResponse,
+	RecurlyInvoiceType as RecurlyInvoiceCategory,
+	RecurlyInvoiceOrigin,
+	RecurlyInvoiceState,
+	RecurlyNetTermsType,
+	RecurlyRefundMethod,
+	RecurlyRefundType,
+	RecurlyInvoiceAddress,
+	RecurlyInvoiceMini,
+	RecurlyLineItemListResponse,
+	RecurlyTransactionListResponse,
+	RecurlyCreditPaymentListResponse,
+	RecurlyExternalInvoice,
+	RecurlyLineItemRefund,
+	RecurlyExternalRefund,
+} from './v3/invoice/invoice.types'
+
+// Invoice DTOs
+export {
+	RecurlyListInvoicesQueryDto,
+	RecurlyListAccountInvoicesQueryDto,
+	RecurlyListSubscriptionInvoicesQueryDto,
+	RecurlyListBusinessEntityInvoicesQueryDto,
+	RecurlyCreateInvoiceDto,
+	RecurlyUpdateInvoiceDto,
+	RecurlyCollectInvoiceDto,
+	RecurlyRefundInvoiceDto,
+	RecurlyCreateExternalInvoiceDto,
+	RecurlyListLineItemsQueryDto,
+	RecurlyListTransactionsQueryDto,
+	RecurlyInvoiceAddressDto,
+	RecurlyExternalRefundDto,
+	RecurlyLineItemRefundDto,
+} from './v3/invoice/invoice.dto'
