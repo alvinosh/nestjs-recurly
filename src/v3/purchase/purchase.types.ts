@@ -1,71 +1,5 @@
 // Purchase response types based on Recurly API documentation
-
-// Invoice Collection - the main response type for purchase endpoints
-export interface RecurlyInvoiceCollection {
-	object?: string
-	charge_invoice?: RecurlyInvoice
-	credit_invoices?: RecurlyInvoice[]
-}
-
-// Invoice type for the invoice collection
-export interface RecurlyInvoice {
-	id?: string
-	object?: string
-	type?: 'charge' | 'credit' | 'legacy'
-	origin?:
-		| 'purchase'
-		| 'renewal'
-		| 'immediate_change'
-		| 'termination'
-		| 'modification'
-		| 'one_time'
-		| 'credit'
-		| 'legacy'
-		| 'prepayment'
-		| 'carryforward_credit'
-		| 'carryforward_debit'
-		| 'usage'
-		| 'refund'
-		| 'one_time_gift_card'
-	state?: 'pending' | 'processing' | 'past_due' | 'paid' | 'failed' | 'closed' | 'voided' | 'draft' | 'open'
-	account?: RecurlyAccountMini
-	subscription_ids?: string[]
-	currency?: string
-	credit_payments?: RecurlyCreditPayment[]
-	transactions?: RecurlyTransaction[]
-	line_items?: RecurlyLineItem[]
-	coupon_redemptions?: RecurlyCouponRedemption[]
-	refundable_amount?: number
-	subtotal?: number
-	discount?: number
-	due_on?: string
-	created_at?: string
-	updated_at?: string
-	tax?: number
-	total?: number
-	paid?: number
-	po_number?: string
-	terms_and_conditions?: string
-	customer_notes?: string
-	vat_number?: string
-	vat_reverse_charge_notes?: string
-	tax_info?: RecurlyTaxInfo
-	balance?: number
-	closed_at?: string
-	dunning_events_sent?: number
-	final_dunning_event?: boolean
-	number?: string
-	collection_method?: 'automatic' | 'manual'
-	net_terms?: number
-	net_terms_type?: 'net' | 'eom'
-	address?: RecurlyInvoiceAddress
-	shipping_address?: RecurlyShippingAddress
-	billing_info_id?: string
-	refundable?: boolean
-	total_billing_cycles?: number
-	dunning_campaign_id?: string
-	business_entity_id?: string
-}
+import { RecurlyInvoiceMini } from '../invoice/invoice.types'
 
 // Account Mini interface
 export interface RecurlyAccountMini {
@@ -97,17 +31,6 @@ export interface RecurlyCreditPayment {
 	created_at?: string
 	updated_at?: string
 	voided_at?: string
-}
-
-// Invoice Mini interface
-export interface RecurlyInvoiceMini {
-	id?: string
-	object?: string
-	number?: string
-	type?: string
-	state?: string
-	total?: number
-	balance?: number
 }
 
 // Transaction interface
@@ -403,22 +326,6 @@ export interface RecurlyCurrencyAmount {
 export interface RecurlyTrial {
 	unit?: string
 	length?: number
-}
-
-// Invoice Address interface
-export interface RecurlyInvoiceAddress {
-	name_on_account?: string
-	company?: string
-	phone?: string
-	street1?: string
-	street2?: string
-	city?: string
-	region?: string
-	postal_code?: string
-	country?: string
-	first_name?: string
-	last_name?: string
-	geo_code?: string
 }
 
 // Shipping Address interface

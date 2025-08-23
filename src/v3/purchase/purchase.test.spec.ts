@@ -1,12 +1,12 @@
 import { AccountsService } from '../accounts/accounts.service'
 import { RecurlyAccount } from '../accounts/accounts.types'
+import { RecurlyInvoiceCollection } from '../invoice/invoice.types'
 import { PlanService } from '../plan/plan.service'
 import { RecurlyPlan } from '../plan/plan.types'
 import { canTest, suppressErrorTesting } from '../v3.helpers'
 import { RecurlyV3Module } from '../v3.module'
 import { RecurlyPurchaseCreateDto } from './purchase.dto'
 import { PurchaseService } from './purchase.service'
-import { RecurlyInvoiceCollection } from './purchase.types'
 import { ConfigModule } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 
