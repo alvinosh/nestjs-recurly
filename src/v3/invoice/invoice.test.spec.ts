@@ -52,21 +52,21 @@ describe('Invoice', () => {
 			email: `test-invoice-${timestamp}@example.com`,
 			first_name: 'Invoice',
 			last_name: 'Test',
-	       billing_info: {
-		       first_name: 'Invoice',
-		       last_name: 'Test',
-		       number: '4111111111111111',
-		       month: '12',
-		       year: '2030',
-		       cvv: '123',
-		       address: {
-			       street1: '123 Test St',
-			       city: 'Testville',
-			       region: 'CA',
-			       postal_code: '12345',
-			       country: 'US',
-		       },
-	       },
+			billing_info: {
+				first_name: 'Invoice',
+				last_name: 'Test',
+				number: '4111111111111111',
+				month: '12',
+				year: '2030',
+				cvv: '123',
+				address: {
+					street1: '123 Test St',
+					city: 'Testville',
+					region: 'CA',
+					postal_code: '12345',
+					country: 'US',
+				},
+			},
 		}
 		testAccount = await accountsService.createAccount(accountData)
 
@@ -83,24 +83,28 @@ describe('Invoice', () => {
 		}
 		testPlan = await planService.createPlan(planData)
 
-			// Create test subscription (to generate pending line items)
-			const subscriptionData: RecurlySubscriptionCreateDto = {
-				plan_code: testPlan.code,
-				currency: 'USD',
-				account: {
-					code: testAccount.code!,
-				},
-			}
-			testSubscription = await subscriptionService.createSubscription(subscriptionData)
+		// Create test subscription (to generate pending line items)
+		const subscriptionData: RecurlySubscriptionCreateDto = {
+			plan_code: testPlan.code,
+			currency: 'USD',
+			account: {
+				code: testAccount.code!,
+			},
+		}
+		testSubscription = await subscriptionService.createSubscription(subscriptionData)
 
-			// Wait for subscription to activate and line items to be generated
-			await new Promise(resolve => setTimeout(resolve, 4000))
+		// Wait for subscription to activate and line items to be generated
+		await new Promise(resolve => setTimeout(resolve, 4000))
 	})
 
 	describe('Invoice CRUD Operations', () => {
 		// CREATE
-		   it('should fetch the latest invoice for the account', async () => {
-			   const response = await invoiceService.listAccountInvoices(testAccount.id!, { limit: 1, order: 'desc', sort: 'created_at' })
+		it('should fetch the latest invoice for the account', async () => {
+			const response = await invoiceService.listAccountInvoices(testAccount.id!, {
+				limit: 1,
+				order: 'desc',
+				sort: 'created_at',
+			})
 			expect(response).toBeDefined()
 			expect(response.object).toBe('list')
 			expect(Array.isArray(response.data)).toBe(true)
@@ -120,30 +124,29 @@ describe('Invoice', () => {
 			expect(invoice.account?.id).toBe(testAccount.id)
 		})
 
+		it('should list all invoices', async () => {
+			const response = await invoiceService.listInvoices({ limit: 10 })
+			expect(response).toBeDefined()
+			expect(response.object).toBe('list')
+			expect(Array.isArray(response.data)).toBe(true)
+			expect(response.data.length).toBeGreaterThan(0)
+		})
 
-		   it('should list all invoices', async () => {
-			   const response = await invoiceService.listInvoices({ limit: 10 })
-			   expect(response).toBeDefined()
-			   expect(response.object).toBe('list')
-			   expect(Array.isArray(response.data)).toBe(true)
-			   expect(response.data.length).toBeGreaterThan(0)
-		   })
+		it('should list account invoices', async () => {
+			const response = await invoiceService.listAccountInvoices(testAccount.id!, { limit: 10 })
+			expect(response).toBeDefined()
+			expect(response.object).toBe('list')
+			expect(Array.isArray(response.data)).toBe(true)
+			expect(response.data.length).toBeGreaterThan(0)
+			expect(response.data.some(inv => inv.id === testInvoice.id)).toBe(true)
+		})
 
-		   it('should list account invoices', async () => {
-			   const response = await invoiceService.listAccountInvoices(testAccount.id!, { limit: 10 })
-			   expect(response).toBeDefined()
-			   expect(response.object).toBe('list')
-			   expect(Array.isArray(response.data)).toBe(true)
-			   expect(response.data.length).toBeGreaterThan(0)
-			   expect(response.data.some(inv => inv.id === testInvoice.id)).toBe(true)
-		   })
-
-		   it('should list subscription invoices', async () => {
-			   const response = await invoiceService.listSubscriptionInvoices(testSubscription.id!, { limit: 10 })
-			   expect(response).toBeDefined()
-			   expect(response.object).toBe('list')
-			   expect(Array.isArray(response.data)).toBe(true)
-		   })
+		it('should list subscription invoices', async () => {
+			const response = await invoiceService.listSubscriptionInvoices(testSubscription.id!, { limit: 10 })
+			expect(response).toBeDefined()
+			expect(response.object).toBe('list')
+			expect(Array.isArray(response.data)).toBe(true)
+		})
 
 		// PDF download
 		it('should get invoice PDF', async () => {

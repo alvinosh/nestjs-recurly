@@ -23,7 +23,6 @@ import {
 	RecurlyInvoiceListResponse,
 	RecurlyLineItemListResponse,
 	RecurlyTransactionListResponse,
-	RecurlyCreditPaymentListResponse,
 	RecurlyExternalInvoice,
 } from './invoice.types'
 import { Injectable, Logger } from '@nestjs/common'
