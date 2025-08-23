@@ -1,6 +1,7 @@
 import { RecurlyConfigDto } from '../../config/config.dto'
 import { InjectConfig } from '../../config/config.provider'
 import { RecurlyListCouponRedemptionsQueryDto } from '../accounts/couponRedemption/couponRedemption.dto'
+import { RecurlyCouponRedemptionList } from '../accounts/couponRedemption/couponRedemption.types'
 import { RECURLY_API_BASE_URL } from '../v3.constants'
 import { buildQueryString, checkResponseIsOk, getHeaders } from '../v3.helpers'
 import {
@@ -255,7 +256,7 @@ export class InvoiceService {
 		invoiceId: string,
 		params?: RecurlyListCouponRedemptionsQueryDto,
 		apiKey?: string,
-	): Promise<RecurlyCreditPaymentListResponse> {
+	): Promise<RecurlyCouponRedemptionList> {
 		let url = `${RECURLY_API_BASE_URL}/invoices/${invoiceId}/coupon_redemptions`
 
 		if (params && Object.keys(params).length > 0) {
@@ -268,7 +269,7 @@ export class InvoiceService {
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Invoice Coupon Redemptions')
-		return (await response.json()) as RecurlyCreditPaymentListResponse
+		return (await response.json()) as RecurlyCouponRedemptionList
 	}
 
 	// List related invoices
