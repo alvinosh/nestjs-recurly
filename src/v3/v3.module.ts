@@ -1,6 +1,7 @@
 import { ExternalAccountModule } from './AppManagement/externalAccount/externalAccount.module'
 import { ExternalInvoicesModule } from './AppManagement/externalInvoices/externalInvoices.module'
 import { ExternalProductModule } from './AppManagement/externalProduct/externalProduct.module'
+import { ExternalProductReferenceModule } from './AppManagement/externalProductReference/externalProductReference.module'
 import { ExternalSubscriptionModule } from './AppManagement/externalSubscription/externalSubscription.module'
 import { BusinessEntitiesModule } from './Configuration/businessEntities/businessEntities.module'
 import { CustomFieldDefinitionModule } from './Configuration/customFieldDefinition/customFieldDefinition.module'
@@ -49,6 +50,7 @@ import { Module } from '@nestjs/common'
 		BusinessEntitiesModule,
 		ExternalInvoicesModule,
 		ExternalProductModule,
+		ExternalProductReferenceModule,
 		ExternalSubscriptionModule,
 		ExternalAccountModule,
 		LedgerModule,
@@ -75,6 +77,7 @@ import { Module } from '@nestjs/common'
 		BusinessEntitiesModule,
 		ExternalInvoicesModule,
 		ExternalProductModule,
+		ExternalProductReferenceModule,
 		ExternalSubscriptionModule,
 		ExternalAccountModule,
 		LedgerModule,
