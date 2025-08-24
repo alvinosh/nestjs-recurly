@@ -28,6 +28,7 @@ export { CustomFieldDefinitionService } from './v3/Configuration/customFieldDefi
 export { ShippingMethodService } from './v3/Configuration/shippingMethod/shippingMethod.service'
 export { DunningCampaignsService } from './v3/Configuration/dunningCampaigns/dunningCampaigns.service'
 export { BusinessEntitiesService } from './v3/Configuration/businessEntities/businessEntities.service'
+export { LedgerService } from './v3/Configuration/ledger/ledger.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -248,6 +249,12 @@ export {
 	RecurlyDestinationTaxAddressSource,
 } from './v3/Configuration/businessEntities/businessEntities.types'
 
+export {
+	RecurlyGeneralLedgerAccount,
+	RecurlyGeneralLedgerAccountListResponse,
+	RecurlyGeneralLedgerAccountType,
+} from './v3/Configuration/ledger/ledger.types'
+
 // Purchase Types
 export {
 	RecurlyBillingAddress,
@@ -436,3 +443,10 @@ export {
 
 // Business Entities DTOs
 export { RecurlyListBusinessEntitiesQueryDto } from './v3/Configuration/businessEntities/businessEntities.dtos'
+
+// Ledger DTOs
+export {
+	RecurlyListGeneralLedgerAccountsQueryDto,
+	RecurlyCreateGeneralLedgerAccountDto,
+	RecurlyUpdateGeneralLedgerAccountDto,
+} from './v3/Configuration/ledger/ledger.dtos'
