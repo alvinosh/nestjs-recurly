@@ -1,4 +1,5 @@
 import { ExternalInvoicesModule } from './AppManagement/externalInvoices/externalInvoices.module'
+import { ExternalProductModule } from './AppManagement/externalProduct/externalProduct.module'
 import { ExternalSubscriptionModule } from './AppManagement/externalSubscription/externalSubscription.module'
 import { BusinessEntitiesModule } from './Configuration/businessEntities/businessEntities.module'
 import { CustomFieldDefinitionModule } from './Configuration/customFieldDefinition/customFieldDefinition.module'
@@ -46,6 +47,7 @@ import { Module } from '@nestjs/common'
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
 		ExternalInvoicesModule,
+		ExternalProductModule,
 		ExternalSubscriptionModule,
 		LedgerModule,
 		PerformanceObligationsModule,
@@ -70,6 +72,7 @@ import { Module } from '@nestjs/common'
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
 		ExternalInvoicesModule,
+		ExternalProductModule,
 		ExternalSubscriptionModule,
 		LedgerModule,
 		PerformanceObligationsModule,

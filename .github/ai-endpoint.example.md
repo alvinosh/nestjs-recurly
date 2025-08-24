@@ -1,10 +1,10 @@
-I am looking to extend this Recurly NestJS API wrapper to include External Invoice
+I am looking to extend this Recurly NestJS API wrapper to include Product Invoice
 
-API documentation: https://recurly.com/developers/api/v2021-02-25/#tag/external_invoices
+API documentation: https://recurly.com/developers/api/v2021-02-25/#tag/external_products
 
 Local swagger downloaded version: `./recurly-api-spec.yaml`
 
-Before starting the work you should create a branch `api-endpoint-external-invoices` and ensure all development happens on that feature branch.
+Before starting the work you should create a branch `api-endpoint-external-products` and ensure all development happens on that feature branch.
 
 You should use `src/v3/AppManagement/externalSubscription/*` as a template
 
