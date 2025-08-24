@@ -47,7 +47,6 @@ describe('SiteService', () => {
 		})
 
 		it('should list sites with query parameters', async () => {
-
 			const sites = await service.listSites({
 				limit: 1,
 				order: 'asc',
