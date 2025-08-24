@@ -1,3 +1,5 @@
+import { RecurlyAccountMini } from '@/v3/Customers/accounts/accounts.types'
+
 // External Subscription State enum
 export type RecurlyExternalSubscriptionState =
 	| 'active'
@@ -7,17 +9,6 @@ export type RecurlyExternalSubscriptionState =
 	| 'voided'
 	| 'revoked'
 	| 'paused'
-
-// Account Mini interface for external subscriptions
-export interface RecurlyAccountMini {
-	id?: string
-	object?: string
-	code?: string
-	email?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-}
 
 // External Product Reference Mini interface
 export interface RecurlyExternalProductReferenceMini {

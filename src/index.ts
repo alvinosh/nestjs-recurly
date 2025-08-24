@@ -30,6 +30,7 @@ export { DunningCampaignsService } from './v3/Configuration/dunningCampaigns/dun
 export { BusinessEntitiesService } from './v3/Configuration/businessEntities/businessEntities.service'
 export { LedgerService } from './v3/Configuration/ledger/ledger.service'
 export { PerformanceObligationsService } from './v3/Configuration/performanceObligations/performanceObligations.service'
+export { ExternalInvoicesService } from './v3/Configuration/externalInvoices/externalInvoices.service'
 export { ExternalSubscriptionService } from './v3/Configuration/externalSubscription/externalSubscription.service'
 
 //Config
@@ -269,6 +270,13 @@ export {
 	RecurlyExternalPaymentPhase,
 } from './v3/Configuration/externalSubscription/externalSubscription.types'
 
+export {
+	RecurlyExternalInvoiceState,
+	RecurlyExternalInvoiceListResponse,
+	RecurlyExternalCharge,
+	RecurlyExternalPaymentPhaseBase,
+} from './v3/Configuration/externalInvoices/externalInvoices.types'
+
 // Purchase Types
 export {
 	RecurlyBillingAddress,
@@ -474,3 +482,10 @@ export {
 	RecurlyExternalProductReferenceCreateDto,
 	RecurlyExternalProductReferenceUpdateDto,
 } from './v3/Configuration/externalSubscription/externalSubscription.dtos'
+
+// External Invoices DTOs
+export {
+	RecurlyListExternalInvoicesQueryDto,
+	RecurlyExternalChargeCreateDto,
+	RecurlyExternalPaymentPhaseBaseDto,
+} from './v3/Configuration/externalInvoices/externalInvoices.dtos'

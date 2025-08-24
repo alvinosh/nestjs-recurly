@@ -1,3 +1,5 @@
+import { RecurlyAccountMini } from '@/v3/Customers/accounts/accounts.types'
+
 // Enums
 export type RecurlyTransactionType = 'authorization' | 'capture' | 'purchase' | 'refund' | 'verify'
 
@@ -73,20 +75,6 @@ export type RecurlyAvsCheck =
 	| 'Z'
 
 export type RecurlyFraudDecision = 'approve' | 'decline' | 'escalate' | 'review'
-
-// Account Mini interface (reference to account)
-export interface RecurlyAccountMini {
-	id?: string
-	object?: string
-	code?: string
-	email?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-	parent_account_id?: string
-	bill_to?: string
-	dunning_campaign_id?: string
-}
 
 // Invoice Mini interface (reference to invoice)
 export interface RecurlyInvoiceMini {
