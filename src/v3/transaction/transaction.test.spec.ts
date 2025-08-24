@@ -42,9 +42,16 @@ describe('TransactionService', () => {
 
 			// Store sample IDs for other tests if available
 			if (result.data.length > 0) {
-				sampleTransactionId = result.data[0].id!
-				sampleAccountId = result.data[0].account?.id!
-				sampleInvoiceId = result.data[0].invoice?.id!
+				const firstTransaction = result.data[0]
+				if (firstTransaction.id) {
+					sampleTransactionId = firstTransaction.id
+				}
+				if (firstTransaction.account?.id) {
+					sampleAccountId = firstTransaction.account.id
+				}
+				if (firstTransaction.invoice?.id) {
+					sampleInvoiceId = firstTransaction.invoice.id
+				}
 			}
 		})
 
@@ -118,7 +125,7 @@ describe('TransactionService', () => {
 					result.data.forEach(transaction => {
 						expect(transaction.invoice?.id).toBe(sampleInvoiceId)
 					})
-				} 
+				}
 			} catch (error) {
 				// It's possible the invoice doesn't have transactions or endpoint is not available
 				expect(error).toBeDefined()
@@ -127,7 +134,6 @@ describe('TransactionService', () => {
 
 		// READ - List transactions with filters
 		it('should list transactions with success filter', async () => {
-
 			const result: RecurlyTransactionListResponse = await service.listTransactions({
 				limit: 10,
 				success: true,
@@ -144,13 +150,11 @@ describe('TransactionService', () => {
 				result.data.forEach(transaction => {
 					expect(transaction.success).toBe(true)
 				})
-				console.log(`Found ${result.data.length} successful transactions`)
 			}
 		})
 
 		// READ - List transactions with type filter
 		it('should list transactions with type filter', async () => {
-
 			const result: RecurlyTransactionListResponse = await service.listTransactions({
 				limit: 10,
 				type: 'purchase',
@@ -190,7 +194,6 @@ describe('TransactionService', () => {
 		})
 
 		it('should handle non-existent invoice transactions gracefully', async () => {
-
 			const nonExistentInvoiceId = 'non-existent-invoice-id'
 
 			await suppressErrorTesting(service, async () => {
@@ -201,7 +204,6 @@ describe('TransactionService', () => {
 
 	describe('Transaction Query Parameter Validation', () => {
 		it('should handle various query parameters', async () => {
-
 			const now = new Date()
 			const oneWeekAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
 
