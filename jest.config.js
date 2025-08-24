@@ -8,6 +8,10 @@ module.exports = {
 	rootDir: 'src',
 	testTimeout: 120000,
 	testRegex: [/.*\.spec\.ts$/],
+	moduleNameMapper: {
+		'^@/(.*)$': '<rootDir>/$1',
+		'^@config/(.*)$': '<rootDir>/config/$1',
+	},
 	transform: {
 		'^.+\\.{ts|tsx}?$': [
 			'ts-jest',

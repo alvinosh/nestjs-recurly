@@ -1,4 +1,4 @@
-import { AccountsService } from '../v3/accounts/accounts.service'
+import { AccountsService } from '../v3/Customers/accounts/accounts.service'
 import { Injectable, Logger } from '@nestjs/common'
 
 @Injectable()
