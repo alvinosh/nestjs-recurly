@@ -1,4 +1,4 @@
-import { RecurlySubscription } from '@/v3/Customers/subscription/subscription.types'
+import { RecurlyAccountMini } from '@/v3/Customers/accounts/accounts.types'
 
 // External Subscription State enum
 export type RecurlyExternalSubscriptionState =
@@ -34,7 +34,30 @@ export interface RecurlyExternalPaymentPhase {
 }
 
 // Main External Subscription interface
-export interface RecurlyExternalSubscription extends RecurlySubscription {}
+export interface RecurlyExternalSubscription {
+	id?: string
+	object?: string
+	account?: RecurlyAccountMini
+	external_product_reference?: RecurlyExternalProductReferenceMini
+	external_payment_phases?: RecurlyExternalPaymentPhase[]
+	external_id?: string
+	uuid?: string
+	last_purchased?: string
+	auto_renew?: boolean
+	in_grace_period?: boolean
+	app_identifier?: string
+	quantity?: number
+	state?: RecurlyExternalSubscriptionState
+	activated_at?: string
+	canceled_at?: string
+	expires_at?: string
+	trial_started_at?: string
+	trial_ends_at?: string
+	test?: boolean
+	imported?: boolean
+	created_at?: string
+	updated_at?: string
+}
 
 // External Subscription List Response
 export interface RecurlyExternalSubscriptionListResponse {
