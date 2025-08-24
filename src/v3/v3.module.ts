@@ -1,3 +1,4 @@
+import { SiteModule } from './Configuration/site/site.module'
 import { AccountsModule } from './Customers/accounts/accounts.module'
 import { GiftCardModule } from './Customers/giftCards/giftCards.module'
 import { PurchaseModule } from './Customers/purchase/purchase.module'
@@ -31,6 +32,7 @@ import { Module } from '@nestjs/common'
 		PurchaseModule,
 		SubscriptionModule,
 		TransactionModule,
+		SiteModule,
 	],
 	exports: [
 		AccountsModule,
@@ -46,6 +48,7 @@ import { Module } from '@nestjs/common'
 		PurchaseModule,
 		SubscriptionModule,
 		TransactionModule,
+		SiteModule,
 	],
 })
 export class RecurlyV3Module {}
