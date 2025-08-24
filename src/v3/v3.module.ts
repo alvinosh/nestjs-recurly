@@ -2,6 +2,7 @@ import { BusinessEntitiesModule } from './Configuration/businessEntities/busines
 import { CustomFieldDefinitionModule } from './Configuration/customFieldDefinition/customFieldDefinition.module'
 import { DunningCampaignsModule } from './Configuration/dunningCampaigns/dunningCampaigns.module'
 import { LedgerModule } from './Configuration/ledger/ledger.module'
+import { PerformanceObligationsModule } from './Configuration/performanceObligations/performanceObligations.module'
 import { ShippingMethodModule } from './Configuration/shippingMethod/shippingMethod.module'
 import { SiteModule } from './Configuration/site/site.module'
 import { AccountsModule } from './Customers/accounts/accounts.module'
@@ -43,6 +44,7 @@ import { Module } from '@nestjs/common'
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
 		LedgerModule,
+		PerformanceObligationsModule,
 	],
 	exports: [
 		AccountsModule,
@@ -64,6 +66,7 @@ import { Module } from '@nestjs/common'
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
 		LedgerModule,
+		PerformanceObligationsModule,
 	],
 })
 export class RecurlyV3Module {}

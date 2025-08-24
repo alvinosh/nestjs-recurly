@@ -29,6 +29,7 @@ export { ShippingMethodService } from './v3/Configuration/shippingMethod/shippin
 export { DunningCampaignsService } from './v3/Configuration/dunningCampaigns/dunningCampaigns.service'
 export { BusinessEntitiesService } from './v3/Configuration/businessEntities/businessEntities.service'
 export { LedgerService } from './v3/Configuration/ledger/ledger.service'
+export { PerformanceObligationsService } from './v3/Configuration/performanceObligations/performanceObligations.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -254,6 +255,11 @@ export {
 	RecurlyGeneralLedgerAccountListResponse,
 	RecurlyGeneralLedgerAccountType,
 } from './v3/Configuration/ledger/ledger.types'
+
+export {
+	RecurlyPerformanceObligation,
+	RecurlyPerformanceObligationListResponse,
+} from './v3/Configuration/performanceObligations/performanceObligations.types'
 
 // Purchase Types
 export {
