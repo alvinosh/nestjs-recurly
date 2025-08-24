@@ -190,14 +190,6 @@ export interface RecurlyInvoiceListResponse {
 	data: RecurlyInvoice[]
 }
 
-// Line Item List Response interface
-export interface RecurlyLineItemListResponse {
-	object: string
-	has_more: boolean
-	next?: string
-	data: RecurlyLineItem[]
-}
-
 // Transaction List Response interface
 export interface RecurlyTransactionListResponse {
 	object: string

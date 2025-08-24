@@ -2,6 +2,8 @@ import { RecurlyConfigDto } from '../../config/config.dto'
 import { InjectConfig } from '../../config/config.provider'
 import { RecurlyListCouponRedemptionsQueryDto } from '../accounts/couponRedemption/couponRedemption.dto'
 import { RecurlyCouponRedemptionList } from '../accounts/couponRedemption/couponRedemption.types'
+import { RecurlyListLineItemsQueryDto } from '../lineItem/lineItem.dtos'
+import { RecurlyLineItemListResponse } from '../lineItem/lineItem.types'
 import { RECURLY_API_BASE_URL } from '../v3.constants'
 import { buildQueryString, checkResponseIsOk, getHeaders } from '../v3.helpers'
 import {
@@ -14,14 +16,12 @@ import {
 	RecurlyCollectInvoiceDto,
 	RecurlyRefundInvoiceDto,
 	RecurlyCreateExternalInvoiceDto,
-	RecurlyListLineItemsQueryDto,
 	RecurlyListTransactionsQueryDto,
 } from './invoice.dto'
 import {
 	RecurlyInvoice,
 	RecurlyInvoiceCollection,
 	RecurlyInvoiceListResponse,
-	RecurlyLineItemListResponse,
 	RecurlyTransactionListResponse,
 	RecurlyExternalInvoice,
 } from './invoice.types'

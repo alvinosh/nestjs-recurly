@@ -21,6 +21,7 @@ export { ChangeService } from './v3/subscription/change/change.service'
 export { PurchaseService } from './v3/purchase/purchase.service'
 export { GiftCardService } from './v3/giftCards/giftCards.service'
 export { InvoiceService } from './v3/invoice/invoice.service'
+export { LineItemService } from './v3/lineItem/lineItem.service'
 
 //Config
 export { RecurlyConfigDto } from './config/config.dto'
@@ -172,14 +173,27 @@ export {
 
 export { RecurlySubscriptionChangeBillingInfo } from './v3/subscription/change/change.types'
 
+export {
+	RecurlyLineItemType,
+	RecurlyLineItemState,
+	RecurlyLineItemLegacyCategory,
+	RecurlyLineItemOrigin,
+	RecurlyLineItemCreditReasonCode,
+	RecurlyLineItemRevenueScheduleType,
+	RecurlyLineItem,
+	RecurlyLineItemListResponse,
+} from './v3/lineItem/lineItem.types'
+
 //DTOs
+export { RecurlyAddressDto, RecurlyCostDto } from './v3/v3.dtos'
+
 export {
 	RecurlyListAccountsQueryDto,
 	RecurlyCreateAccountDto,
 	RecurlyUpdateAccountDto,
-	RecurlyAddressDto,
 	RecurlyBillingInfoCreateDto,
 	RecurlyShippingAddressDto,
+	RecurlyAccountAcquisitionDto,
 } from './v3/accounts/accounts.dto'
 
 export { RecurlyListAccountNotesQueryDto } from './v3/accounts/notes/notes.dto'
@@ -281,7 +295,6 @@ export {
 	RecurlyCreditPayment,
 	RecurlyBillingAddress,
 	RecurlyPaymentGatewayUsed,
-	RecurlyLineItem,
 	RecurlyTaxDetail,
 	RecurlyFraudRiskRule,
 } from './v3/purchase/purchase.types'
@@ -291,8 +304,6 @@ export {
 	RecurlyPurchaseCreateDto,
 	RecurlyAccountPurchaseDto,
 	RecurlyBillingInfoDto,
-	RecurlyAccountAcquisitionDto,
-	RecurlyCostDto,
 	RecurlySubscriptionPurchaseDto,
 	RecurlySubscriptionAddOnDto,
 	RecurlyTierDto,
@@ -338,7 +349,6 @@ export {
 	RecurlyRefundType,
 	RecurlyInvoiceAddress,
 	RecurlyInvoiceMini,
-	RecurlyLineItemListResponse,
 	RecurlyTransactionListResponse,
 	RecurlyCreditPaymentListResponse,
 	RecurlyExternalInvoice,
@@ -357,9 +367,10 @@ export {
 	RecurlyCollectInvoiceDto,
 	RecurlyRefundInvoiceDto,
 	RecurlyCreateExternalInvoiceDto,
-	RecurlyListLineItemsQueryDto,
 	RecurlyListTransactionsQueryDto,
 	RecurlyInvoiceAddressDto,
 	RecurlyExternalRefundDto,
 	RecurlyLineItemRefundDto,
 } from './v3/invoice/invoice.dto'
+
+export { RecurlyListLineItemsQueryDto, RecurlyCreateLineItemDto } from './v3/lineItem/lineItem.dtos'

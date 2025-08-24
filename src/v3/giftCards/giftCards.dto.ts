@@ -1,3 +1,4 @@
+import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
 import { RecurlyGiftCardDeliveryMethod } from './giftCards.types'
 import { Type } from 'class-transformer'
 import {
@@ -143,26 +144,6 @@ export class RecurlyAccountPurchaseDto {
 	@ValidateNested()
 	@Type(() => RecurlyAccountAcquisitionDto)
 	acquisition?: RecurlyAccountAcquisitionDto
-}
-
-// Account Acquisition DTO
-export class RecurlyAccountAcquisitionDto {
-	@IsOptional()
-	@ValidateNested()
-	@Type(() => RecurlyAccountAcquisitionCostDto)
-	cost?: RecurlyAccountAcquisitionCostDto
-
-	@IsOptional()
-	@IsString()
-	channel?: string
-
-	@IsOptional()
-	@IsString()
-	subchannel?: string
-
-	@IsOptional()
-	@IsString()
-	campaign?: string
 }
 
 // Account Acquisition Cost DTO
