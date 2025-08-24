@@ -1,4 +1,5 @@
 import { CustomFieldDefinitionModule } from './Configuration/customFieldDefinition/customFieldDefinition.module'
+import { ShippingMethodModule } from './Configuration/shippingMethod/shippingMethod.module'
 import { SiteModule } from './Configuration/site/site.module'
 import { AccountsModule } from './Customers/accounts/accounts.module'
 import { GiftCardModule } from './Customers/giftCards/giftCards.module'
@@ -34,6 +35,7 @@ import { Module } from '@nestjs/common'
 		SubscriptionModule,
 		TransactionModule,
 		SiteModule,
+		ShippingMethodModule,
 		CustomFieldDefinitionModule,
 	],
 	exports: [
@@ -51,6 +53,7 @@ import { Module } from '@nestjs/common'
 		SubscriptionModule,
 		TransactionModule,
 		SiteModule,
+		ShippingMethodModule,
 		CustomFieldDefinitionModule,
 	],
 })

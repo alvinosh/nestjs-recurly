@@ -25,6 +25,7 @@ export { InvoiceService } from './v3/InvoicesPayments/invoice/invoice.service'
 export { LineItemService } from './v3/InvoicesPayments/lineItem/lineItem.service'
 export { SiteService } from './v3/Configuration/site/site.service'
 export { CustomFieldDefinitionService } from './v3/Configuration/customFieldDefinition/customFieldDefinition.service'
+export { ShippingMethodService } from './v3/Configuration/shippingMethod/shippingMethod.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -70,7 +71,6 @@ export {
 	RecurlySubscription,
 	RecurlySubscriptionList,
 	RecurlySubscriptionShipping,
-	RecurlyShippingMethodMini,
 	RecurlyDiscount,
 	RecurlyCurrencyAmount,
 	RecurlyTrial,
@@ -219,6 +219,13 @@ export {
 	RecurlyCustomFieldDefinitionRelatedType,
 	RecurlyCustomFieldDefinitionUserAccess,
 } from './v3/Configuration/customFieldDefinition/customFieldDefinition.types'
+
+// Shipping Method Types
+export {
+	RecurlyShippingMethodMini,
+	RecurlyShippingMethod,
+	RecurlyShippingMethodListResponse,
+} from './v3/Configuration/shippingMethod/shippingMethod.types'
 
 // Purchase Types
 export {
@@ -392,3 +399,10 @@ export { RecurlyListSitesQueryDto } from './v3/Configuration/site/site.dtos'
 
 // Custom Field Definition DTOs
 export { RecurlyListCustomFieldDefinitionsQueryDto } from './v3/Configuration/customFieldDefinition/customFieldDefinition.dtos'
+
+// Shipping Method DTOs
+export {
+	RecurlyListShippingMethodsQueryDto,
+	RecurlyCreateShippingMethodDto,
+	RecurlyUpdateShippingMethodDto,
+} from './v3/Configuration/shippingMethod/shippingMethod.dtos'

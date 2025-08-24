@@ -3,6 +3,7 @@ import { RecurlyPriceSegmentIdOrCode } from '../../ProductsPromotions/priceSegme
 import { RecurlyCustomField } from '../../v3.types'
 import { RecurlyAccountMini } from '../accounts/accounts.types'
 import { RecurlyShippingAddress } from '../accounts/shippingAddress/shippingAddress.types'
+import { RecurlyShippingMethodMini } from '@/v3/Configuration/shippingMethod/shippingMethod.types'
 
 // Subscription Types
 export interface RecurlySubscription {
@@ -74,13 +75,6 @@ export interface RecurlySubscriptionShipping {
 	address?: RecurlyShippingAddress
 	method?: RecurlyShippingMethodMini
 	amount?: number
-}
-
-export interface RecurlyShippingMethodMini {
-	id?: string
-	object?: string
-	code?: string
-	name?: string
 }
 
 export interface RecurlyCouponRedemptionMini {
