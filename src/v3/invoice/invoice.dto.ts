@@ -1,4 +1,4 @@
-import { RecurlyCollectionMethod, RecurlyTransactionType } from '../accounts/billing/info/info.types'
+import { RecurlyCollectionMethod, RecurlyTransactionType } from '../transaction/transaction.types'
 import {
 	RecurlyNetTermsType,
 	RecurlyRefundMethod,

@@ -4,6 +4,7 @@ import { RecurlyListCouponRedemptionsQueryDto } from '../accounts/couponRedempti
 import { RecurlyCouponRedemptionList } from '../accounts/couponRedemption/couponRedemption.types'
 import { RecurlyListLineItemsQueryDto } from '../lineItem/lineItem.dtos'
 import { RecurlyLineItemListResponse } from '../lineItem/lineItem.types'
+import { RecurlyTransactionListResponse } from '../transaction/transaction.types'
 import { RECURLY_API_BASE_URL } from '../v3.constants'
 import { buildQueryString, checkResponseIsOk, getHeaders } from '../v3.helpers'
 import {
@@ -22,7 +23,6 @@ import {
 	RecurlyInvoice,
 	RecurlyInvoiceCollection,
 	RecurlyInvoiceListResponse,
-	RecurlyTransactionListResponse,
 	RecurlyExternalInvoice,
 } from './invoice.types'
 import { Injectable, Logger } from '@nestjs/common'

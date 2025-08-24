@@ -36,7 +36,6 @@ export {
 	RecurlyAccountListResponse,
 	RecurlyExternalSubscriptionListResponse,
 	RecurlyAccountState,
-	RecurlyShippingAddress,
 	RecurlyAccountMini,
 } from './v3/accounts/accounts.types'
 
@@ -78,36 +77,12 @@ export {
 } from './v3/subscription/subscription.types'
 
 export {
+	RecurlyFundingSource,
 	RecurlyBillingInfo,
-	RecurlyTransaction,
-	RecurlyPaymentMethod,
-	RecurlyFraudInfo,
-	RecurlyPaymentGatewayReference,
-	RecurlyCardType,
-	RecurlyCardNetworkPreference,
-	RecurlyBillingTransactionType,
-	RecurlyTaxIdentifierType,
-	RecurlyExternalHppType,
-	RecurlyOnlineBankingPaymentType,
-	RecurlyBankAccountPaymentType,
-	RecurlyAccountType,
-	RecurlyFraudDecision,
-	RecurlyTransactionType,
-	RecurlyTransactionOrigin,
-	RecurlyTransactionStatus,
-	RecurlyTransactionInitiator,
-	RecurlyMerchantReasonCode,
-	RecurlyCollectionMethod,
-	RecurlyCvvCheck,
-	RecurlyAvsCheck,
+	RecurlyBillingInfoUpdatedBy,
 } from './v3/accounts/billing/info/info.types'
 
-export {
-	RecurlyBillingInfoListResponse,
-	RecurlyPaymentMethodObject,
-	RecurlyFundingSource,
-	RecurlyBillingInfoUpdatedBy,
-} from './v3/accounts/billing/infos/infos.types'
+export { RecurlyBillingInfoListResponse } from './v3/accounts/billing/infos/infos.types'
 
 export {
 	RecurlyItem,
@@ -178,7 +153,35 @@ export {
 	RecurlyPriceSegmentIdOrCode,
 } from './v3/priceSegment/priceSegment.types'
 
+// Gift Card Types
+export {
+	RecurlyGiftCard,
+	RecurlyGiftCardListResponse,
+	RecurlyGiftCardDelivery,
+	RecurlyGiftCardDeliveryMethod,
+	RecurlyAccountPurchase,
+	RecurlyAccountReference,
+} from './v3/giftCards/giftCards.types'
+
 export { RecurlySubscriptionChangeBillingInfo } from './v3/subscription/change/change.types'
+
+// Invoice Types
+export {
+	RecurlyInvoice,
+	RecurlyInvoiceCollection,
+	RecurlyInvoiceListResponse,
+	RecurlyInvoiceType,
+	RecurlyInvoiceOrigin,
+	RecurlyInvoiceState,
+	RecurlyNetTermsType,
+	RecurlyRefundMethod,
+	RecurlyRefundType,
+	RecurlyInvoiceAddress,
+	RecurlyInvoiceMini,
+	RecurlyExternalInvoice,
+	RecurlyLineItemRefund,
+	RecurlyExternalRefund,
+} from './v3/invoice/invoice.types'
 
 export {
 	RecurlyLineItemType,
@@ -190,6 +193,14 @@ export {
 	RecurlyLineItem,
 	RecurlyLineItemListResponse,
 } from './v3/lineItem/lineItem.types'
+
+// Purchase Types
+export {
+	RecurlyBillingAddress,
+	RecurlyPaymentGatewayUsed,
+	RecurlyTaxDetail,
+	RecurlyFraudRiskRule,
+} from './v3/purchase/purchase.types'
 
 //DTOs
 export { RecurlyAddressDto, RecurlyCostDto } from './v3/v3.dtos'
@@ -304,14 +315,6 @@ export {
 	RecurlySubscriptionChangeShippingCreate,
 } from './v3/subscription/change/change.dtos'
 
-// Purchase Types
-export {
-	RecurlyBillingAddress,
-	RecurlyPaymentGatewayUsed,
-	RecurlyTaxDetail,
-	RecurlyFraudRiskRule,
-} from './v3/purchase/purchase.types'
-
 // Purchase DTOs
 export {
 	RecurlyPurchaseCreateDto,
@@ -327,46 +330,14 @@ export {
 	RecurlyTransactionDto,
 } from './v3/purchase/purchase.dto'
 
-// Gift Card Types
-export {
-	RecurlyGiftCard,
-	RecurlyGiftCardListResponse,
-	RecurlyGiftCardDelivery,
-	RecurlyGiftCardDeliveryMethod,
-	RecurlyAddress as RecurlyGiftCardAddress,
-	RecurlyAccountPurchase,
-	RecurlyAccountReference,
-} from './v3/giftCards/giftCards.types'
-
 // Gift Card DTOs
 export {
 	RecurlyListGiftCardsQueryDto,
 	RecurlyCreateGiftCardDto,
 	RecurlyRedeemGiftCardDto,
 	RecurlyGiftCardDeliveryCreateDto,
-	RecurlyAddressDto as RecurlyGiftCardAddressDto,
-	RecurlyAccountPurchaseDto as RecurlyGiftCardAccountPurchaseDto,
 	RecurlyAccountReferenceDto,
 } from './v3/giftCards/giftCards.dto'
-
-// Invoice Types
-export {
-	RecurlyInvoice,
-	RecurlyInvoiceCollection,
-	RecurlyInvoiceListResponse,
-	RecurlyInvoiceType,
-	RecurlyInvoiceOrigin,
-	RecurlyInvoiceState,
-	RecurlyNetTermsType,
-	RecurlyRefundMethod,
-	RecurlyRefundType,
-	RecurlyInvoiceAddress,
-	RecurlyInvoiceMini,
-	RecurlyTransactionListResponse,
-	RecurlyExternalInvoice,
-	RecurlyLineItemRefund,
-	RecurlyExternalRefund,
-} from './v3/invoice/invoice.types'
 
 // Invoice DTOs
 export {

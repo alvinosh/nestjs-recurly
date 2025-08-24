@@ -1,11 +1,11 @@
+import { RecurlyTransactionType } from '../transaction/transaction.types'
+import { RecurlyAddressDto } from '../v3.dtos'
+import { RecurlyBillTo, RecurlyPreferredLocale } from '../v3.types'
 import {
 	RecurlyAccount,
 	RecurlyAccountListResponse,
 	RecurlyAccountBalance,
 	RecurlyExternalSubscriptionListResponse,
-	RecurlyPreferredLocale,
-	RecurlyBillTo,
-	RecurlyTransactionType,
 } from './accounts.types'
 import { Type } from 'class-transformer'
 import {
@@ -59,41 +59,6 @@ export class RecurlyListAccountsQueryDto {
 	@IsOptional()
 	@IsEnum(['true'])
 	past_due?: 'true'
-}
-
-// Address DTO
-export class RecurlyAddressDto {
-	@IsOptional()
-	@IsString()
-	phone?: string
-
-	@IsOptional()
-	@IsString()
-	street1?: string
-
-	@IsOptional()
-	@IsString()
-	street2?: string
-
-	@IsOptional()
-	@IsString()
-	city?: string
-
-	@IsOptional()
-	@IsString()
-	region?: string
-
-	@IsOptional()
-	@IsString()
-	postal_code?: string
-
-	@IsOptional()
-	@IsString()
-	country?: string
-
-	@IsOptional()
-	@IsString()
-	geo_code?: string
 }
 
 // Custom Field DTO
@@ -711,19 +676,3 @@ export class RecurlyExternalSubscriptionsListResponseDto implements RecurlyExter
 	@IsArray()
 	data!: any[]
 }
-
-// Backward compatibility aliases
-export type ListAccountsQueryDto = RecurlyListAccountsQueryDto
-export type AddressDto = RecurlyAddressDto
-export type CustomFieldDto = RecurlyCustomFieldDto
-export type AccountAcquisitionDto = RecurlyAccountAcquisitionDto
-export type ExternalAccountDto = RecurlyExternalAccountDto
-export type ShippingAddressDto = RecurlyShippingAddressDto
-export type BillingInfoCreateDto = RecurlyBillingInfoCreateDto
-export type CreateAccountDto = RecurlyCreateAccountDto
-export type UpdateAccountDto = RecurlyUpdateAccountDto
-export type ListChildAccountsQueryDto = RecurlyListChildAccountsQueryDto
-export type ListExternalSubscriptionsQueryDto = RecurlyListExternalSubscriptionsQueryDto
-export type AccountsListResponseDto = RecurlyAccountsListResponseDto
-export type AccountBalanceResponseDto = RecurlyAccountBalanceResponseDto
-export type ExternalSubscriptionsListResponseDto = RecurlyExternalSubscriptionsListResponseDto

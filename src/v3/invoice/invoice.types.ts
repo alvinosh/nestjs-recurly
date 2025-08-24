@@ -1,7 +1,9 @@
 import { RecurlyAccountMini } from '../accounts/accounts.types'
-import { RecurlyCollectionMethod } from '../accounts/billing/info/info.types'
+import { RecurlyShippingAddress } from '../accounts/shippingAddress/shippingAddress.types'
 import { RecurlyCreditPayment } from '../creditPayment/creditPayment.types'
-import { RecurlyLineItem, RecurlyTransaction } from '../purchase/purchase.types'
+import { RecurlyLineItem } from '../purchase/purchase.types'
+import { RecurlyCollectionMethod, RecurlyTransaction } from '../transaction/transaction.types'
+import { RecurlyAddress } from '../v3.types'
 
 // Enums
 export type RecurlyInvoiceType = 'charge' | 'credit' | 'legacy'
@@ -40,18 +42,6 @@ export type RecurlyRefundMethod = 'all_credit' | 'all_transaction' | 'credit_fir
 
 export type RecurlyRefundType = 'amount' | 'percentage' | 'line_items'
 
-// Address interface
-export interface RecurlyAddress {
-	phone?: string
-	street1?: string
-	street2?: string
-	city?: string
-	region?: string
-	postal_code?: string
-	country?: string
-	geo_code?: string
-}
-
 // Invoice Address interface
 export interface RecurlyInvoiceAddress extends RecurlyAddress {
 	name_on_account?: string
@@ -74,28 +64,6 @@ export interface RecurlyTaxInfo {
 		level?: string
 		billable?: boolean
 	}>
-}
-
-// Shipping Address interface
-export interface RecurlyShippingAddress {
-	id?: string
-	object?: string
-	account_id?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-	email?: string
-	vat_number?: string
-	phone?: string
-	street1?: string
-	street2?: string
-	city?: string
-	region?: string
-	postal_code?: string
-	country?: string
-	geo_code?: string
-	created_at?: string
-	updated_at?: string
 }
 
 // Reference Only Currency Conversion interface
@@ -176,14 +144,6 @@ export interface RecurlyInvoiceListResponse {
 	has_more: boolean
 	next?: string
 	data: RecurlyInvoice[]
-}
-
-// Transaction List Response interface
-export interface RecurlyTransactionListResponse {
-	object: string
-	has_more: boolean
-	next?: string
-	data: RecurlyTransaction[]
 }
 
 // External Refund interface

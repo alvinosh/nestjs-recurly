@@ -1,7 +1,9 @@
 import { RecurlyConfigDto } from '../../../../config/config.dto'
 import { InjectConfig } from '../../../../config/config.provider'
+import { RecurlyTransaction } from '../../../transaction/transaction.types'
 import { RECURLY_API_BASE_URL } from '../../../v3.constants'
 import { buildQueryString, checkResponseIsOk, getHeaders } from '../../../v3.helpers'
+import { RecurlyBillingInfo } from '../info/info.types'
 import {
 	RecurlyCreateBillingInfoDto,
 	RecurlyListBillingInfosQueryDto,
@@ -9,7 +11,7 @@ import {
 	RecurlyVerifyBillingInfoCVVDto,
 	RecurlyVerifyBillingInfoDto,
 } from './infos.dto'
-import { RecurlyBillingInfo, RecurlyBillingInfoListResponse, RecurlyTransaction } from './infos.types'
+import { RecurlyBillingInfoListResponse } from './infos.types'
 import { Injectable, Logger } from '@nestjs/common'
 
 @Injectable()

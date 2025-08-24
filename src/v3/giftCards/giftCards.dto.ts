@@ -1,4 +1,5 @@
-import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
+import { RecurlyAccountPurchaseDto } from '../purchase/purchase.dto'
+import { RecurlyAddressDto } from '../v3.dtos'
 import { RecurlyGiftCardDeliveryMethod } from './giftCards.types'
 import { Type } from 'class-transformer'
 import {
@@ -42,58 +43,6 @@ export class RecurlyListGiftCardsQueryDto {
 	end_time?: string
 }
 
-// Address DTO
-export class RecurlyAddressDto {
-	@IsOptional()
-	@IsString()
-	@MaxLength(50)
-	first_name?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(50)
-	last_name?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(50)
-	phone?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(255)
-	street1?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(255)
-	street2?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(50)
-	city?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(50)
-	region?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(20)
-	postal_code?: string
-
-	@IsOptional()
-	@IsString()
-	@MaxLength(2)
-	country?: string
-
-	@IsOptional()
-	@IsString()
-	geo_code?: string
-}
-
 // Gift Card Delivery Create DTO
 export class RecurlyGiftCardDeliveryCreateDto {
 	@IsEnum(['email', 'post'])
@@ -128,22 +77,6 @@ export class RecurlyGiftCardDeliveryCreateDto {
 	@IsString()
 	@MaxLength(255)
 	personal_message?: string
-}
-
-// Account Purchase DTO (for gifter account)
-export class RecurlyAccountPurchaseDto {
-	@IsOptional()
-	@IsString()
-	id?: string
-
-	@IsOptional()
-	@IsString()
-	code?: string
-
-	@IsOptional()
-	@ValidateNested()
-	@Type(() => RecurlyAccountAcquisitionDto)
-	acquisition?: RecurlyAccountAcquisitionDto
 }
 
 // Account Acquisition Cost DTO
