@@ -42,11 +42,11 @@ describe('LedgerService', () => {
 				expect(result.account_type).toBe(createDto.account_type)
 				expect(result.object).toBe('general_ledger_account')
 				expect(result.created_at).toBeDefined()
-				
+
 				// Store ID for subsequent tests
 				createdGeneralLedgerAccountId = result.id!
-			} catch (error: any) {
-				if (error.message.includes('422')) {
+			} catch (error) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Skipping general ledger account tests - RevRec feature not enabled on test site')
 					return
 				}
@@ -69,8 +69,8 @@ describe('LedgerService', () => {
 				expect(result.id).toBeDefined()
 				expect(result.code).toBe(createDto.code)
 				expect(result.account_type).toBe('liability')
-			} catch (error: any) {
-				if (error.message.includes('422')) {
+			} catch (error) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Skipping general ledger account tests - RevRec feature not enabled on test site')
 					return
 				}
@@ -92,8 +92,8 @@ describe('LedgerService', () => {
 				// Should include our created account
 				const ourAccount = result.data.find(account => account.id === createdGeneralLedgerAccountId)
 				expect(ourAccount).toBeDefined()
-			} catch (error: any) {
-				if (error.message.includes('422')) {
+			} catch (error) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Skipping general ledger account tests - RevRec feature not enabled on test site')
 					return
 				}
@@ -128,8 +128,8 @@ describe('LedgerService', () => {
 				expect(result.data).toBeDefined()
 				expect(Array.isArray(result.data)).toBe(true)
 				expect(result.data.length).toBeLessThanOrEqual(5)
-			} catch (error: any) {
-				if (error.message.includes('422')) {
+			} catch (error) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Skipping general ledger account tests - RevRec feature not enabled on test site')
 					return
 				}
@@ -155,8 +155,8 @@ describe('LedgerService', () => {
 						expect(account.account_type).toBe('revenue')
 					}
 				})
-			} catch (error: any) {
-				if (error.message.includes('422')) {
+			} catch (error) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Skipping general ledger account tests - RevRec feature not enabled on test site')
 					return
 				}
