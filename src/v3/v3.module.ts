@@ -1,3 +1,4 @@
+import { CustomFieldDefinitionModule } from './Configuration/customFieldDefinition/customFieldDefinition.module'
 import { SiteModule } from './Configuration/site/site.module'
 import { AccountsModule } from './Customers/accounts/accounts.module'
 import { GiftCardModule } from './Customers/giftCards/giftCards.module'
@@ -33,6 +34,7 @@ import { Module } from '@nestjs/common'
 		SubscriptionModule,
 		TransactionModule,
 		SiteModule,
+		CustomFieldDefinitionModule,
 	],
 	exports: [
 		AccountsModule,
@@ -49,6 +51,7 @@ import { Module } from '@nestjs/common'
 		SubscriptionModule,
 		TransactionModule,
 		SiteModule,
+		CustomFieldDefinitionModule,
 	],
 })
 export class RecurlyV3Module {}

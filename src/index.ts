@@ -24,6 +24,7 @@ export { GiftCardService } from './v3/Customers/giftCards/giftCards.service'
 export { InvoiceService } from './v3/InvoicesPayments/invoice/invoice.service'
 export { LineItemService } from './v3/InvoicesPayments/lineItem/lineItem.service'
 export { SiteService } from './v3/Configuration/site/site.service'
+export { CustomFieldDefinitionService } from './v3/Configuration/customFieldDefinition/customFieldDefinition.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -211,6 +212,14 @@ export {
 	RecurlySiteSettings,
 } from './v3/Configuration/site/site.types'
 
+// Custom Field Definition Types
+export {
+	RecurlyCustomFieldDefinition,
+	RecurlyCustomFieldDefinitionListResponse,
+	RecurlyCustomFieldDefinitionRelatedType,
+	RecurlyCustomFieldDefinitionUserAccess,
+} from './v3/Configuration/customFieldDefinition/customFieldDefinition.types'
+
 // Purchase Types
 export {
 	RecurlyBillingAddress,
@@ -380,3 +389,6 @@ export { RecurlyListLineItemsQueryDto, RecurlyCreateLineItemDto } from './v3/Inv
 
 // Site DTOs
 export { RecurlyListSitesQueryDto } from './v3/Configuration/site/site.dtos'
+
+// Custom Field Definition DTOs
+export { RecurlyListCustomFieldDefinitionsQueryDto } from './v3/Configuration/customFieldDefinition/customFieldDefinition.dtos'
