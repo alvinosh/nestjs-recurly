@@ -1,19 +1,19 @@
-I am looking to extend this Recurly NestJS API wrapper to include General Ledger Account
+I am looking to extend this Recurly NestJS API wrapper to include Performance Obligations
 
-API documentation: https://recurly.com/developers/api/v2021-02-25/#tag/general_ledger_account
+API documentation: https://recurly.com/developers/api/v2021-02-25/#tag/performance_obligations
 
 Local swagger downloaded version: `./recurly-api-spec.yaml`
 
-Before starting the work you should create a branch `api-endpoint-ledger-account` and ensure all development happens on that feature branch.
+Before starting the work you should create a branch `api-endpoint-performance-obligations` and ensure all development happens on that feature branch.
 
 You should use `src/v3/Configuration/site/*` as a template
 
-1. Create a new folder `src/v3/Configuration/ledger` for the new files
-2. Create the `src/v3/Configuration/ledger/ledger.types.ts` using the response entities from the API documentation. All type names should start with Recurly to help differentiate them in the clients applications. 
-3. Create the `src/v3/Configuration/ledger/ledger.dtos.ts` using the API request Query/Body data from the API documentation. All DTOs names should start with Recurly to help differentiate them in the clients applications. 
-4. Create the `src/v3/Configuration/ledger/ledger.service.ts` creating the actions for each endpoint in the API documentation, using the types, dtos etc, each endpoint should have a corresponding function, also accept API key as a param if clients want to pass at runtime. 
-5. Create the `src/v3/Configuration/ledger/ledger.module.ts` for bringing everything together.
-6. Create the `src/v3/Configuration/ledger/ledger.test.spec.ts` creating tests for each of the functions in the service file, ensure the tests pass successfully. Test should be created in the following CRUD order (create, read, update, delete) to ensure each service has data to pass to the others. Updates & Deletes should also read to ensure the change happened. Tests should call the relevant service functions and NOT mock responses. 
+1. Create a new folder `src/v3/Configuration/performanceObligations` for the new files
+2. Create the `src/v3/Configuration/performanceObligations/performanceObligations.types.ts` using the response entities from the API documentation. All type names should start with Recurly to help differentiate them in the clients applications. 
+3. Create the `src/v3/Configuration/performanceObligations/performanceObligations.dtos.ts` using the API request Query/Body data from the API documentation. All DTOs names should start with Recurly to help differentiate them in the clients applications. 
+4. Create the `src/v3/Configuration/performanceObligations/performanceObligations.service.ts` creating the actions for each endpoint in the API documentation, using the types, dtos etc, each endpoint should have a corresponding function, also accept API key as a param if clients want to pass at runtime. 
+5. Create the `src/v3/Configuration/performanceObligations/performanceObligations.module.ts` for bringing everything together.
+6. Create the `src/v3/Configuration/performanceObligations/performanceObligations.test.spec.ts` creating tests for each of the functions in the service file, ensure the tests pass successfully. Test should be created in the following CRUD order (create, read, update, delete) to ensure each service has data to pass to the others. Updates & Deletes should also read to ensure the change happened. Tests should call the relevant service functions and NOT mock responses. 
 7. Include the new module in the main `src/v3/v3.module.ts` file as an import and export
 8. Add the new service, types and DTOs as exports to the main `src/index.ts` file
 9. Run lint and fix any linting issues (`npm run lint`)
