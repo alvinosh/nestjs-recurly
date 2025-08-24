@@ -1,3 +1,4 @@
+import { ExternalAccountModule } from './AppManagement/externalAccount/externalAccount.module'
 import { ExternalInvoicesModule } from './AppManagement/externalInvoices/externalInvoices.module'
 import { ExternalProductModule } from './AppManagement/externalProduct/externalProduct.module'
 import { ExternalSubscriptionModule } from './AppManagement/externalSubscription/externalSubscription.module'
@@ -49,6 +50,7 @@ import { Module } from '@nestjs/common'
 		ExternalInvoicesModule,
 		ExternalProductModule,
 		ExternalSubscriptionModule,
+		ExternalAccountModule,
 		LedgerModule,
 		PerformanceObligationsModule,
 	],
@@ -74,6 +76,7 @@ import { Module } from '@nestjs/common'
 		ExternalInvoicesModule,
 		ExternalProductModule,
 		ExternalSubscriptionModule,
+		ExternalAccountModule,
 		LedgerModule,
 		PerformanceObligationsModule,
 	],

@@ -33,6 +33,7 @@ export { PerformanceObligationsService } from './v3/Configuration/performanceObl
 export { ExternalInvoicesService } from './v3/AppManagement/externalInvoices/externalInvoices.service'
 export { ExternalProductService } from './v3/AppManagement/externalProduct/externalProduct.service'
 export { ExternalSubscriptionService } from './v3/AppManagement/externalSubscription/externalSubscription.service'
+export { ExternalAccountService } from './v3/AppManagement/externalAccount/externalAccount.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -272,6 +273,11 @@ export {
 } from './v3/AppManagement/externalSubscription/externalSubscription.types'
 
 export {
+	RecurlyExternalAccount,
+	RecurlyExternalAccountListResponse,
+} from './v3/AppManagement/externalAccount/externalAccount.types'
+
+export {
 	RecurlyExternalProduct,
 	RecurlyExternalProductListResponse,
 	RecurlyExternalProductReferenceBase,
@@ -491,6 +497,12 @@ export {
 	RecurlyExternalProductReferenceCreateDto,
 	RecurlyExternalProductReferenceUpdateDto,
 } from './v3/AppManagement/externalSubscription/externalSubscription.dtos'
+
+// External Account DTOs
+export {
+	RecurlyCreateExternalAccountDto,
+	RecurlyUpdateExternalAccountDto,
+} from './v3/AppManagement/externalAccount/externalAccount.dtos'
 
 // External Product DTOs
 export {

@@ -1,6 +1,6 @@
+import { ExternalInvoicesService } from '../../AppManagement/externalInvoices/externalInvoices.service'
 import { canTest } from '../../v3.helpers'
 import { RecurlyV3Module } from '../../v3.module'
-import { ExternalInvoicesService } from '../../AppManagement/externalInvoices/externalInvoices.service'
 import { ConfigModule } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 

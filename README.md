@@ -5,8 +5,6 @@
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
 </p>
 
-
-
 <p align="center">
 A NestJS app for integrating with Recurly
 </p>
@@ -63,8 +61,3 @@ Standard accounts don't come with features:
 * wallet feature
 
 Therefore some tests have been disabled
-
-
-## TODO: 
-
-* Review type files to consolidate and remove duplicates
