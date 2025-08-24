@@ -1,4 +1,4 @@
-import { RecurlyAddressDto } from '../../accounts.dto'
+import { RecurlyAddressDto } from '../../../v3.dtos'
 import {
 	RecurlyAccountType,
 	RecurlyBillingTransactionType,
@@ -7,7 +7,7 @@ import {
 	RecurlyExternalHppType,
 	RecurlyOnlineBankingPaymentType,
 	RecurlyTaxIdentifierType,
-} from './infos.types'
+} from '../../../v3.types'
 import { Type } from 'class-transformer'
 import {
 	IsArray,

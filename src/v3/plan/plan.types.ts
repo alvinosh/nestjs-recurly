@@ -1,3 +1,5 @@
+import { RecurlyCustomField } from '../v3.types'
+
 // Enums
 export type RecurlyPlanState = 'active' | 'inactive'
 
@@ -10,12 +12,6 @@ export type RecurlyTrialUnit = 'days' | 'months'
 export type RecurlyRevenueScheduleType = 'at_range_end' | 'at_range_start' | 'evenly' | 'never'
 
 export type RecurlyVertexTransactionType = 'sale' | 'rental' | 'lease'
-
-// Custom Field interface
-export interface RecurlyCustomField {
-	name: string
-	value: string | null
-}
 
 // Plan Pricing interface
 export interface RecurlyPlanPricing {

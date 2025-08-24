@@ -1,78 +1,5 @@
-// Purchase response types based on Recurly API documentation
 import { RecurlyAccountMini } from '../accounts/accounts.types'
-import { RecurlyInvoiceMini } from '../invoice/invoice.types'
-import { RecurlyItemMini } from '../item/item.types'
-import { RecurlyPlanMini } from '../plan/plan.types'
-
-// Transaction interface
-export interface RecurlyTransaction {
-	id?: string
-	object?: string
-	uuid?: string
-	original_transaction_id?: string
-	account?: RecurlyAccountMini
-	invoice?: RecurlyInvoiceMini
-	voided_by_invoice?: RecurlyInvoiceMini
-	subscription_ids?: string[]
-	type?: 'authorization' | 'capture' | 'payment' | 'refund' | 'verify' | 'credit_payment'
-	origin?:
-		| 'api'
-		| 'hpp'
-		| 'merchant'
-		| 'recurly_admin'
-		| 'recurlyjs'
-		| 'recurring'
-		| 'transparent'
-		| 'force_collect'
-		| 'refunded_externally'
-		| 'import'
-		| 'gifting'
-		| 'in_app_purchase'
-		| 'apple_pay'
-		| 'updated_billing_info'
-		| 'test_payment_method_api'
-	currency?: string
-	amount?: number
-	status?:
-		| 'success'
-		| 'declined'
-		| 'void'
-		| 'pending'
-		| 'processing'
-		| 'processing_retry'
-		| 'scheduled'
-		| 'gateway_processing'
-		| 'chargeback'
-	success?: boolean
-	backup_payment_method_used?: boolean
-	refunded?: boolean
-	billing_address?: RecurlyBillingAddress
-	collection_method?: 'automatic' | 'manual'
-	payment_method?: RecurlyPaymentMethod
-	ip_address_v4?: string
-	ip_address_v6?: string
-	ip_address_country?: string
-	status_code?: string
-	status_message?: string
-	customer_message?: string
-	customer_message_locale?: string
-	payment_gateway?: RecurlyPaymentGatewayUsed
-	gateway_message?: string
-	gateway_reference?: string
-	gateway_approval_code?: string
-	gateway_response_code?: string
-	gateway_response_time?: number
-	gateway_response_values?: any
-	cvv_check?: 'success' | 'failure' | 'unavailable' | 'not_supplied'
-	avs_check?: 'success' | 'failure' | 'unavailable' | 'not_supplied'
-	created_at?: string
-	updated_at?: string
-	voided_at?: string
-	collected_at?: string
-	action_result?: any
-	vat_number?: string
-	fraud_info?: RecurlyFraudInfo
-}
+import { RecurlyShippingAddress } from '../accounts/shippingAddress/shippingAddress.types'
 
 // Billing Address interface
 export interface RecurlyBillingAddress {
@@ -86,26 +13,6 @@ export interface RecurlyBillingAddress {
 	postal_code?: string
 	country?: string
 	geo_code?: string
-}
-
-// Payment Method interface
-export interface RecurlyPaymentMethod {
-	object?: string
-	card_type?: string
-	first_six?: string
-	last_four?: string
-	last_two?: string
-	exp_month?: number
-	exp_year?: number
-	gateway_token?: string
-	cc_bin_country?: string
-	gateway_code?: string
-	billing_agreement_id?: string
-	name_on_account?: string
-	account_type?: string
-	routing_number?: string
-	routing_number_bank?: string
-	username?: string
 }
 
 // Payment Gateway Used interface
@@ -197,68 +104,6 @@ export interface RecurlyTaxDetail {
 	billable?: boolean
 }
 
-// Coupon Redemption interface
-export interface RecurlyCouponRedemption {
-	id?: string
-	object?: string
-	account?: RecurlyAccountMini
-	subscription_id?: string
-	coupon?: RecurlyCoupon
-	state?: 'active' | 'inactive' | 'expired'
-	currency?: string
-	discounted?: number
-	created_at?: string
-	updated_at?: string
-	removed_at?: string
-}
-
-// Coupon interface
-export interface RecurlyCoupon {
-	id?: string
-	object?: string
-	code?: string
-	name?: string
-	state?: 'redeemable' | 'expired' | 'maxed_out' | 'inactive'
-	max_redemptions?: number
-	max_redemptions_per_account?: number
-	unique_coupon_codes_count?: number
-	unique_code_template?: string
-	unique_coupon_code?: RecurlyUniqueCouponCode
-	duration?: 'forever' | 'single_use' | 'temporal'
-	temporal_amount?: number
-	temporal_unit?: 'day' | 'week' | 'month' | 'year'
-	free_trial_unit?: 'day' | 'week' | 'month' | 'year'
-	free_trial_amount?: number
-	applies_to_all_plans?: boolean
-	applies_to_all_items?: boolean
-	applies_to_non_plan_charges?: boolean
-	plans?: RecurlyPlanMini[]
-	items?: RecurlyItemMini[]
-	redemption_resource?: 'account' | 'subscription'
-	discount?: RecurlyDiscount
-	coupon_type?: 'single_code' | 'bulk'
-	hosted_page_description?: string
-	invoice_description?: string
-	redeem_by?: string
-	created_at?: string
-	updated_at?: string
-	expired_at?: string
-}
-
-// Unique Coupon Code interface
-export interface RecurlyUniqueCouponCode {
-	id?: string
-	object?: string
-	code?: string
-	state?: 'redeemable' | 'redeemed' | 'inactive'
-	bulk_coupon_id?: string
-	bulk_coupon_code?: string
-	created_at?: string
-	updated_at?: string
-	redeemed_at?: string
-	expired_at?: string
-}
-
 // Discount interface
 export interface RecurlyDiscount {
 	type?: 'percent' | 'fixed' | 'free_trial'
@@ -277,36 +122,6 @@ export interface RecurlyCurrencyAmount {
 export interface RecurlyTrial {
 	unit?: string
 	length?: number
-}
-
-// Shipping Address interface
-export interface RecurlyShippingAddress {
-	id?: string
-	object?: string
-	account_id?: string
-	nickname?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-	email?: string
-	vat_number?: string
-	phone?: string
-	street1?: string
-	street2?: string
-	city?: string
-	region?: string
-	postal_code?: string
-	country?: string
-	geo_code?: string
-	created_at?: string
-	updated_at?: string
-}
-
-// Fraud Info interface
-export interface RecurlyFraudInfo {
-	score?: number
-	decision?: 'approve' | 'review' | 'decline' | 'escalate'
-	risk_rules_triggered?: RecurlyFraudRiskRule[]
 }
 
 // Fraud Risk Rule interface

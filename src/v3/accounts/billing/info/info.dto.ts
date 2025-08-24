@@ -1,13 +1,13 @@
 import {
-	RecurlyBillingTransactionType,
-	RecurlyTaxIdentifierType,
-	RecurlyExternalHppType,
-	RecurlyOnlineBankingPaymentType,
-	RecurlyCardType,
-	RecurlyCardNetworkPreference,
 	RecurlyAccountType,
 	RecurlyBankAccountPaymentType,
-} from './info.types'
+	RecurlyBillingTransactionType,
+	RecurlyCardNetworkPreference,
+	RecurlyCardType,
+	RecurlyExternalHppType,
+	RecurlyOnlineBankingPaymentType,
+	RecurlyTaxIdentifierType,
+} from '../../../v3.types'
 import { Type } from 'class-transformer'
 import { IsArray, IsBoolean, IsOptional, IsString, IsEnum, ValidateNested, MaxLength } from 'class-validator'
 

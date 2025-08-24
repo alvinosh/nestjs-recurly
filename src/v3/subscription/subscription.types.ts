@@ -1,6 +1,8 @@
 import { RecurlyAccountMini } from '../accounts/accounts.types'
+import { RecurlyShippingAddress } from '../accounts/shippingAddress/shippingAddress.types'
 import { RecurlyPlanMini } from '../plan/plan.types'
 import { RecurlyPriceSegmentIdOrCode } from '../priceSegment/priceSegment.types'
+import { RecurlyCustomField } from '../v3.types'
 
 // Subscription Types
 export interface RecurlySubscription {
@@ -72,27 +74,6 @@ export interface RecurlySubscriptionShipping {
 	address?: RecurlyShippingAddress
 	method?: RecurlyShippingMethodMini
 	amount?: number
-}
-
-export interface RecurlyShippingAddress {
-	id?: string
-	object?: string
-	account_id?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-	email?: string
-	vat_number?: string
-	phone?: string
-	street1?: string
-	street2?: string
-	city?: string
-	region?: string
-	postal_code?: string
-	country?: string
-	geo_code?: string
-	created_at?: string
-	updated_at?: string
 }
 
 export interface RecurlyShippingMethodMini {
@@ -196,9 +177,4 @@ export interface RecurlyTaxInfo {
 	type?: string
 	region?: string
 	rate?: number
-}
-
-export interface RecurlyCustomField {
-	name?: string
-	value?: string
 }

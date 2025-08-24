@@ -1,4 +1,4 @@
-import { RecurlyAddressDto } from '../../accounts/accounts.dto'
+import { RecurlyAddressDto } from '../../v3.dtos'
 import { RecurlyCustomField } from '../../v3.types'
 import { RecurlySubscriptionRampIntervalDto } from '../subscription.dto'
 import { Expose, Type } from 'class-transformer'

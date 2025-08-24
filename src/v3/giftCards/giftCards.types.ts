@@ -1,19 +1,7 @@
+import { RecurlyAddressWithName } from '../v3.types'
+
 // Enums
 export type RecurlyGiftCardDeliveryMethod = 'email' | 'post'
-
-// Address interface for recipient address
-export interface RecurlyAddress {
-	first_name?: string
-	last_name?: string
-	phone?: string
-	street1?: string
-	street2?: string
-	city?: string
-	region?: string
-	postal_code?: string
-	country?: string
-	geo_code?: string
-}
 
 // Gift Card Delivery interface
 export interface RecurlyGiftCardDelivery {
@@ -22,7 +10,7 @@ export interface RecurlyGiftCardDelivery {
 	deliver_at?: string | null
 	first_name?: string
 	last_name?: string
-	recipient_address?: RecurlyAddress
+	recipient_address?: RecurlyAddressWithName
 	gifter_name?: string
 	personal_message?: string
 }

@@ -1,6 +1,6 @@
 import { RecurlyAccountMini } from '../accounts/accounts.types'
 import { RecurlyInvoiceMini } from '../invoice/invoice.types'
-import { RecurlyTransaction } from '../purchase/purchase.types'
+import { RecurlyTransaction } from '../transaction/transaction.types'
 
 // Enums
 export type RecurlyCreditPaymentAction = 'payment' | 'reduction' | 'refund' | 'write_off'

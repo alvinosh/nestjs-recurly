@@ -1,4 +1,4 @@
-import { IsOptional, IsString, IsNumber } from 'class-validator'
+import { IsOptional, IsString, IsNumber, MaxLength } from 'class-validator'
 
 // Address DTO
 export class RecurlyAddressDto {
@@ -33,6 +33,21 @@ export class RecurlyAddressDto {
 	@IsOptional()
 	@IsString()
 	geo_code?: string
+
+	@IsOptional()
+	@IsString()
+	@MaxLength(255)
+	first_name?: string
+
+	@IsOptional()
+	@IsString()
+	@MaxLength(255)
+	last_name?: string
+
+	@IsOptional()
+	@IsString()
+	@MaxLength(255)
+	company?: string
 }
 
 // Cost DTO
