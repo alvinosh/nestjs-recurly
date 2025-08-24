@@ -1,5 +1,5 @@
+import { RecurlyExternalSubscription } from '@/v3/AppManagement/externalSubscription/externalSubscription.types'
 import { RecurlyAccountMini } from '@/v3/Customers/accounts/accounts.types'
-import { RecurlyExternalSubscription } from '@/v3/Configuration/externalSubscription/externalSubscription.types'
 
 // External Invoice State enum
 export type RecurlyExternalInvoiceState = 'paid'
