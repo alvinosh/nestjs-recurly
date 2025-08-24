@@ -27,6 +27,7 @@ export { SiteService } from './v3/Configuration/site/site.service'
 export { CustomFieldDefinitionService } from './v3/Configuration/customFieldDefinition/customFieldDefinition.service'
 export { ShippingMethodService } from './v3/Configuration/shippingMethod/shippingMethod.service'
 export { DunningCampaignsService } from './v3/Configuration/dunningCampaigns/dunningCampaigns.service'
+export { BusinessEntitiesService } from './v3/Configuration/businessEntities/businessEntities.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -238,6 +239,15 @@ export {
 	RecurlyDunningCampaignsBulkUpdateResponse,
 } from './v3/Configuration/dunningCampaigns/dunningCampaigns.types'
 
+// Business Entities Types
+export {
+	RecurlyBusinessEntity,
+	RecurlyBusinessEntityMini,
+	RecurlyBusinessEntityListResponse,
+	RecurlyOriginTaxAddressSource,
+	RecurlyDestinationTaxAddressSource,
+} from './v3/Configuration/businessEntities/businessEntities.types'
+
 // Purchase Types
 export {
 	RecurlyBillingAddress,
@@ -423,3 +433,6 @@ export {
 	RecurlyListDunningCampaignsQueryDto,
 	RecurlyDunningCampaignsBulkUpdateDto,
 } from './v3/Configuration/dunningCampaigns/dunningCampaigns.dtos'
+
+// Business Entities DTOs
+export { RecurlyListBusinessEntitiesQueryDto } from './v3/Configuration/businessEntities/businessEntities.dtos'
