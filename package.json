@@ -1,6 +1,6 @@
 {
     "name": "@juicyllama/nestjs-recurly",
-    "version": "0.14.1",
+    "version": "0.15.0",
     "description": "A NestJS app for integrating with Recurly API",
     "publishConfig": {
         "access": "public",
