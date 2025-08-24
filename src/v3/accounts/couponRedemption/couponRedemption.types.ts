@@ -1,5 +1,5 @@
 import { RecurlyCoupon, RecurlyCouponMini } from '../../coupon/coupon.types'
-import { RecurlyAccountMini } from '../acquisition/acquisition.types'
+import { RecurlyAccountMini } from '../accounts.types'
 
 export interface RecurlyCouponRedemption {
 	id: string

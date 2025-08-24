@@ -15,6 +15,7 @@ export { PlanService } from './v3/plan/plan.service'
 export { AddOnService } from './v3/plan/addon/addon.service'
 export { MeasuredUnitService } from './v3/measuredUnit/measuredUnit.service'
 export { CouponService } from './v3/coupon/coupon.service'
+export { CreditPaymentService } from './v3/creditPayment/creditPayment.service'
 export { UniqueCouponCodeService } from './v3/coupon/unique/unique.service'
 export { PriceSegmentService } from './v3/priceSegment/priceSegment.service'
 export { ChangeService } from './v3/subscription/change/change.service'
@@ -36,6 +37,7 @@ export {
 	RecurlyExternalSubscriptionListResponse,
 	RecurlyAccountState,
 	RecurlyShippingAddress,
+	RecurlyAccountMini,
 } from './v3/accounts/accounts.types'
 
 export { RecurlyAccountNote, RecurlyAccountNoteListResponse, RecurlyUser } from './v3/accounts/notes/notes.types'
@@ -44,7 +46,6 @@ export {
 	RecurlyAccountAcquisition,
 	RecurlyAccountAcquisitionCost,
 	RecurlyAccountAcquisitionChannel,
-	RecurlyAccountMini,
 	RecurlyAccountAcquisitionListResponse,
 } from './v3/accounts/acquisition/acquisition.types'
 
@@ -158,6 +159,12 @@ export {
 } from './v3/coupon/coupon.types'
 
 export {
+	RecurlyCreditPaymentAction,
+	RecurlyCreditPayment,
+	RecurlyCreditPaymentListResponse,
+} from './v3/creditPayment/creditPayment.types'
+
+export {
 	RecurlyUniqueCouponCode,
 	RecurlyUniqueCouponCodeList,
 	RecurlyUniqueCouponCodeParams,
@@ -264,6 +271,13 @@ export {
 
 export { CouponListParamsDto, CouponCreateDto, CouponUpdateDto } from './v3/coupon/coupon.dto'
 
+export {
+	RecurlyListCreditPaymentsQueryDto,
+	RecurlyListAccountCreditPaymentsQueryDto,
+	RecurlyGetCreditPaymentParamsDto,
+	RecurlyGetAccountCreditPaymentParamsDto,
+} from './v3/creditPayment/creditPayment.dto'
+
 export { RecurlyGenerateUniqueCouponCodesDto, RecurlyListUniqueCouponCodesDto } from './v3/coupon/unique/unique.dto'
 
 export { RecurlyListPriceSegmentsQueryDto } from './v3/priceSegment/priceSegment.dto'
@@ -292,7 +306,6 @@ export {
 
 // Purchase Types
 export {
-	RecurlyCreditPayment,
 	RecurlyBillingAddress,
 	RecurlyPaymentGatewayUsed,
 	RecurlyTaxDetail,
@@ -341,7 +354,7 @@ export {
 	RecurlyInvoice,
 	RecurlyInvoiceCollection,
 	RecurlyInvoiceListResponse,
-	RecurlyInvoiceType as RecurlyInvoiceCategory,
+	RecurlyInvoiceType,
 	RecurlyInvoiceOrigin,
 	RecurlyInvoiceState,
 	RecurlyNetTermsType,
@@ -350,7 +363,6 @@ export {
 	RecurlyInvoiceAddress,
 	RecurlyInvoiceMini,
 	RecurlyTransactionListResponse,
-	RecurlyCreditPaymentListResponse,
 	RecurlyExternalInvoice,
 	RecurlyLineItemRefund,
 	RecurlyExternalRefund,

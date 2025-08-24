@@ -1,37 +1,8 @@
 // Purchase response types based on Recurly API documentation
+import { RecurlyAccountMini } from '../accounts/accounts.types'
 import { RecurlyInvoiceMini } from '../invoice/invoice.types'
-
-// Account Mini interface
-export interface RecurlyAccountMini {
-	id?: string
-	object?: string
-	code?: string
-	email?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-	parent_account_id?: string
-	bill_to?: 'self' | 'parent'
-	dunning_campaign_id?: string
-}
-
-// Credit Payment interface
-export interface RecurlyCreditPayment {
-	id?: string
-	object?: string
-	uuid?: string
-	action?: 'payment' | 'reduction' | 'refund' | 'write_off'
-	account?: RecurlyAccountMini
-	applied_to_invoice?: RecurlyInvoiceMini
-	original_invoice?: RecurlyInvoiceMini
-	currency?: string
-	amount?: number
-	original_credit_payment_id?: string
-	refund_transaction?: RecurlyTransaction
-	created_at?: string
-	updated_at?: string
-	voided_at?: string
-}
+import { RecurlyItemMini } from '../item/item.types'
+import { RecurlyPlanMini } from '../plan/plan.types'
 
 // Transaction interface
 export interface RecurlyTransaction {
@@ -286,26 +257,6 @@ export interface RecurlyUniqueCouponCode {
 	updated_at?: string
 	redeemed_at?: string
 	expired_at?: string
-}
-
-// Plan Mini interface
-export interface RecurlyPlanMini {
-	id?: string
-	object?: string
-	code?: string
-	name?: string
-}
-
-// Item Mini interface
-export interface RecurlyItemMini {
-	id?: string
-	object?: string
-	code?: string
-	state?: 'active' | 'inactive'
-	name?: string
-	description?: string
-	external_sku?: string
-	accounting_code?: string
 }
 
 // Discount interface

@@ -256,3 +256,17 @@ export interface RecurlyExternalSubscriptionListResponse {
 	next?: string
 	data: RecurlyExternalSubscription[]
 }
+
+// Account Mini interface
+export interface RecurlyAccountMini {
+	id: string
+	object: string
+	code?: string
+	email?: string
+	first_name?: string
+	last_name?: string
+	company?: string
+	parent_account_id?: string
+	bill_to?: string
+	dunning_campaign_id?: string
+}

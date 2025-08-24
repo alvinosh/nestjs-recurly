@@ -1,5 +1,7 @@
+import { RecurlyAccountMini } from '../accounts/accounts.types'
 import { RecurlyCollectionMethod } from '../accounts/billing/info/info.types'
-import { RecurlyCreditPayment, RecurlyLineItem, RecurlyTransaction } from '../purchase/purchase.types'
+import { RecurlyCreditPayment } from '../creditPayment/creditPayment.types'
+import { RecurlyLineItem, RecurlyTransaction } from '../purchase/purchase.types'
 
 // Enums
 export type RecurlyInvoiceType = 'charge' | 'credit' | 'legacy'
@@ -56,20 +58,6 @@ export interface RecurlyInvoiceAddress extends RecurlyAddress {
 	company?: string
 	first_name?: string
 	last_name?: string
-}
-
-// Account Mini interface
-export interface RecurlyAccountMini {
-	id: string
-	object: string
-	code?: string
-	email?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-	parent_account_id?: string
-	bill_to?: string
-	dunning_campaign_id?: string
 }
 
 // Tax Info interface
@@ -196,14 +184,6 @@ export interface RecurlyTransactionListResponse {
 	has_more: boolean
 	next?: string
 	data: RecurlyTransaction[]
-}
-
-// Credit Payment List Response interface
-export interface RecurlyCreditPaymentListResponse {
-	object: string
-	has_more: boolean
-	next?: string
-	data: RecurlyCreditPayment[]
 }
 
 // External Refund interface

@@ -1,3 +1,5 @@
+import { RecurlyAccountMini } from '../accounts.types'
+
 // Account Acquisition Types
 export interface RecurlyAccountAcquisition {
 	id?: string
@@ -37,15 +39,6 @@ export enum RecurlyAccountAcquisitionChannel {
 	PUBLIC_RELATIONS = 'public_relations',
 	REFERRAL = 'referral',
 	SOCIAL_MEDIA = 'social_media',
-}
-
-export interface RecurlyAccountMini {
-	id?: string
-	object?: string
-	code?: string
-	email?: string
-	first_name?: string
-	last_name?: string
 }
 
 export interface RecurlyAccountAcquisitionListResponse {
