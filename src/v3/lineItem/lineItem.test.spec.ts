@@ -154,11 +154,7 @@ describe('LineItemService', () => {
 		if (createdLineItemId) {
 			await expect(service.removeLineItem(createdLineItemId)).resolves.toBeUndefined()
 
-			await suppressErrorTesting(
-					service,
-					(id: string) => service.getLineItem(id),
-					createdLineItemId,
-				)
+			await suppressErrorTesting(service, (id: string) => service.getLineItem(id), createdLineItemId)
 		}
 	})
 

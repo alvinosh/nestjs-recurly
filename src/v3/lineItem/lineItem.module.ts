@@ -4,7 +4,7 @@ import { LineItemService } from './lineItem.service'
 import { Module } from '@nestjs/common'
 
 @Module({
-    imports: [ConfigValidationModule.register(RecurlyConfigDto)],
+	imports: [ConfigValidationModule.register(RecurlyConfigDto)],
 	providers: [LineItemService],
 	exports: [LineItemService],
 })

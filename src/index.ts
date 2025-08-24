@@ -1,5 +1,3 @@
-import { v } from '@faker-js/faker/dist/airline-CLphikKp'
-
 //Module
 export { RecurlyV3Module } from './v3/v3.module'
 
@@ -195,7 +193,7 @@ export {
 	RecurlyUpdateAccountDto,
 	RecurlyBillingInfoCreateDto,
 	RecurlyShippingAddressDto,
-	RecurlyAccountAcquisitionDto
+	RecurlyAccountAcquisitionDto,
 } from './v3/accounts/accounts.dto'
 
 export { RecurlyListAccountNotesQueryDto } from './v3/accounts/notes/notes.dto'

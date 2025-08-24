@@ -1,3 +1,4 @@
+import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
 import { RecurlyGiftCardDeliveryMethod } from './giftCards.types'
 import { Type } from 'class-transformer'
 import {
@@ -12,7 +13,6 @@ import {
 	Min,
 	IsEmail,
 } from 'class-validator'
-import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
 
 // List Gift Cards Query DTO
 export class RecurlyListGiftCardsQueryDto {

@@ -1,3 +1,5 @@
+import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
+import { RecurlyAddressDto } from '../v3.dtos'
 import { Type } from 'class-transformer'
 import {
 	IsArray,
@@ -11,8 +13,6 @@ import {
 	Min,
 	ValidateNested,
 } from 'class-validator'
-import { RecurlyAddressDto } from '../v3.dtos'
-import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
 
 // Billing Info DTO
 export class RecurlyBillingInfoDto {
@@ -151,8 +151,6 @@ export class RecurlyBillingInfoDto {
 	@IsString()
 	card_type?: string
 }
-
-
 
 // Account Purchase DTO for creating purchases
 export class RecurlyAccountPurchaseDto {
@@ -318,7 +316,6 @@ export class RecurlySubscriptionShippingDto {
 	@IsNumber()
 	amount?: number
 }
-
 
 // Subscription Purchase DTO
 export class RecurlySubscriptionPurchaseDto {
@@ -501,9 +498,6 @@ export class RecurlyTierDto {
 	@IsString()
 	unit_amount_decimal?: string
 }
-
-
-
 
 // Subscription Ramp Interval DTO
 export class RecurlySubscriptionRampIntervalDto {

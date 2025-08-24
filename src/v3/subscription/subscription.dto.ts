@@ -125,7 +125,6 @@ export class RecurlyShippingAddressCreateDto {
 	geo_code?: string
 }
 
-
 export class RecurlySubscriptionShippingCreateDto {
 	@IsOptional()
 	@ValidateNested()
@@ -148,7 +147,6 @@ export class RecurlySubscriptionShippingCreateDto {
 	@IsNumber()
 	amount?: number
 }
-
 
 // Create Subscription DTO
 export class RecurlySubscriptionCreateDto {
@@ -374,8 +372,6 @@ export class RecurlySubscriptionUpdateDto {
 	@IsString()
 	billing_info_id?: string
 }
-
-
 
 export class RecurlySubscriptionAddOnCreateDto {
 	@IsString()
