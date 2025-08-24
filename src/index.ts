@@ -25,7 +25,7 @@ export { InvoiceService } from './v3/InvoicesPayments/invoice/invoice.service'
 export { LineItemService } from './v3/InvoicesPayments/lineItem/lineItem.service'
 
 //Config
-export { RecurlyConfigDto } from './config/config.dto'
+export { RecurlyConfigDto } from '@config/config.dto'
 
 //Types
 export { RecurlyCurrency, RecurlyCustomField, RecurlyAddress } from './v3/v3.types'

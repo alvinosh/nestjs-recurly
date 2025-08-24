@@ -1,6 +1,6 @@
-import { RecurlyConfigDto } from '../../../config/config.dto'
-import { ConfigValidationModule } from '../../../config/config.module'
 import { MeasuredUnitService } from './measuredUnit.service'
+import { RecurlyConfigDto } from '@config/config.dto'
+import { ConfigValidationModule } from '@config/config.module'
 import { Module } from '@nestjs/common'
 
 @Module({

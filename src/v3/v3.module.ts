@@ -1,5 +1,3 @@
-import { RecurlyConfigDto } from '../config/config.dto'
-import { ConfigValidationModule } from '../config/config.module'
 import { AccountsModule } from './Customers/accounts/accounts.module'
 import { GiftCardModule } from './Customers/giftCards/giftCards.module'
 import { PurchaseModule } from './Customers/purchase/purchase.module'
@@ -13,6 +11,8 @@ import { ItemModule } from './ProductsPromotions/item/item.module'
 import { MeasuredUnitModule } from './ProductsPromotions/measuredUnit/measuredUnit.module'
 import { PlanModule } from './ProductsPromotions/plan/plan.module'
 import { PriceSegmentModule } from './ProductsPromotions/priceSegment/priceSegment.module'
+import { RecurlyConfigDto } from '@config/config.dto'
+import { ConfigValidationModule } from '@config/config.module'
 import { Module } from '@nestjs/common'
 
 @Module({

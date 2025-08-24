@@ -1,5 +1,3 @@
-import { RecurlyConfigDto } from '../../../config/config.dto'
-import { InjectConfig } from '../../../config/config.provider'
 import { RECURLY_API_BASE_URL } from '../../v3.constants'
 import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
 import {
@@ -15,6 +13,8 @@ import {
 	RecurlyAccountBalance,
 	RecurlyExternalSubscriptionListResponse,
 } from './accounts.types'
+import { RecurlyConfigDto } from '@config/config.dto'
+import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
 
 @Injectable()

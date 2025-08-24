@@ -1,5 +1,3 @@
-import { RecurlyConfigDto } from '../../../config/config.dto'
-import { InjectConfig } from '../../../config/config.provider'
 import { RecurlyListCouponRedemptionsQueryDto } from '../../Customers/accounts/couponRedemption/couponRedemption.dto'
 import { RecurlyCouponRedemptionList } from '../../Customers/accounts/couponRedemption/couponRedemption.types'
 import { RECURLY_API_BASE_URL } from '../../v3.constants'
@@ -25,6 +23,8 @@ import {
 	RecurlyInvoiceListResponse,
 	RecurlyExternalInvoice,
 } from './invoice.types'
+import { RecurlyConfigDto } from '@config/config.dto'
+import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
 
 @Injectable()

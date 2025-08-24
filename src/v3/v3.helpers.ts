@@ -1,4 +1,4 @@
-import { RecurlyConfigDto } from '../config/config.dto'
+import { RecurlyConfigDto } from '@config/config.dto'
 import { Logger } from '@nestjs/common'
 
 export function getHeaders(config: RecurlyConfigDto, key?: string): Record<string, string> {
