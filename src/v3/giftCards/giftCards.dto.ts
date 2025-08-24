@@ -12,6 +12,7 @@ import {
 	Min,
 	IsEmail,
 } from 'class-validator'
+import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
 
 // List Gift Cards Query DTO
 export class RecurlyListGiftCardsQueryDto {
@@ -143,26 +144,6 @@ export class RecurlyAccountPurchaseDto {
 	@ValidateNested()
 	@Type(() => RecurlyAccountAcquisitionDto)
 	acquisition?: RecurlyAccountAcquisitionDto
-}
-
-// Account Acquisition DTO
-export class RecurlyAccountAcquisitionDto {
-	@IsOptional()
-	@ValidateNested()
-	@Type(() => RecurlyAccountAcquisitionCostDto)
-	cost?: RecurlyAccountAcquisitionCostDto
-
-	@IsOptional()
-	@IsString()
-	channel?: string
-
-	@IsOptional()
-	@IsString()
-	subchannel?: string
-
-	@IsOptional()
-	@IsString()
-	campaign?: string
 }
 
 // Account Acquisition Cost DTO

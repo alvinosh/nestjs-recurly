@@ -5,6 +5,7 @@ import { CouponModule } from './coupon/coupon.module'
 import { GiftCardModule } from './giftCards/giftCards.module'
 import { InvoiceModule } from './invoice/invoice.module'
 import { ItemModule } from './item/item.module'
+import { LineItemModule } from './lineItem/lineItem.module'
 import { MeasuredUnitModule } from './measuredUnit/measuredUnit.module'
 import { PlanModule } from './plan/plan.module'
 import { PriceSegmentModule } from './priceSegment/priceSegment.module'
@@ -18,6 +19,7 @@ import { Module } from '@nestjs/common'
 		AccountsModule,
 		ItemModule,
 		PlanModule,
+		LineItemModule,
 		MeasuredUnitModule,
 		CouponModule,
 		GiftCardModule,
@@ -30,6 +32,7 @@ import { Module } from '@nestjs/common'
 		AccountsModule,
 		ItemModule,
 		PlanModule,
+		LineItemModule,
 		MeasuredUnitModule,
 		CouponModule,
 		GiftCardModule,

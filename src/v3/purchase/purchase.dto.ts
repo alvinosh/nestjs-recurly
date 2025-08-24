@@ -11,80 +11,8 @@ import {
 	Min,
 	ValidateNested,
 } from 'class-validator'
-
-// Account Purchase DTO for creating purchases
-export class RecurlyAccountPurchaseDto {
-	@IsOptional()
-	@IsString()
-	id?: string
-
-	@IsOptional()
-	@IsString()
-	code?: string
-
-	@IsOptional()
-	@IsString()
-	email?: string
-
-	@IsOptional()
-	@IsString()
-	first_name?: string
-
-	@IsOptional()
-	@IsString()
-	last_name?: string
-
-	@IsOptional()
-	@IsString()
-	username?: string
-
-	@IsOptional()
-	@IsString()
-	company?: string
-
-	@IsOptional()
-	@IsString()
-	vat_number?: string
-
-	@IsOptional()
-	@IsString()
-	tax_exempt?: boolean
-
-	@IsOptional()
-	@IsString()
-	exemption_certificate?: string
-
-	@IsOptional()
-	@IsString()
-	parent_account_code?: string
-
-	@IsOptional()
-	@IsString()
-	parent_account_id?: string
-
-	@IsOptional()
-	@IsEnum(['self', 'parent'])
-	bill_to?: 'self' | 'parent'
-
-	@IsOptional()
-	@ValidateNested()
-	@Type(() => RecurlyBillingInfoDto)
-	billing_info?: RecurlyBillingInfoDto
-
-	@IsOptional()
-	@IsArray()
-	@ValidateNested({ each: true })
-	@Type(() => RecurlyCustomFieldDto)
-	custom_fields?: RecurlyCustomFieldDto[]
-
-	@IsOptional()
-	@IsString()
-	transaction_type?: 'moto'
-
-	@IsOptional()
-	@IsObject()
-	acquisition?: RecurlyAccountAcquisitionDto
-}
+import { RecurlyAddressDto } from '../v3.dtos'
+import { RecurlyAccountAcquisitionDto } from '../accounts/accounts.dto'
 
 // Billing Info DTO
 export class RecurlyBillingInfoDto {
@@ -224,11 +152,116 @@ export class RecurlyBillingInfoDto {
 	card_type?: string
 }
 
-// Address DTO
-export class RecurlyAddressDto {
+
+
+// Account Purchase DTO for creating purchases
+export class RecurlyAccountPurchaseDto {
+	@IsOptional()
+	@IsString()
+	id?: string
+
+	@IsOptional()
+	@IsString()
+	code?: string
+
+	@IsOptional()
+	@IsString()
+	email?: string
+
+	@IsOptional()
+	@IsString()
+	first_name?: string
+
+	@IsOptional()
+	@IsString()
+	last_name?: string
+
+	@IsOptional()
+	@IsString()
+	username?: string
+
+	@IsOptional()
+	@IsString()
+	company?: string
+
+	@IsOptional()
+	@IsString()
+	vat_number?: string
+
+	@IsOptional()
+	@IsString()
+	tax_exempt?: boolean
+
+	@IsOptional()
+	@IsString()
+	exemption_certificate?: string
+
+	@IsOptional()
+	@IsString()
+	parent_account_code?: string
+
+	@IsOptional()
+	@IsString()
+	parent_account_id?: string
+
+	@IsOptional()
+	@IsEnum(['self', 'parent'])
+	bill_to?: 'self' | 'parent'
+
+	@IsOptional()
+	@ValidateNested()
+	@Type(() => RecurlyBillingInfoDto)
+	billing_info?: RecurlyBillingInfoDto
+
+	@IsOptional()
+	@IsArray()
+	@ValidateNested({ each: true })
+	@Type(() => RecurlyCustomFieldDto)
+	custom_fields?: RecurlyCustomFieldDto[]
+
+	@IsOptional()
+	@IsString()
+	transaction_type?: 'moto'
+
+	@IsOptional()
+	@IsObject()
+	acquisition?: RecurlyAccountAcquisitionDto
+}
+
+// Custom Field DTO
+export class RecurlyCustomFieldDto {
+	@IsString()
+	name!: string
+
+	@IsString()
+	value!: string
+}
+
+// Shipping Address DTO
+export class RecurlyShippingAddressDto {
+	@IsOptional()
+	@IsString()
+	nickname?: string
+
+	@IsOptional()
+	@IsString()
+	first_name?: string
+
+	@IsOptional()
+	@IsString()
+	last_name?: string
+
 	@IsOptional()
 	@IsString()
 	phone?: string
+
+	@IsOptional()
+	@IsString()
+	email?: string
+
+	@IsOptional()
+	@IsString()
+	company?: string
 
 	@IsOptional()
 	@IsString()
@@ -256,47 +289,36 @@ export class RecurlyAddressDto {
 
 	@IsOptional()
 	@IsString()
+	vat_number?: string
+
+	@IsOptional()
+	@IsString()
 	geo_code?: string
 }
 
-// Custom Field DTO
-export class RecurlyCustomFieldDto {
-	@IsString()
-	name!: string
-
-	@IsString()
-	value!: string
-}
-
-// Account Acquisition DTO
-export class RecurlyAccountAcquisitionDto {
+// Subscription Shipping DTO
+export class RecurlySubscriptionShippingDto {
 	@IsOptional()
 	@IsObject()
-	cost?: RecurlyCostDto
+	address?: RecurlyShippingAddressDto
 
 	@IsOptional()
 	@IsString()
-	channel?: string
+	address_id?: string
 
 	@IsOptional()
 	@IsString()
-	subchannel?: string
+	method_code?: string
 
 	@IsOptional()
 	@IsString()
-	campaign?: string
-}
-
-// Cost DTO
-export class RecurlyCostDto {
-	@IsOptional()
-	@IsString()
-	currency?: string
+	method_id?: string
 
 	@IsOptional()
 	@IsNumber()
 	amount?: number
 }
+
 
 // Subscription Purchase DTO
 export class RecurlySubscriptionPurchaseDto {
@@ -480,87 +502,8 @@ export class RecurlyTierDto {
 	unit_amount_decimal?: string
 }
 
-// Subscription Shipping DTO
-export class RecurlySubscriptionShippingDto {
-	@IsOptional()
-	@IsObject()
-	address?: RecurlyShippingAddressDto
 
-	@IsOptional()
-	@IsString()
-	address_id?: string
 
-	@IsOptional()
-	@IsString()
-	method_code?: string
-
-	@IsOptional()
-	@IsString()
-	method_id?: string
-
-	@IsOptional()
-	@IsNumber()
-	amount?: number
-}
-
-// Shipping Address DTO
-export class RecurlyShippingAddressDto {
-	@IsOptional()
-	@IsString()
-	nickname?: string
-
-	@IsOptional()
-	@IsString()
-	first_name?: string
-
-	@IsOptional()
-	@IsString()
-	last_name?: string
-
-	@IsOptional()
-	@IsString()
-	phone?: string
-
-	@IsOptional()
-	@IsString()
-	email?: string
-
-	@IsOptional()
-	@IsString()
-	company?: string
-
-	@IsOptional()
-	@IsString()
-	street1?: string
-
-	@IsOptional()
-	@IsString()
-	street2?: string
-
-	@IsOptional()
-	@IsString()
-	city?: string
-
-	@IsOptional()
-	@IsString()
-	region?: string
-
-	@IsOptional()
-	@IsString()
-	postal_code?: string
-
-	@IsOptional()
-	@IsString()
-	country?: string
-
-	@IsOptional()
-	@IsString()
-	vat_number?: string
-
-	@IsOptional()
-	@IsString()
-	geo_code?: string
-}
 
 // Subscription Ramp Interval DTO
 export class RecurlySubscriptionRampIntervalDto {

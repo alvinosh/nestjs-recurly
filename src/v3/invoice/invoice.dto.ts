@@ -303,46 +303,6 @@ export class RecurlyCreateExternalInvoiceDto {
 	line_items?: any[]
 }
 
-// List Line Items Query DTO
-export class RecurlyListLineItemsQueryDto {
-	@IsOptional()
-	@IsArray()
-	@IsString({ each: true })
-	ids?: string[]
-
-	@IsOptional()
-	@IsNumber()
-	limit?: number
-
-	@IsOptional()
-	@IsEnum(['asc', 'desc'])
-	order?: 'asc' | 'desc'
-
-	@IsOptional()
-	@IsEnum(['created_at', 'updated_at'])
-	sort?: 'created_at' | 'updated_at'
-
-	@IsOptional()
-	@IsDateString()
-	begin_time?: string
-
-	@IsOptional()
-	@IsDateString()
-	end_time?: string
-
-	@IsOptional()
-	@IsString()
-	original?: string
-
-	@IsOptional()
-	@IsEnum(['charge', 'credit'])
-	type?: string
-
-	@IsOptional()
-	@IsString()
-	tax_exempt?: string
-}
-
 // List Transactions Query DTO
 export class RecurlyListTransactionsQueryDto {
 	@IsOptional()

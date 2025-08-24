@@ -10,6 +10,38 @@ import {
 	ValidateNested,
 } from 'class-validator'
 
+export class RecurlyPriceSegmentIdDto {
+	@IsOptional()
+	@IsString()
+	id?: string
+
+	@IsOptional()
+	@IsString()
+	code?: string
+}
+
+// Supporting DTOs
+export class RecurlyAccountCreateDto {
+	@IsString()
+	code!: string
+
+	@IsOptional()
+	@IsString()
+	email?: string
+
+	@IsOptional()
+	@IsString()
+	first_name?: string
+
+	@IsOptional()
+	@IsString()
+	last_name?: string
+
+	@IsOptional()
+	@IsString()
+	company?: string
+}
+
 // List Subscriptions Query DTO
 export class RecurlyListSubscriptionsQueryDto {
 	@IsOptional()
@@ -42,6 +74,81 @@ export class RecurlyListSubscriptionsQueryDto {
 	@IsEnum(['active', 'canceled', 'expired', 'future', 'in_trial', 'paused'], { each: true })
 	state?: ('active' | 'canceled' | 'expired' | 'future' | 'in_trial' | 'paused')[]
 }
+
+export class RecurlyShippingAddressCreateDto {
+	@IsOptional()
+	@IsString()
+	first_name?: string
+
+	@IsOptional()
+	@IsString()
+	last_name?: string
+
+	@IsOptional()
+	@IsString()
+	company?: string
+
+	@IsOptional()
+	@IsString()
+	email?: string
+
+	@IsOptional()
+	@IsString()
+	vat_number?: string
+
+	@IsOptional()
+	@IsString()
+	phone?: string
+
+	@IsString()
+	street1!: string
+
+	@IsOptional()
+	@IsString()
+	street2?: string
+
+	@IsString()
+	city!: string
+
+	@IsOptional()
+	@IsString()
+	region?: string
+
+	@IsString()
+	postal_code!: string
+
+	@IsString()
+	country!: string
+
+	@IsOptional()
+	@IsString()
+	geo_code?: string
+}
+
+
+export class RecurlySubscriptionShippingCreateDto {
+	@IsOptional()
+	@ValidateNested()
+	@Type(() => RecurlyShippingAddressCreateDto)
+	address?: RecurlyShippingAddressCreateDto
+
+	@IsOptional()
+	@IsString()
+	address_id?: string
+
+	@IsOptional()
+	@IsString()
+	method_code?: string
+
+	@IsOptional()
+	@IsString()
+	method_id?: string
+
+	@IsOptional()
+	@IsNumber()
+	amount?: number
+}
+
 
 // Create Subscription DTO
 export class RecurlySubscriptionCreateDto {
@@ -179,6 +286,20 @@ export class RecurlySubscriptionCreateDto {
 	transaction_type?: string
 }
 
+export class RecurlySubscriptionShippingUpdateDto {
+	@IsOptional()
+	@IsString()
+	method_code?: string
+
+	@IsOptional()
+	@IsString()
+	method_id?: string
+
+	@IsOptional()
+	@IsNumber()
+	amount?: number
+}
+
 // Update Subscription DTO
 export class RecurlySubscriptionUpdateDto {
 	@IsOptional()
@@ -254,110 +375,7 @@ export class RecurlySubscriptionUpdateDto {
 	billing_info_id?: string
 }
 
-// Supporting DTOs
-export class RecurlyAccountCreateDto {
-	@IsString()
-	code!: string
 
-	@IsOptional()
-	@IsString()
-	email?: string
-
-	@IsOptional()
-	@IsString()
-	first_name?: string
-
-	@IsOptional()
-	@IsString()
-	last_name?: string
-
-	@IsOptional()
-	@IsString()
-	company?: string
-}
-
-export class RecurlyPriceSegmentIdDto {
-	@IsOptional()
-	@IsString()
-	id?: string
-
-	@IsOptional()
-	@IsString()
-	code?: string
-}
-
-export class RecurlySubscriptionShippingCreateDto {
-	@IsOptional()
-	@ValidateNested()
-	@Type(() => RecurlyShippingAddressCreateDto)
-	address?: RecurlyShippingAddressCreateDto
-
-	@IsOptional()
-	@IsString()
-	address_id?: string
-
-	@IsOptional()
-	@IsString()
-	method_code?: string
-
-	@IsOptional()
-	@IsString()
-	method_id?: string
-
-	@IsOptional()
-	@IsNumber()
-	amount?: number
-}
-
-export class RecurlyShippingAddressCreateDto {
-	@IsOptional()
-	@IsString()
-	first_name?: string
-
-	@IsOptional()
-	@IsString()
-	last_name?: string
-
-	@IsOptional()
-	@IsString()
-	company?: string
-
-	@IsOptional()
-	@IsString()
-	email?: string
-
-	@IsOptional()
-	@IsString()
-	vat_number?: string
-
-	@IsOptional()
-	@IsString()
-	phone?: string
-
-	@IsString()
-	street1!: string
-
-	@IsOptional()
-	@IsString()
-	street2?: string
-
-	@IsString()
-	city!: string
-
-	@IsOptional()
-	@IsString()
-	region?: string
-
-	@IsString()
-	postal_code!: string
-
-	@IsString()
-	country!: string
-
-	@IsOptional()
-	@IsString()
-	geo_code?: string
-}
 
 export class RecurlySubscriptionAddOnCreateDto {
 	@IsString()
@@ -413,20 +431,6 @@ export class RecurlySubscriptionRampIntervalDto {
 
 	@IsNumber()
 	unit_amount!: number
-}
-
-export class RecurlySubscriptionShippingUpdateDto {
-	@IsOptional()
-	@IsString()
-	method_code?: string
-
-	@IsOptional()
-	@IsString()
-	method_id?: string
-
-	@IsOptional()
-	@IsNumber()
-	amount?: number
 }
 
 // Cancel Subscription DTO
