@@ -1,3 +1,5 @@
+import { RecurlyAccountMini } from '../accounts/accounts.types'
+import { RecurlyPlanMini } from '../plan/plan.types'
 import { RecurlyPriceSegmentIdOrCode } from '../priceSegment/priceSegment.types'
 
 // Subscription Types
@@ -64,26 +66,6 @@ export interface RecurlySubscriptionList {
 	has_more?: boolean
 	next?: string
 	data?: RecurlySubscription[]
-}
-
-export interface RecurlyAccountMini {
-	id?: string
-	object?: string
-	code?: string
-	email?: string
-	first_name?: string
-	last_name?: string
-	company?: string
-	parent_account_id?: string
-	bill_to?: string
-	dunning_campaign_id?: string
-}
-
-export interface RecurlyPlanMini {
-	id?: string
-	object?: string
-	code?: string
-	name?: string
 }
 
 export interface RecurlySubscriptionShipping {
