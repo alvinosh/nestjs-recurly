@@ -32,6 +32,7 @@ export { LedgerService } from './v3/Configuration/ledger/ledger.service'
 export { PerformanceObligationsService } from './v3/Configuration/performanceObligations/performanceObligations.service'
 export { ExternalInvoicesService } from './v3/AppManagement/externalInvoices/externalInvoices.service'
 export { ExternalProductService } from './v3/AppManagement/externalProduct/externalProduct.service'
+export { ExternalProductReferenceService } from './v3/AppManagement/externalProductReference/externalProductReference.service'
 export { ExternalSubscriptionService } from './v3/AppManagement/externalSubscription/externalSubscription.service'
 export { ExternalAccountService } from './v3/AppManagement/externalAccount/externalAccount.service'
 
@@ -285,6 +286,8 @@ export {
 	RecurlyExternalProductReferenceConnectionType,
 } from './v3/AppManagement/externalProduct/externalProduct.types'
 
+export { RecurlyExternalProductReferenceListResponse } from './v3/AppManagement/externalProductReference/externalProductReference.types'
+
 export {
 	RecurlyExternalInvoiceState,
 	RecurlyExternalInvoiceListResponse,
@@ -512,6 +515,9 @@ export {
 	RecurlyListExternalProductReferencesQueryDto,
 	RecurlyExternalProductReferenceBaseDto,
 } from './v3/AppManagement/externalProduct/externalProduct.dtos'
+
+// External Product Reference DTOs
+export { RecurlyCreateExternalProductReferenceDto } from './v3/AppManagement/externalProductReference/externalProductReference.dtos'
 
 // External Invoices DTOs
 export {
