@@ -30,8 +30,9 @@ export { DunningCampaignsService } from './v3/Configuration/dunningCampaigns/dun
 export { BusinessEntitiesService } from './v3/Configuration/businessEntities/businessEntities.service'
 export { LedgerService } from './v3/Configuration/ledger/ledger.service'
 export { PerformanceObligationsService } from './v3/Configuration/performanceObligations/performanceObligations.service'
-export { ExternalInvoicesService } from './v3/Configuration/externalInvoices/externalInvoices.service'
-export { ExternalSubscriptionService } from './v3/Configuration/externalSubscription/externalSubscription.service'
+export { ExternalInvoicesService } from './v3/AppManagement/externalInvoices/externalInvoices.service'
+export { ExternalProductService } from './v3/AppManagement/externalProduct/externalProduct.service'
+export { ExternalSubscriptionService } from './v3/AppManagement/externalSubscription/externalSubscription.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -268,14 +269,22 @@ export {
 	RecurlyExternalSubscriptionState,
 	RecurlyExternalProductReferenceMini,
 	RecurlyExternalPaymentPhase,
-} from './v3/Configuration/externalSubscription/externalSubscription.types'
+} from './v3/AppManagement/externalSubscription/externalSubscription.types'
+
+export {
+	RecurlyExternalProduct,
+	RecurlyExternalProductListResponse,
+	RecurlyExternalProductReferenceBase,
+	RecurlyExternalProductReferenceCollectionResponse,
+	RecurlyExternalProductReferenceConnectionType,
+} from './v3/AppManagement/externalProduct/externalProduct.types'
 
 export {
 	RecurlyExternalInvoiceState,
 	RecurlyExternalInvoiceListResponse,
 	RecurlyExternalCharge,
 	RecurlyExternalPaymentPhaseBase,
-} from './v3/Configuration/externalInvoices/externalInvoices.types'
+} from './v3/AppManagement/externalInvoices/externalInvoices.types'
 
 // Purchase Types
 export {
@@ -481,11 +490,20 @@ export {
 	RecurlyAccountExternalSubscriptionDto,
 	RecurlyExternalProductReferenceCreateDto,
 	RecurlyExternalProductReferenceUpdateDto,
-} from './v3/Configuration/externalSubscription/externalSubscription.dtos'
+} from './v3/AppManagement/externalSubscription/externalSubscription.dtos'
+
+// External Product DTOs
+export {
+	RecurlyListExternalProductsQueryDto,
+	RecurlyCreateExternalProductDto,
+	RecurlyUpdateExternalProductDto,
+	RecurlyListExternalProductReferencesQueryDto,
+	RecurlyExternalProductReferenceBaseDto,
+} from './v3/AppManagement/externalProduct/externalProduct.dtos'
 
 // External Invoices DTOs
 export {
 	RecurlyListExternalInvoicesQueryDto,
 	RecurlyExternalChargeCreateDto,
 	RecurlyExternalPaymentPhaseBaseDto,
-} from './v3/Configuration/externalInvoices/externalInvoices.dtos'
+} from './v3/AppManagement/externalInvoices/externalInvoices.dtos'
