@@ -37,7 +37,7 @@ describe('PerformanceObligationsService', () => {
 				}
 			} catch (error: any) {
 				// Performance Obligations require Recurly RevRec feature
-				if (error.message.includes('422')) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Performance Obligations feature not enabled - skipping test')
 					return
 				}
@@ -60,7 +60,7 @@ describe('PerformanceObligationsService', () => {
 				expect(performanceObligation.name).toBeDefined()
 			} catch (error: any) {
 				// Performance Obligations require Recurly RevRec feature
-				if (error.message.includes('422')) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Performance Obligations feature not enabled - skipping test')
 					return
 				}
@@ -80,7 +80,7 @@ describe('PerformanceObligationsService', () => {
 				expect(Array.isArray(performanceObligations.data)).toBe(true)
 			} catch (error: any) {
 				// Performance Obligations require Recurly RevRec feature
-				if (error.message.includes('422')) {
+				if (error instanceof Error && error.message.includes('422')) {
 					console.warn('Performance Obligations feature not enabled - skipping test')
 					return
 				}
