@@ -1,6 +1,7 @@
 import { BusinessEntitiesModule } from './Configuration/businessEntities/businessEntities.module'
 import { CustomFieldDefinitionModule } from './Configuration/customFieldDefinition/customFieldDefinition.module'
 import { DunningCampaignsModule } from './Configuration/dunningCampaigns/dunningCampaigns.module'
+import { ExternalSubscriptionModule } from './Configuration/externalSubscription/externalSubscription.module'
 import { LedgerModule } from './Configuration/ledger/ledger.module'
 import { PerformanceObligationsModule } from './Configuration/performanceObligations/performanceObligations.module'
 import { ShippingMethodModule } from './Configuration/shippingMethod/shippingMethod.module'
@@ -43,6 +44,7 @@ import { Module } from '@nestjs/common'
 		CustomFieldDefinitionModule,
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
+		ExternalSubscriptionModule,
 		LedgerModule,
 		PerformanceObligationsModule,
 	],
@@ -65,6 +67,7 @@ import { Module } from '@nestjs/common'
 		CustomFieldDefinitionModule,
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
+		ExternalSubscriptionModule,
 		LedgerModule,
 		PerformanceObligationsModule,
 	],
