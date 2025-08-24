@@ -1,8 +1,8 @@
+import { canTest } from '../../v3.helpers'
+import { RecurlyV3Module } from '../../v3.module'
 import { RecurlyCreateShippingMethodDto, RecurlyUpdateShippingMethodDto } from './shippingMethod.dtos'
 import { ShippingMethodService } from './shippingMethod.service'
 import { RecurlyShippingMethod } from './shippingMethod.types'
-import { canTest } from '../../v3.helpers'
-import { RecurlyV3Module } from '../../v3.module'
 import { ConfigModule } from '@nestjs/config'
 import { Test, TestingModule } from '@nestjs/testing'
 
