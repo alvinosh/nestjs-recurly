@@ -23,6 +23,7 @@ export { PurchaseService } from './v3/Customers/purchase/purchase.service'
 export { GiftCardService } from './v3/Customers/giftCards/giftCards.service'
 export { InvoiceService } from './v3/InvoicesPayments/invoice/invoice.service'
 export { LineItemService } from './v3/InvoicesPayments/lineItem/lineItem.service'
+export { SiteService } from './v3/Configuration/site/site.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -198,6 +199,18 @@ export {
 	RecurlyLineItemListResponse,
 } from './v3/InvoicesPayments/lineItem/lineItem.types'
 
+// Site Types
+export {
+	RecurlySite,
+	RecurlySiteMini,
+	RecurlySiteListResponse,
+	RecurlySiteMode,
+	RecurlySiteFeature,
+	RecurlyBillingAddressRequirement,
+	RecurlyAddress as RecurlySiteAddress,
+	RecurlySiteSettings,
+} from './v3/Configuration/site/site.types'
+
 // Purchase Types
 export {
 	RecurlyBillingAddress,
@@ -364,3 +377,6 @@ export {
 } from './v3/InvoicesPayments/invoice/invoice.dto'
 
 export { RecurlyListLineItemsQueryDto, RecurlyCreateLineItemDto } from './v3/InvoicesPayments/lineItem/lineItem.dtos'
+
+// Site DTOs
+export { RecurlyListSitesQueryDto } from './v3/Configuration/site/site.dtos'
