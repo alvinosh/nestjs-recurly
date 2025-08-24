@@ -1,5 +1,6 @@
 import { ExternalAccountModule } from './AppManagement/externalAccount/externalAccount.module'
 import { ExternalInvoicesModule } from './AppManagement/externalInvoices/externalInvoices.module'
+import { ExternalPaymentPhaseModule } from './AppManagement/externalPaymentPhase/externalPaymentPhase.module'
 import { ExternalProductModule } from './AppManagement/externalProduct/externalProduct.module'
 import { ExternalProductReferenceModule } from './AppManagement/externalProductReference/externalProductReference.module'
 import { ExternalSubscriptionModule } from './AppManagement/externalSubscription/externalSubscription.module'
@@ -49,6 +50,7 @@ import { Module } from '@nestjs/common'
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
 		ExternalInvoicesModule,
+		ExternalPaymentPhaseModule,
 		ExternalProductModule,
 		ExternalProductReferenceModule,
 		ExternalSubscriptionModule,
@@ -76,6 +78,7 @@ import { Module } from '@nestjs/common'
 		DunningCampaignsModule,
 		BusinessEntitiesModule,
 		ExternalInvoicesModule,
+		ExternalPaymentPhaseModule,
 		ExternalProductModule,
 		ExternalProductReferenceModule,
 		ExternalSubscriptionModule,

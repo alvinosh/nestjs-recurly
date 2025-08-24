@@ -31,6 +31,7 @@ export { BusinessEntitiesService } from './v3/Configuration/businessEntities/bus
 export { LedgerService } from './v3/Configuration/ledger/ledger.service'
 export { PerformanceObligationsService } from './v3/Configuration/performanceObligations/performanceObligations.service'
 export { ExternalInvoicesService } from './v3/AppManagement/externalInvoices/externalInvoices.service'
+export { ExternalPaymentPhaseService } from './v3/AppManagement/externalPaymentPhase/externalPaymentPhase.service'
 export { ExternalProductService } from './v3/AppManagement/externalProduct/externalProduct.service'
 export { ExternalProductReferenceService } from './v3/AppManagement/externalProductReference/externalProductReference.service'
 export { ExternalSubscriptionService } from './v3/AppManagement/externalSubscription/externalSubscription.service'
@@ -274,6 +275,11 @@ export {
 } from './v3/AppManagement/externalSubscription/externalSubscription.types'
 
 export {
+	RecurlyExternalPaymentPhase as RecurlyExternalPaymentPhaseStandalone,
+	RecurlyExternalPaymentPhaseListResponse,
+} from './v3/AppManagement/externalPaymentPhase/externalPaymentPhase.types'
+
+export {
 	RecurlyExternalAccount,
 	RecurlyExternalAccountListResponse,
 } from './v3/AppManagement/externalAccount/externalAccount.types'
@@ -500,6 +506,9 @@ export {
 	RecurlyExternalProductReferenceCreateDto,
 	RecurlyExternalProductReferenceUpdateDto,
 } from './v3/AppManagement/externalSubscription/externalSubscription.dtos'
+
+// External Payment Phase DTOs
+export { RecurlyListExternalPaymentPhasesQueryDto } from './v3/AppManagement/externalPaymentPhase/externalPaymentPhase.dtos'
 
 // External Account DTOs
 export {
