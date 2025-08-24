@@ -1,10 +1,10 @@
-import { ConfigValidationModule } from '@/config/config.module'
 import { ShippingMethodService } from './shippingMethod.service'
-import { Module } from '@nestjs/common'
 import { RecurlyConfigDto } from '@/config/config.dto'
+import { ConfigValidationModule } from '@/config/config.module'
+import { Module } from '@nestjs/common'
 
 @Module({
-    imports: [ConfigValidationModule.register(RecurlyConfigDto)],
+	imports: [ConfigValidationModule.register(RecurlyConfigDto)],
 	providers: [ShippingMethodService],
 	exports: [ShippingMethodService],
 })

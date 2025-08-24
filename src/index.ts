@@ -26,6 +26,7 @@ export { LineItemService } from './v3/InvoicesPayments/lineItem/lineItem.service
 export { SiteService } from './v3/Configuration/site/site.service'
 export { CustomFieldDefinitionService } from './v3/Configuration/customFieldDefinition/customFieldDefinition.service'
 export { ShippingMethodService } from './v3/Configuration/shippingMethod/shippingMethod.service'
+export { DunningCampaignsService } from './v3/Configuration/dunningCampaigns/dunningCampaigns.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
@@ -227,6 +228,16 @@ export {
 	RecurlyShippingMethodListResponse,
 } from './v3/Configuration/shippingMethod/shippingMethod.types'
 
+// Dunning Campaigns Types
+export {
+	RecurlyDunningCampaign,
+	RecurlyDunningCampaignListResponse,
+	RecurlyDunningCycle,
+	RecurlyDunningInterval,
+	RecurlyDunningCycleType,
+	RecurlyDunningCampaignsBulkUpdateResponse,
+} from './v3/Configuration/dunningCampaigns/dunningCampaigns.types'
+
 // Purchase Types
 export {
 	RecurlyBillingAddress,
@@ -406,3 +417,9 @@ export {
 	RecurlyCreateShippingMethodDto,
 	RecurlyUpdateShippingMethodDto,
 } from './v3/Configuration/shippingMethod/shippingMethod.dtos'
+
+// Dunning Campaigns DTOs
+export {
+	RecurlyListDunningCampaignsQueryDto,
+	RecurlyDunningCampaignsBulkUpdateDto,
+} from './v3/Configuration/dunningCampaigns/dunningCampaigns.dtos'

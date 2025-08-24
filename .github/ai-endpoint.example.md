@@ -1,18 +1,19 @@
-I am looking to extend this Recurly NestJS API wrapper to include Shipping Method
+I am looking to extend this Recurly NestJS API wrapper to include Dunning Campaigns
 
-API documentation: https://recurly.com/developers/api/v2021-02-25/#tag/shipping_method 
+API documentation: https://recurly.com/developers/api/v2021-02-25/#tag/dunning_campaigns
+
 Local swagger downloaded version: `./recurly-api-spec.yaml`
 
-Before starting the work you should create a branch `api-endpoint-shipping-method` and ensure all development happens on that feature branch.
+Before starting the work you should create a branch `api-endpoint-dunning-campaigns` and ensure all development happens on that feature branch.
 
 You should use `src/v3/Configuration/site/*` as a template
 
-1. Create a new folder `src/v3/Configuration/shippingMethod` for the new files
-2. Create the `src/v3/Configuration/shippingMethod/shippingMethod.types.ts` using the response entities from the API documentation. All type names should start with Recurly to help differentiate them in the clients applications. 
-3. Create the `src/v3/Configuration/shippingMethod/shippingMethod.dtos.ts` using the API request Query/Body data from the API documentation. All DTOs names should start with Recurly to help differentiate them in the clients applications. 
-4. Create the `src/v3/Configuration/shippingMethod/shippingMethod.service.ts` creating the actions for each endpoint in the API documentation, using the types, dtos etc, each endpoint should have a corresponding function, also accept API key as a param if clients want to pass at runtime. 
-5. Create the `src/v3/Configuration/shippingMethod/shippingMethod.module.ts` for bringing everything together.
-6. Create the `src/v3/Configuration/shippingMethod/shippingMethod.test.spec.ts` creating tests for each of the functions in the service file, ensure the tests pass successfully. Test should be created in the following CRUD order (create, read, update, delete) to ensure each service has data to pass to the others. Updates & Deletes should also read to ensure the change happened. Tests should call the relevant service functions and NOT mock responses. 
+1. Create a new folder `src/v3/Configuration/dunningCampaigns` for the new files
+2. Create the `src/v3/Configuration/dunningCampaigns/dunningCampaigns.types.ts` using the response entities from the API documentation. All type names should start with Recurly to help differentiate them in the clients applications. 
+3. Create the `src/v3/Configuration/dunningCampaigns/dunningCampaigns.dtos.ts` using the API request Query/Body data from the API documentation. All DTOs names should start with Recurly to help differentiate them in the clients applications. 
+4. Create the `src/v3/Configuration/dunningCampaigns/dunningCampaigns.service.ts` creating the actions for each endpoint in the API documentation, using the types, dtos etc, each endpoint should have a corresponding function, also accept API key as a param if clients want to pass at runtime. 
+5. Create the `src/v3/Configuration/dunningCampaigns/dunningCampaigns.module.ts` for bringing everything together.
+6. Create the `src/v3/Configuration/dunningCampaigns/dunningCampaigns.test.spec.ts` creating tests for each of the functions in the service file, ensure the tests pass successfully. Test should be created in the following CRUD order (create, read, update, delete) to ensure each service has data to pass to the others. Updates & Deletes should also read to ensure the change happened. Tests should call the relevant service functions and NOT mock responses. 
 7. Include the new module in the main `src/v3/v3.module.ts` file as an import and export
 8. Add the new service, types and DTOs as exports to the main `src/index.ts` file
 9. Run lint and fix any linting issues (`npm run lint`)
