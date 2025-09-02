@@ -1,12 +1,10 @@
-import { RecurlyInvoiceCollection } from '../../InvoicesPayments/invoice/invoice.types'
+import type { RecurlyInvoiceCollection } from '../../InvoicesPayments/invoice/invoice.types'
 import { RecurlyPlanMini } from '../../ProductsPromotions/plan/plan.types'
 import { RecurlyPriceSegmentIdOrCode } from '../../ProductsPromotions/priceSegment/priceSegment.types'
 import { RecurlyCustomField } from '../../v3.types'
 import { RecurlyAccountMini } from '../accounts/accounts.types'
 import { RecurlyShippingAddress } from '../accounts/shippingAddress/shippingAddress.types'
 import { RecurlyShippingMethodMini } from '@/v3/Configuration/shippingMethod/shippingMethod.types'
-
-// Subscription Types
 
 // Subscription Types
 export interface RecurlySubscription {
