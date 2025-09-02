@@ -1,3 +1,4 @@
+import type { RecurlyInvoiceCollection } from '../../InvoicesPayments/invoice/invoice.types'
 import { RecurlyPlanMini } from '../../ProductsPromotions/plan/plan.types'
 import { RecurlyPriceSegmentIdOrCode } from '../../ProductsPromotions/priceSegment/priceSegment.types'
 import { RecurlyCustomField } from '../../v3.types'
@@ -126,6 +127,7 @@ export interface RecurlySubscriptionChange {
 	custom_fields?: RecurlyCustomField[]
 	created_at?: string
 	updated_at?: string
+	invoice_collection?: RecurlyInvoiceCollection
 }
 
 export interface RecurlySubscriptionAddOn {
