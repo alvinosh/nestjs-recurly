@@ -1,10 +1,11 @@
+import { RecurlyShippingMethodMini } from '../../Configuration/shippingMethod/shippingMethod.types'
+import { RecurlyCouponRedemptionMini } from '../../Customers/accounts/couponRedemption/couponRedemption.types'
 import type { RecurlyInvoiceCollection } from '../../InvoicesPayments/invoice/invoice.types'
 import { RecurlyPlanMini } from '../../ProductsPromotions/plan/plan.types'
 import { RecurlyPriceSegmentIdOrCode } from '../../ProductsPromotions/priceSegment/priceSegment.types'
 import { RecurlyCustomField } from '../../v3.types'
 import { RecurlyAccountMini } from '../accounts/accounts.types'
 import { RecurlyShippingAddress } from '../accounts/shippingAddress/shippingAddress.types'
-import { RecurlyShippingMethodMini } from '@/v3/Configuration/shippingMethod/shippingMethod.types'
 
 // Subscription Types
 export interface RecurlySubscription {
@@ -76,40 +77,6 @@ export interface RecurlySubscriptionShipping {
 	address?: RecurlyShippingAddress
 	method?: RecurlyShippingMethodMini
 	amount?: number
-}
-
-export interface RecurlyCouponRedemptionMini {
-	id?: string
-	object?: string
-	coupon?: RecurlyCouponMini
-	discounted_amount?: number
-}
-
-export interface RecurlyCouponMini {
-	id?: string
-	object?: string
-	code?: string
-	name?: string
-	state?: string
-	discount?: RecurlyDiscount
-	expired_at?: string
-}
-
-export interface RecurlyDiscount {
-	type?: string
-	percent?: number
-	currencies?: RecurlyCurrencyAmount[]
-	trial?: RecurlyTrial
-}
-
-export interface RecurlyCurrencyAmount {
-	currency?: string
-	amount?: number
-}
-
-export interface RecurlyTrial {
-	unit?: string
-	length?: number
 }
 
 export interface RecurlySubscriptionChange {

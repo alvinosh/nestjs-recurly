@@ -19,13 +19,13 @@ export interface RecurlyCouponDiscount {
 }
 
 export interface RecurlyCouponMini {
-	id: string
-	object: string
-	code: string
-	name: string
-	state: 'expired' | 'maxed_out' | 'redeemable'
-	discount: RecurlyCouponDiscount
-	coupon_type: 'bulk' | 'single_code'
+	id?: string
+	object?: string
+	code?: string
+	name?: string
+	state?: 'expired' | 'maxed_out' | 'redeemable'
+	discount?: RecurlyCouponDiscount
+	coupon_type?: 'bulk' | 'single_code'
 	expired_at?: string
 }
 

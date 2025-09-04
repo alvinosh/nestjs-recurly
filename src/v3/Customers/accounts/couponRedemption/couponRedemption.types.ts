@@ -19,6 +19,7 @@ export interface RecurlyCouponRedemptionMini {
 	id: string
 	object: string
 	coupon: RecurlyCouponMini
+	discounted?: number
 }
 
 export interface RecurlyCouponRedemptionList {
