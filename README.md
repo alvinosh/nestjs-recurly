@@ -61,3 +61,11 @@ Standard accounts don't come with features:
 * wallet feature
 
 Therefore some tests have been disabled
+
+## EU Accounts
+
+By default the package works with the default US based recurly API URL, if you are using an EU or alternative instance you should either pass the `apiLocation` with the request or set `RECURLY_API_LOCATION` in your env file e.g.
+
+```
+RECURLY_API_LOCATION=eu
+```

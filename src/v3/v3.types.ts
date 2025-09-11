@@ -83,3 +83,8 @@ export type RecurlyCardNetworkPreference = 'Bancontact' | 'other'
 export type RecurlyBankAccountType = 'bacs' | 'checking' | 'savings'
 
 export type RecurlyAcquisitionChannel = 'advertising' | 'social_media' | 'email' | 'blog' | 'other'
+
+export enum RecurlyAPILocation {
+	us = 'us',
+	eu = 'eu',
+}

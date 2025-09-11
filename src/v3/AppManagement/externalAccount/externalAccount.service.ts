@@ -1,5 +1,6 @@
+import { RecurlyAPILocation } from '@/v3/v3.types'
 import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyCreateExternalAccountDto, RecurlyUpdateExternalAccountDto } from './externalAccount.dtos'
 import { RecurlyExternalAccount, RecurlyExternalAccountListResponse } from './externalAccount.types'
 import { RecurlyConfigDto } from '@config/config.dto'
@@ -12,8 +13,8 @@ export class ExternalAccountService {
 
 	constructor(@InjectConfig(RecurlyConfigDto) private readonly config: RecurlyConfigDto) {}
 
-	async listAccountExternalAccounts(accountId: string, apiKey?: string): Promise<RecurlyExternalAccountListResponse> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/external_accounts`
+	async listAccountExternalAccounts(accountId: string, apiKey?: string, apiLocation?: RecurlyAPILocation): Promise<RecurlyExternalAccountListResponse> {
+		const url = `${getBaseUrl(this.config, apiLocation)}/accounts/${accountId}/external_accounts`
 
 		const response = await fetch(url, {
 			method: 'GET',
@@ -28,9 +29,10 @@ export class ExternalAccountService {
 		accountId: string,
 		externalAccountId: string,
 		apiKey?: string,
+		apiLocation?: RecurlyAPILocation,
 	): Promise<RecurlyExternalAccount> {
 		const response = await fetch(
-			`${RECURLY_API_BASE_URL}/accounts/${accountId}/external_accounts/${externalAccountId}`,
+			`${getBaseUrl(this.config, apiLocation)}/accounts/${accountId}/external_accounts/${externalAccountId}`,
 			{
 				method: 'GET',
 				headers: getHeaders(this.config, apiKey),
@@ -45,8 +47,9 @@ export class ExternalAccountService {
 		accountId: string,
 		data: RecurlyCreateExternalAccountDto,
 		apiKey?: string,
+		apiLocation?: RecurlyAPILocation,
 	): Promise<RecurlyExternalAccount> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/external_accounts`, {
+		const response = await fetch(`${getBaseUrl(this.config, apiLocation)}/accounts/${accountId}/external_accounts`, {
 			method: 'POST',
 			headers: getHeaders(this.config, apiKey),
 			body: JSON.stringify(data),
@@ -61,9 +64,10 @@ export class ExternalAccountService {
 		externalAccountId: string,
 		data: RecurlyUpdateExternalAccountDto,
 		apiKey?: string,
+		apiLocation?: RecurlyAPILocation,
 	): Promise<RecurlyExternalAccount> {
 		const response = await fetch(
-			`${RECURLY_API_BASE_URL}/accounts/${accountId}/external_accounts/${externalAccountId}`,
+			`${getBaseUrl(this.config, apiLocation)}/accounts/${accountId}/external_accounts/${externalAccountId}`,
 			{
 				method: 'PUT',
 				headers: getHeaders(this.config, apiKey),
@@ -79,9 +83,10 @@ export class ExternalAccountService {
 		accountId: string,
 		externalAccountId: string,
 		apiKey?: string,
+		apiLocation?: RecurlyAPILocation,
 	): Promise<RecurlyExternalAccount> {
 		const response = await fetch(
-			`${RECURLY_API_BASE_URL}/accounts/${accountId}/external_accounts/${externalAccountId}`,
+			`${getBaseUrl(this.config, apiLocation)}/accounts/${accountId}/external_accounts/${externalAccountId}`,
 			{
 				method: 'DELETE',
 				headers: getHeaders(this.config, apiKey),
