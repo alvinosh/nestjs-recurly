@@ -88,3 +88,8 @@ export enum RecurlyAPILocation {
 	us = 'us',
 	eu = 'eu',
 }
+
+export type RecurlyAPIConnection = {
+	key: string
+	location?: RecurlyAPILocation
+}
