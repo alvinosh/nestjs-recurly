@@ -1,11 +1,11 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import {
 	RecurlyListShippingMethodsQueryDto,
 	RecurlyCreateShippingMethodDto,
 	RecurlyUpdateShippingMethodDto,
 } from './shippingMethod.dtos'
 import { RecurlyShippingMethod, RecurlyShippingMethodListResponse } from './shippingMethod.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -18,9 +18,9 @@ export class ShippingMethodService {
 
 	async listShippingMethods(
 		params?: RecurlyListShippingMethodsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyShippingMethodListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/shipping_methods`
+		let url = `${getBaseUrl(this.config, config?.location)}/shipping_methods`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -28,27 +28,33 @@ export class ShippingMethodService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Shipping Methods')
 		return (await response.json()) as RecurlyShippingMethodListResponse
 	}
 
-	async getShippingMethod(shippingMethodId: string, apiKey?: string): Promise<RecurlyShippingMethod> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/shipping_methods/${shippingMethodId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async getShippingMethod(shippingMethodId: string, config?: RecurlyAPIConnection): Promise<RecurlyShippingMethod> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/shipping_methods/${shippingMethodId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get Shipping Method')
 		return (await response.json()) as RecurlyShippingMethod
 	}
 
-	async createShippingMethod(data: RecurlyCreateShippingMethodDto, apiKey?: string): Promise<RecurlyShippingMethod> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/shipping_methods`, {
+	async createShippingMethod(
+		data: RecurlyCreateShippingMethodDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyShippingMethod> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/shipping_methods`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -59,23 +65,32 @@ export class ShippingMethodService {
 	async updateShippingMethod(
 		shippingMethodId: string,
 		data: RecurlyUpdateShippingMethodDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyShippingMethod> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/shipping_methods/${shippingMethodId}`, {
-			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify(data),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/shipping_methods/${shippingMethodId}`,
+			{
+				method: 'PUT',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify(data),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Update Shipping Method')
 		return (await response.json()) as RecurlyShippingMethod
 	}
 
-	async deactivateShippingMethod(shippingMethodId: string, apiKey?: string): Promise<RecurlyShippingMethod> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/shipping_methods/${shippingMethodId}`, {
-			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async deactivateShippingMethod(
+		shippingMethodId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyShippingMethod> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/shipping_methods/${shippingMethodId}`,
+			{
+				method: 'DELETE',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Deactivate Shipping Method')
 		return (await response.json()) as RecurlyShippingMethod

@@ -1,9 +1,9 @@
 import { RecurlyListBusinessEntityInvoicesQueryDto } from '../../InvoicesPayments/invoice/invoice.dto'
 import { RecurlyInvoiceListResponse } from '../../InvoicesPayments/invoice/invoice.types'
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyListBusinessEntitiesQueryDto } from './businessEntities.dtos'
 import { RecurlyBusinessEntity, RecurlyBusinessEntityListResponse } from './businessEntities.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -19,9 +19,9 @@ export class BusinessEntitiesService {
 	 */
 	async listBusinessEntities(
 		params?: RecurlyListBusinessEntitiesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyBusinessEntityListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/business_entities`
+		let url = `${getBaseUrl(this.config, config?.location)}/business_entities`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -29,7 +29,7 @@ export class BusinessEntitiesService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Business Entities')
@@ -39,11 +39,14 @@ export class BusinessEntitiesService {
 	/**
 	 * Get a specific business entity by ID or code
 	 */
-	async getBusinessEntity(businessEntityId: string, apiKey?: string): Promise<RecurlyBusinessEntity> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/business_entities/${businessEntityId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async getBusinessEntity(businessEntityId: string, config?: RecurlyAPIConnection): Promise<RecurlyBusinessEntity> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/business_entities/${businessEntityId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get Business Entity')
 		return (await response.json()) as RecurlyBusinessEntity
@@ -55,9 +58,9 @@ export class BusinessEntitiesService {
 	async listBusinessEntityInvoices(
 		businessEntityId: string,
 		params?: RecurlyListBusinessEntityInvoicesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/business_entities/${businessEntityId}/invoices`
+		let url = `${getBaseUrl(this.config, config?.location)}/business_entities/${businessEntityId}/invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -65,7 +68,7 @@ export class BusinessEntitiesService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Business Entity Invoices')

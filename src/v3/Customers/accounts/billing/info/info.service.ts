@@ -1,8 +1,8 @@
 import { RecurlyTransaction } from '../../../../InvoicesPayments/transaction/transaction.types'
-import { RECURLY_API_BASE_URL } from '../../../../v3.constants'
-import { checkResponseIsOk, getHeaders } from '../../../../v3.helpers'
+import { checkResponseIsOk, getBaseUrl, getHeaders } from '../../../../v3.helpers'
 import { RecurlyUpdateBillingInfoDto, RecurlyVerifyBillingInfoDto, RecurlyVerifyBillingInfoCvvDto } from './info.dto'
 import { RecurlyBillingInfo } from './info.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -19,9 +19,9 @@ export class BillingInfoService {
 	 * @param apiKey Optional API key to override the default
 	 * @returns The account's billing information
 	 */
-	async getBillingInfo(accountId: string, apiKey?: string): Promise<RecurlyBillingInfo> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_info`
-		const headers = getHeaders(this.config, apiKey)
+	async getBillingInfo(accountId: string, config?: RecurlyAPIConnection): Promise<RecurlyBillingInfo> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_info`
+		const headers = getHeaders(this.config, config?.key)
 
 		const response = await fetch(url, {
 			method: 'GET',
@@ -44,10 +44,10 @@ export class BillingInfoService {
 	async updateBillingInfo(
 		accountId: string,
 		billingInfo: RecurlyUpdateBillingInfoDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyBillingInfo> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_info`
-		const headers = getHeaders(this.config, apiKey)
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_info`
+		const headers = getHeaders(this.config, config?.key)
 
 		const response = await fetch(url, {
 			method: 'PUT',
@@ -66,9 +66,9 @@ export class BillingInfoService {
 	 * @param accountId Account ID or code (for code use prefix `code-`)
 	 * @param apiKey Optional API key to override the default
 	 */
-	async removeBillingInfo(accountId: string, apiKey?: string): Promise<void> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_info`
-		const headers = getHeaders(this.config, apiKey)
+	async removeBillingInfo(accountId: string, config?: RecurlyAPIConnection): Promise<void> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_info`
+		const headers = getHeaders(this.config, config?.key)
 
 		const response = await fetch(url, {
 			method: 'DELETE',
@@ -88,10 +88,10 @@ export class BillingInfoService {
 	async verifyBillingInfo(
 		accountId: string,
 		verifyData?: RecurlyVerifyBillingInfoDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransaction> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_info/verify`
-		const headers = getHeaders(this.config, apiKey)
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_info/verify`
+		const headers = getHeaders(this.config, config?.key)
 
 		const response = await fetch(url, {
 			method: 'POST',
@@ -115,10 +115,10 @@ export class BillingInfoService {
 	async verifyBillingInfoCvv(
 		accountId: string,
 		verifyData: RecurlyVerifyBillingInfoCvvDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransaction> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_info/verify_cvv`
-		const headers = getHeaders(this.config, apiKey)
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_info/verify_cvv`
+		const headers = getHeaders(this.config, config?.key)
 
 		const response = await fetch(url, {
 			method: 'POST',

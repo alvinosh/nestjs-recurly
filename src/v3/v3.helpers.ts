@@ -1,3 +1,5 @@
+import { RECURLY_API_BASE_URL, RECURLY_API_EU_BASE_URL } from './v3.constants'
+import { RecurlyAPILocation } from './v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { Logger } from '@nestjs/common'
 
@@ -14,6 +16,24 @@ export function getHeaders(config: RecurlyConfigDto, key?: string): Record<strin
 		Accept: 'application/vnd.recurly.v2021-02-25',
 		'Content-Type': 'application/json',
 		'Accept-Language': config.RECURLY_ACCEPT_LANGUAGE || 'en-US',
+	}
+}
+
+export function getBaseUrl(config: RecurlyConfigDto, apiLocation?: RecurlyAPILocation): string {
+	let location = RecurlyAPILocation.us
+
+	if (apiLocation) {
+		location = apiLocation
+	} else if (config.RECURLY_API_LOCATION) {
+		location = config.RECURLY_API_LOCATION
+	}
+
+	switch (location) {
+		case RecurlyAPILocation.eu:
+			return RECURLY_API_EU_BASE_URL
+		case RecurlyAPILocation.us:
+		default:
+			return RECURLY_API_BASE_URL
 	}
 }
 

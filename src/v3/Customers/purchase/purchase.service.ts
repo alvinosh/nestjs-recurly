@@ -1,7 +1,7 @@
 import { RecurlyInvoiceCollection } from '../../InvoicesPayments/invoice/invoice.types'
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyPurchaseCreateDto } from './purchase.dto'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -16,10 +16,13 @@ export class PurchaseService {
 	 * Create a new purchase
 	 * A purchase is a checkout containing at least one or more subscriptions or one-time charges
 	 */
-	async createPurchase(data: RecurlyPurchaseCreateDto, apiKey?: string): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/purchases`, {
+	async createPurchase(
+		data: RecurlyPurchaseCreateDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoiceCollection> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/purchases`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -31,10 +34,13 @@ export class PurchaseService {
 	 * Preview a new purchase
 	 * Returns preview of the new invoices without creating them
 	 */
-	async previewPurchase(data: RecurlyPurchaseCreateDto, apiKey?: string): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/purchases/preview`, {
+	async previewPurchase(
+		data: RecurlyPurchaseCreateDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoiceCollection> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/purchases/preview`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -47,10 +53,13 @@ export class PurchaseService {
 	 * Use for Adyen HPP and Online Banking transaction requests
 	 * This runs the validations but not the transactions
 	 */
-	async createPendingPurchase(data: RecurlyPurchaseCreateDto, apiKey?: string): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/purchases/pending`, {
+	async createPendingPurchase(
+		data: RecurlyPurchaseCreateDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoiceCollection> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/purchases/pending`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -62,10 +71,13 @@ export class PurchaseService {
 	 * Authorize a purchase
 	 * Creates a pending purchase that can be activated later once payment has been completed on an external source
 	 */
-	async authorizePurchase(data: RecurlyPurchaseCreateDto, apiKey?: string): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/purchases/authorize`, {
+	async authorizePurchase(
+		data: RecurlyPurchaseCreateDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoiceCollection> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/purchases/authorize`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -77,12 +89,15 @@ export class PurchaseService {
 	 * Capture a purchase
 	 * Capture an open Authorization request
 	 */
-	async capturePurchase(transactionId: string, apiKey?: string): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/purchases/${transactionId}/capture`, {
-			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify({}),
-		})
+	async capturePurchase(transactionId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoiceCollection> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/purchases/${transactionId}/capture`,
+			{
+				method: 'POST',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify({}),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Capture Purchase')
 		return (await response.json()) as RecurlyInvoiceCollection
@@ -92,12 +107,15 @@ export class PurchaseService {
 	 * Cancel a purchase
 	 * Cancel an open Authorization request
 	 */
-	async cancelPurchase(transactionId: string, apiKey?: string): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/purchases/${transactionId}/cancel/`, {
-			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify({}),
-		})
+	async cancelPurchase(transactionId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoiceCollection> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/purchases/${transactionId}/cancel/`,
+			{
+				method: 'POST',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify({}),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Cancel Purchase')
 		return (await response.json()) as RecurlyInvoiceCollection

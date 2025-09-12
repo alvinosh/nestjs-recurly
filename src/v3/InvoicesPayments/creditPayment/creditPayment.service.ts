@@ -1,7 +1,7 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyListCreditPaymentsQueryDto, RecurlyListAccountCreditPaymentsQueryDto } from './creditPayment.dto'
 import { RecurlyCreditPayment, RecurlyCreditPaymentListResponse } from './creditPayment.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -20,9 +20,9 @@ export class CreditPaymentService {
 	 */
 	async listCreditPayments(
 		params?: RecurlyListCreditPaymentsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyCreditPaymentListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/credit_payments`
+		let url = `${getBaseUrl(this.config, config?.location)}/credit_payments`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -30,7 +30,7 @@ export class CreditPaymentService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Credit Payments')
@@ -43,11 +43,14 @@ export class CreditPaymentService {
 	 * @param apiKey Optional API key to use instead of the default one
 	 * @returns Promise resolving to a credit payment object
 	 */
-	async getCreditPayment(creditPaymentId: string, apiKey?: string): Promise<RecurlyCreditPayment> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/credit_payments/${creditPaymentId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async getCreditPayment(creditPaymentId: string, config?: RecurlyAPIConnection): Promise<RecurlyCreditPayment> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/credit_payments/${creditPaymentId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get Credit Payment')
 		return (await response.json()) as RecurlyCreditPayment
@@ -63,9 +66,9 @@ export class CreditPaymentService {
 	async listAccountCreditPayments(
 		accountId: string,
 		params?: RecurlyListAccountCreditPaymentsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyCreditPaymentListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/credit_payments`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/credit_payments`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -73,7 +76,7 @@ export class CreditPaymentService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account Credit Payments')

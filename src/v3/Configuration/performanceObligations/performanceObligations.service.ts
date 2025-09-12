@@ -1,6 +1,6 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyPerformanceObligation, RecurlyPerformanceObligationListResponse } from './performanceObligations.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -11,12 +11,12 @@ export class PerformanceObligationsService {
 
 	constructor(@InjectConfig(RecurlyConfigDto) private readonly config: RecurlyConfigDto) {}
 
-	async listPerformanceObligations(apiKey?: string): Promise<RecurlyPerformanceObligationListResponse> {
-		const url = `${RECURLY_API_BASE_URL}/performance_obligations`
+	async listPerformanceObligations(config?: RecurlyAPIConnection): Promise<RecurlyPerformanceObligationListResponse> {
+		const url = `${getBaseUrl(this.config, config?.location)}/performance_obligations`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Performance Obligations')
@@ -25,12 +25,15 @@ export class PerformanceObligationsService {
 
 	async getPerformanceObligation(
 		performanceObligationId: string,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyPerformanceObligation> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/performance_obligations/${performanceObligationId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/performance_obligations/${performanceObligationId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get Performance Obligation')
 		return (await response.json()) as RecurlyPerformanceObligation

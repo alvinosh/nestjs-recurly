@@ -1,7 +1,6 @@
 import { RecurlyListCouponRedemptionsQueryDto } from '../../Customers/accounts/couponRedemption/couponRedemption.dto'
 import { RecurlyCouponRedemptionList } from '../../Customers/accounts/couponRedemption/couponRedemption.types'
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyListLineItemsQueryDto } from '../lineItem/lineItem.dtos'
 import { RecurlyLineItemListResponse } from '../lineItem/lineItem.types'
 import { RecurlyTransactionListResponse } from '../transaction/transaction.types'
@@ -23,6 +22,7 @@ import {
 	RecurlyInvoiceListResponse,
 	RecurlyExternalInvoice,
 } from './invoice.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -34,8 +34,11 @@ export class InvoiceService {
 	constructor(@InjectConfig(RecurlyConfigDto) private readonly config: RecurlyConfigDto) {}
 
 	// List invoices
-	async listInvoices(params?: RecurlyListInvoicesQueryDto, apiKey?: string): Promise<RecurlyInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/invoices`
+	async listInvoices(
+		params?: RecurlyListInvoicesQueryDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoiceListResponse> {
+		let url = `${getBaseUrl(this.config, config?.location)}/invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -43,7 +46,7 @@ export class InvoiceService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Invoices')
@@ -54,9 +57,9 @@ export class InvoiceService {
 	async listAccountInvoices(
 		accountId: string,
 		params?: RecurlyListAccountInvoicesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/invoices`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -64,7 +67,7 @@ export class InvoiceService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account Invoices')
@@ -75,11 +78,11 @@ export class InvoiceService {
 	async createInvoice(
 		accountId: string,
 		data: RecurlyCreateInvoiceDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/invoices`, {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/invoices`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -91,23 +94,26 @@ export class InvoiceService {
 	async previewInvoice(
 		accountId: string,
 		data: RecurlyCreateInvoiceDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyInvoiceCollection> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/invoices/preview`, {
-			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify(data),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/invoices/preview`,
+			{
+				method: 'POST',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify(data),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Preview Invoice')
 		return (await response.json()) as RecurlyInvoiceCollection
 	}
 
 	// Get invoice
-	async getInvoice(invoiceId: string, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}`, {
+	async getInvoice(invoiceId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoice> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}`, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Invoice')
@@ -115,10 +121,14 @@ export class InvoiceService {
 	}
 
 	// Update invoice
-	async updateInvoice(invoiceId: string, data: RecurlyUpdateInvoiceDto, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}`, {
+	async updateInvoice(
+		invoiceId: string,
+		data: RecurlyUpdateInvoiceDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoice> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -127,11 +137,11 @@ export class InvoiceService {
 	}
 
 	// Get invoice PDF
-	async getInvoicePdf(invoiceId: string, apiKey?: string): Promise<Buffer> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}.pdf`, {
+	async getInvoicePdf(invoiceId: string, config?: RecurlyAPIConnection): Promise<Buffer> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}.pdf`, {
 			method: 'GET',
 			headers: {
-				...getHeaders(this.config, apiKey),
+				...getHeaders(this.config, config?.key),
 				Accept: 'application/pdf',
 			},
 		})
@@ -142,21 +152,28 @@ export class InvoiceService {
 	}
 
 	// Apply credit balance
-	async applyCreditBalance(invoiceId: string, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/apply_credit_balance`, {
-			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async applyCreditBalance(invoiceId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoice> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/apply_credit_balance`,
+			{
+				method: 'PUT',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Apply Credit Balance')
 		return (await response.json()) as RecurlyInvoice
 	}
 
 	// Collect invoice
-	async collectInvoice(invoiceId: string, data?: RecurlyCollectInvoiceDto, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/collect`, {
+	async collectInvoice(
+		invoiceId: string,
+		data?: RecurlyCollectInvoiceDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoice> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/collect`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: data ? JSON.stringify(data) : undefined,
 		})
 
@@ -165,10 +182,10 @@ export class InvoiceService {
 	}
 
 	// Mark invoice as failed
-	async markInvoiceFailed(invoiceId: string, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/mark_failed`, {
+	async markInvoiceFailed(invoiceId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoice> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/mark_failed`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Mark Invoice Failed')
@@ -176,21 +193,24 @@ export class InvoiceService {
 	}
 
 	// Mark invoice as successful
-	async markInvoiceSuccessful(invoiceId: string, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/mark_successful`, {
-			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async markInvoiceSuccessful(invoiceId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoice> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/mark_successful`,
+			{
+				method: 'PUT',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Mark Invoice Successful')
 		return (await response.json()) as RecurlyInvoice
 	}
 
 	// Reopen invoice
-	async reopenInvoice(invoiceId: string, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/reopen`, {
+	async reopenInvoice(invoiceId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoice> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/reopen`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Reopen Invoice')
@@ -198,10 +218,10 @@ export class InvoiceService {
 	}
 
 	// Void invoice
-	async voidInvoice(invoiceId: string, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/void`, {
+	async voidInvoice(invoiceId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoice> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/void`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Void Invoice')
@@ -212,9 +232,9 @@ export class InvoiceService {
 	async listInvoiceTransactions(
 		invoiceId: string,
 		params?: RecurlyListTransactionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransactionListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/invoices/${invoiceId}/transactions`
+		let url = `${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/transactions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -222,7 +242,7 @@ export class InvoiceService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Invoice Transactions')
@@ -233,9 +253,9 @@ export class InvoiceService {
 	async listInvoiceLineItems(
 		invoiceId: string,
 		params?: RecurlyListLineItemsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyLineItemListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/invoices/${invoiceId}/line_items`
+		let url = `${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/line_items`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -243,7 +263,7 @@ export class InvoiceService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Invoice Line Items')
@@ -254,9 +274,9 @@ export class InvoiceService {
 	async listInvoiceCouponRedemptions(
 		invoiceId: string,
 		params?: RecurlyListCouponRedemptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyCouponRedemptionList> {
-		let url = `${RECURLY_API_BASE_URL}/invoices/${invoiceId}/coupon_redemptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/coupon_redemptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -264,7 +284,7 @@ export class InvoiceService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Invoice Coupon Redemptions')
@@ -272,21 +292,28 @@ export class InvoiceService {
 	}
 
 	// List related invoices
-	async listRelatedInvoices(invoiceId: string, apiKey?: string): Promise<RecurlyInvoiceListResponse> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/related_invoices`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async listRelatedInvoices(invoiceId: string, config?: RecurlyAPIConnection): Promise<RecurlyInvoiceListResponse> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/related_invoices`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'List Related Invoices')
 		return (await response.json()) as RecurlyInvoiceListResponse
 	}
 
 	// Refund invoice
-	async refundInvoice(invoiceId: string, data: RecurlyRefundInvoiceDto, apiKey?: string): Promise<RecurlyInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices/${invoiceId}/refund`, {
+	async refundInvoice(
+		invoiceId: string,
+		data: RecurlyRefundInvoiceDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyInvoice> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/refund`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -298,9 +325,9 @@ export class InvoiceService {
 	async listSubscriptionInvoices(
 		subscriptionId: string,
 		params?: RecurlyListSubscriptionInvoicesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/invoices`
+		let url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -308,7 +335,7 @@ export class InvoiceService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Subscription Invoices')
@@ -319,9 +346,9 @@ export class InvoiceService {
 	async listBusinessEntityInvoices(
 		businessEntityId: string,
 		params?: RecurlyListBusinessEntityInvoicesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/business_entities/${businessEntityId}/invoices`
+		let url = `${getBaseUrl(this.config, config?.location)}/business_entities/${businessEntityId}/invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -329,7 +356,7 @@ export class InvoiceService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Business Entity Invoices')
@@ -339,11 +366,11 @@ export class InvoiceService {
 	// Create external invoice (for external invoices)
 	async createExternalInvoice(
 		data: RecurlyCreateExternalInvoiceDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/invoices`, {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 

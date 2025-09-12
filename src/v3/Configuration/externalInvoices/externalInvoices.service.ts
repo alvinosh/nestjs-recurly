@@ -1,7 +1,7 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyListExternalInvoicesQueryDto, RecurlyCreateExternalInvoiceDto } from './externalInvoices.dtos'
 import { RecurlyExternalInvoice, RecurlyExternalInvoiceListResponse } from './externalInvoices.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -14,9 +14,9 @@ export class ExternalInvoicesService {
 
 	async listExternalInvoices(
 		params?: RecurlyListExternalInvoicesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/external_invoices`
+		let url = `${getBaseUrl(this.config, config?.location)}/external_invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -24,18 +24,24 @@ export class ExternalInvoicesService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List External Invoices')
 		return (await response.json()) as RecurlyExternalInvoiceListResponse
 	}
 
-	async getExternalInvoice(externalInvoiceId: string, apiKey?: string): Promise<RecurlyExternalInvoice> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/external_invoices/${externalInvoiceId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async getExternalInvoice(
+		externalInvoiceId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyExternalInvoice> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/external_invoices/${externalInvoiceId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get External Invoice')
 		return (await response.json()) as RecurlyExternalInvoice
@@ -44,9 +50,9 @@ export class ExternalInvoicesService {
 	async listAccountExternalInvoices(
 		accountId: string,
 		params?: RecurlyListExternalInvoicesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/external_invoices`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/external_invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -54,7 +60,7 @@ export class ExternalInvoicesService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account External Invoices')
@@ -64,9 +70,9 @@ export class ExternalInvoicesService {
 	async listExternalSubscriptionExternalInvoices(
 		externalSubscriptionId: string,
 		params?: RecurlyListExternalInvoicesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalInvoiceListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/external_subscriptions/${externalSubscriptionId}/external_invoices`
+		let url = `${getBaseUrl(this.config, config?.location)}/external_subscriptions/${externalSubscriptionId}/external_invoices`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -74,7 +80,7 @@ export class ExternalInvoicesService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List External Subscription External Invoices')
@@ -84,13 +90,13 @@ export class ExternalInvoicesService {
 	async createExternalInvoice(
 		externalSubscriptionId: string,
 		data: RecurlyCreateExternalInvoiceDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalInvoice> {
 		const response = await fetch(
-			`${RECURLY_API_BASE_URL}/external_subscriptions/${externalSubscriptionId}/external_invoices`,
+			`${getBaseUrl(this.config, config?.location)}/external_subscriptions/${externalSubscriptionId}/external_invoices`,
 			{
 				method: 'POST',
-				headers: getHeaders(this.config, apiKey),
+				headers: getHeaders(this.config, config?.key),
 				body: JSON.stringify(data),
 			},
 		)

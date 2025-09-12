@@ -1,7 +1,7 @@
-import { RECURLY_API_BASE_URL } from '../../../v3.constants'
-import { checkResponseIsOk, getHeaders } from '../../../v3.helpers'
+import { checkResponseIsOk, getBaseUrl, getHeaders } from '../../../v3.helpers'
 import { RecurlySubscriptionChange } from '../subscription.types'
 import { RecurlySubscriptionChangeCreate } from './change.dtos'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -18,12 +18,15 @@ export class ChangeService {
 	 * @param apiKey - Optional API key to use for this request.
 	 * @returns A subscription's pending change.
 	 */
-	async getSubscriptionChange(subscriptionId: string, apiKey?: string): Promise<RecurlySubscriptionChange> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/change`
+	async getSubscriptionChange(
+		subscriptionId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlySubscriptionChange> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/change`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Subscription Change')
@@ -40,13 +43,13 @@ export class ChangeService {
 	async createSubscriptionChange(
 		subscriptionId: string,
 		body: RecurlySubscriptionChangeCreate,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscriptionChange | void> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/change`
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/change`
 
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(body),
 		})
 
@@ -64,12 +67,12 @@ export class ChangeService {
 	 * @param subscriptionId - Subscription ID or UUID.
 	 * @param apiKey - Optional API key to use for this request.
 	 */
-	async removeSubscriptionChange(subscriptionId: string, apiKey?: string): Promise<void> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/change`
+	async removeSubscriptionChange(subscriptionId: string, config?: RecurlyAPIConnection): Promise<void> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/change`
 
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Remove Subscription Change')
@@ -85,13 +88,13 @@ export class ChangeService {
 	async previewSubscriptionChange(
 		subscriptionId: string,
 		body: RecurlySubscriptionChangeCreate,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscriptionChange> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/change/preview`
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/change/preview`
 
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(body),
 		})
 

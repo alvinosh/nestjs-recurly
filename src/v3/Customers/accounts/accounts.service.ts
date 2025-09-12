@@ -1,5 +1,4 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import {
 	RecurlyListAccountsQueryDto,
 	RecurlyCreateAccountDto,
@@ -13,6 +12,7 @@ import {
 	RecurlyAccountBalance,
 	RecurlyExternalSubscriptionListResponse,
 } from './accounts.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -23,8 +23,11 @@ export class AccountsService {
 
 	constructor(@InjectConfig(RecurlyConfigDto) private readonly config: RecurlyConfigDto) {}
 
-	async listAccounts(params?: RecurlyListAccountsQueryDto, apiKey?: string): Promise<RecurlyAccountListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts`
+	async listAccounts(
+		params?: RecurlyListAccountsQueryDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyAccountListResponse> {
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -32,17 +35,17 @@ export class AccountsService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Accounts')
 		return (await response.json()) as RecurlyAccountListResponse
 	}
 
-	async createAccount(data: RecurlyCreateAccountDto, apiKey?: string): Promise<RecurlyAccount> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts`, {
+	async createAccount(data: RecurlyCreateAccountDto, config?: RecurlyAPIConnection): Promise<RecurlyAccount> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/accounts`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -51,10 +54,10 @@ export class AccountsService {
 		return (await response.json()) as RecurlyAccount
 	}
 
-	async getAccount(accountId: string, apiKey?: string): Promise<RecurlyAccount> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}`, {
+	async getAccount(accountId: string, config?: RecurlyAPIConnection): Promise<RecurlyAccount> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}`, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Account')
@@ -62,10 +65,14 @@ export class AccountsService {
 		return (await response.json()) as RecurlyAccount
 	}
 
-	async updateAccount(accountId: string, data: RecurlyUpdateAccountDto, apiKey?: string): Promise<RecurlyAccount> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}`, {
+	async updateAccount(
+		accountId: string,
+		data: RecurlyUpdateAccountDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyAccount> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -73,30 +80,30 @@ export class AccountsService {
 		return (await response.json()) as RecurlyAccount
 	}
 
-	async deactivateAccount(accountId: string, apiKey?: string): Promise<RecurlyAccount> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}`, {
+	async deactivateAccount(accountId: string, config?: RecurlyAPIConnection): Promise<RecurlyAccount> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}`, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Deactivate Account')
 		return (await response.json()) as RecurlyAccount
 	}
 
-	async reactivateAccount(accountId: string, apiKey?: string): Promise<RecurlyAccount> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/reactivate`, {
+	async reactivateAccount(accountId: string, config?: RecurlyAPIConnection): Promise<RecurlyAccount> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/reactivate`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Reactivate Account')
 		return (await response.json()) as RecurlyAccount
 	}
 
-	async getAccountBalance(accountId: string, apiKey?: string): Promise<RecurlyAccountBalance> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/balance`, {
+	async getAccountBalance(accountId: string, config?: RecurlyAPIConnection): Promise<RecurlyAccountBalance> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/balance`, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Account Balance')
@@ -106,9 +113,9 @@ export class AccountsService {
 	async listChildAccounts(
 		accountId: string,
 		params?: RecurlyListChildAccountsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyAccountListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/accounts`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/accounts`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -116,7 +123,7 @@ export class AccountsService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Child Accounts')
@@ -126,9 +133,9 @@ export class AccountsService {
 	async listAccountExternalSubscriptions(
 		accountId: string,
 		params?: RecurlyListExternalSubscriptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalSubscriptionListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/external_subscriptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/external_subscriptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -136,7 +143,7 @@ export class AccountsService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account External Subscriptions')

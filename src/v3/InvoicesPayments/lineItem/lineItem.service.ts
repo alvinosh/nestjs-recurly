@@ -1,7 +1,7 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyListLineItemsQueryDto, RecurlyCreateLineItemDto } from './lineItem.dtos'
 import { RecurlyLineItem, RecurlyLineItemListResponse } from './lineItem.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -15,14 +15,17 @@ export class LineItemService {
 	/**
 	 * List all line items for the site
 	 */
-	async listLineItems(params?: RecurlyListLineItemsQueryDto, apiKey?: string): Promise<RecurlyLineItemListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/line_items`
+	async listLineItems(
+		params?: RecurlyListLineItemsQueryDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyLineItemListResponse> {
+		let url = `${getBaseUrl(this.config, config?.location)}/line_items`
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
 		}
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 		await checkResponseIsOk(response, this.logger, 'List Line Items')
 		return (await response.json()) as RecurlyLineItemListResponse
@@ -34,15 +37,15 @@ export class LineItemService {
 	async listAccountLineItems(
 		accountId: string,
 		params?: RecurlyListLineItemsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyLineItemListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/line_items`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/line_items`
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
 		}
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 		await checkResponseIsOk(response, this.logger, 'List Account Line Items')
 		return (await response.json()) as RecurlyLineItemListResponse
@@ -54,15 +57,15 @@ export class LineItemService {
 	async listInvoiceLineItems(
 		invoiceId: string,
 		params?: RecurlyListLineItemsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyLineItemListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/invoices/${invoiceId}/line_items`
+		let url = `${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/line_items`
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
 		}
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 		await checkResponseIsOk(response, this.logger, 'List Invoice Line Items')
 		return (await response.json()) as RecurlyLineItemListResponse
@@ -74,15 +77,15 @@ export class LineItemService {
 	async listSubscriptionLineItems(
 		subscriptionId: string,
 		params?: RecurlyListLineItemsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyLineItemListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/line_items`
+		let url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/line_items`
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
 		}
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 		await checkResponseIsOk(response, this.logger, 'List Subscription Line Items')
 		return (await response.json()) as RecurlyLineItemListResponse
@@ -91,11 +94,15 @@ export class LineItemService {
 	/**
 	 * Create a new line item for the account
 	 */
-	async createLineItem(accountId: string, data: RecurlyCreateLineItemDto, apiKey?: string): Promise<RecurlyLineItem> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/line_items`
+	async createLineItem(
+		accountId: string,
+		data: RecurlyCreateLineItemDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyLineItem> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/line_items`
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 		await checkResponseIsOk(response, this.logger, 'Create Line Item')
@@ -105,11 +112,11 @@ export class LineItemService {
 	/**
 	 * Fetch a line item by ID
 	 */
-	async getLineItem(lineItemId: string, apiKey?: string): Promise<RecurlyLineItem> {
-		const url = `${RECURLY_API_BASE_URL}/line_items/${lineItemId}`
+	async getLineItem(lineItemId: string, config?: RecurlyAPIConnection): Promise<RecurlyLineItem> {
+		const url = `${getBaseUrl(this.config, config?.location)}/line_items/${lineItemId}`
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 		await checkResponseIsOk(response, this.logger, 'Get Line Item')
 		return (await response.json()) as RecurlyLineItem
@@ -118,11 +125,11 @@ export class LineItemService {
 	/**
 	 * Delete an uninvoiced (pending) line item
 	 */
-	async removeLineItem(lineItemId: string, apiKey?: string): Promise<void> {
-		const url = `${RECURLY_API_BASE_URL}/line_items/${lineItemId}`
+	async removeLineItem(lineItemId: string, config?: RecurlyAPIConnection): Promise<void> {
+		const url = `${getBaseUrl(this.config, config?.location)}/line_items/${lineItemId}`
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 		if (response.status !== 204) {
 			await checkResponseIsOk(response, this.logger, 'Remove Line Item')

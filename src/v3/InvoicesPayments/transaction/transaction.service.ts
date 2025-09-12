@@ -1,11 +1,11 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import {
 	RecurlyListTransactionsQueryDto,
 	RecurlyListAccountTransactionsQueryDto,
 	RecurlyListInvoiceTransactionsQueryDto,
 } from './transaction.dto'
 import { RecurlyTransaction, RecurlyTransactionListResponse } from './transaction.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -21,9 +21,9 @@ export class TransactionService {
 	 */
 	async listTransactions(
 		params?: RecurlyListTransactionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransactionListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/transactions`
+		let url = `${getBaseUrl(this.config, config?.location)}/transactions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -31,7 +31,7 @@ export class TransactionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Transactions')
@@ -41,10 +41,10 @@ export class TransactionService {
 	/**
 	 * Get a specific transaction by ID
 	 */
-	async getTransaction(transactionId: string, apiKey?: string): Promise<RecurlyTransaction> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/transactions/${transactionId}`, {
+	async getTransaction(transactionId: string, config?: RecurlyAPIConnection): Promise<RecurlyTransaction> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/transactions/${transactionId}`, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Transaction')
@@ -57,9 +57,9 @@ export class TransactionService {
 	async listAccountTransactions(
 		accountId: string,
 		params?: RecurlyListAccountTransactionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransactionListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/transactions`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/transactions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -67,7 +67,7 @@ export class TransactionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account Transactions')
@@ -80,9 +80,9 @@ export class TransactionService {
 	async listInvoiceTransactions(
 		invoiceId: string,
 		params?: RecurlyListInvoiceTransactionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransactionListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/invoices/${invoiceId}/transactions`
+		let url = `${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/transactions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -90,7 +90,7 @@ export class TransactionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Invoice Transactions')

@@ -1,7 +1,7 @@
-import { RECURLY_API_BASE_URL } from '../../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../../v3.helpers'
 import { RecurlyListAccountNotesQueryDto } from './notes.dto'
 import { RecurlyAccountNote, RecurlyAccountNoteListResponse } from './notes.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -23,9 +23,9 @@ export class AccountNotesService {
 	async listAccountNotes(
 		accountId: string,
 		params?: RecurlyListAccountNotesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyAccountNoteListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/notes`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/notes`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -33,7 +33,7 @@ export class AccountNotesService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account Notes')
@@ -47,12 +47,16 @@ export class AccountNotesService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns An account note
 	 */
-	async getAccountNote(accountId: string, accountNoteId: string, apiKey?: string): Promise<RecurlyAccountNote> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/notes/${accountNoteId}`
+	async getAccountNote(
+		accountId: string,
+		accountNoteId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyAccountNote> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/notes/${accountNoteId}`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Account Note')
