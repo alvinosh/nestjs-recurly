@@ -1,5 +1,4 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import {
 	RecurlyListSubscriptionsQueryDto,
 	RecurlySubscriptionCancelDto,
@@ -8,6 +7,7 @@ import {
 	RecurlySubscriptionUpdateDto,
 } from './subscription.dto'
 import { RecurlySubscription, RecurlySubscriptionList } from './subscription.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -28,9 +28,9 @@ export class SubscriptionService {
 	async listAccountSubscriptions(
 		accountId: string,
 		params?: RecurlyListSubscriptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscriptionList> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/subscriptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/subscriptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -38,7 +38,7 @@ export class SubscriptionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account Subscriptions')
@@ -53,9 +53,9 @@ export class SubscriptionService {
 	 */
 	async listSubscriptions(
 		params?: RecurlyListSubscriptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscriptionList> {
-		let url = `${RECURLY_API_BASE_URL}/subscriptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/subscriptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -63,7 +63,7 @@ export class SubscriptionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Subscriptions')
@@ -76,12 +76,15 @@ export class SubscriptionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns The created subscription
 	 */
-	async createSubscription(data: RecurlySubscriptionCreateDto, apiKey?: string): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions`
+	async createSubscription(
+		data: RecurlySubscriptionCreateDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlySubscription> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions`
 
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -95,12 +98,12 @@ export class SubscriptionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns The subscription
 	 */
-	async getSubscription(subscriptionId: string, apiKey?: string): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}`
+	async getSubscription(subscriptionId: string, config?: RecurlyAPIConnection): Promise<RecurlySubscription> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Subscription')
@@ -117,13 +120,13 @@ export class SubscriptionService {
 	async updateSubscription(
 		subscriptionId: string,
 		data: RecurlySubscriptionUpdateDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}`
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}`
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -141,9 +144,9 @@ export class SubscriptionService {
 	async cancelSubscription(
 		subscriptionId: string,
 		data?: RecurlySubscriptionCancelDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscription> {
-		let url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/cancel`
+		let url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/cancel`
 
 		if (data && Object.keys(data).length > 0) {
 			url += '?' + buildQueryString(data)
@@ -151,7 +154,7 @@ export class SubscriptionService {
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Cancel Subscription')
@@ -170,18 +173,18 @@ export class SubscriptionService {
 		subscriptionId: string,
 		refund: 'full' | 'partial' | 'none' = 'none',
 		charge: boolean = true,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscription> {
 		const params = new URLSearchParams({
 			refund,
 			charge: charge.toString(),
 		})
 
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}?${params.toString()}`
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}?${params.toString()}`
 
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Terminate Subscription')
@@ -194,12 +197,12 @@ export class SubscriptionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns The reactivated subscription
 	 */
-	async reactivateSubscription(subscriptionId: string, apiKey?: string): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/reactivate`
+	async reactivateSubscription(subscriptionId: string, config?: RecurlyAPIConnection): Promise<RecurlySubscription> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/reactivate`
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Reactivate Subscription')
@@ -216,13 +219,13 @@ export class SubscriptionService {
 	async pauseSubscription(
 		subscriptionId: string,
 		data: RecurlySubscriptionPauseDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/pause`
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/pause`
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -236,12 +239,12 @@ export class SubscriptionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns The resumed subscription
 	 */
-	async resumeSubscription(subscriptionId: string, apiKey?: string): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/resume`
+	async resumeSubscription(subscriptionId: string, config?: RecurlyAPIConnection): Promise<RecurlySubscription> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/resume`
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Resume Subscription')
@@ -254,12 +257,15 @@ export class SubscriptionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns The converted subscription
 	 */
-	async convertTrialSubscription(subscriptionId: string, apiKey?: string): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/convert_trial`
+	async convertTrialSubscription(
+		subscriptionId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlySubscription> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/convert_trial`
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Convert Trial Subscription')
@@ -272,12 +278,15 @@ export class SubscriptionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns The subscription renewal preview
 	 */
-	async previewSubscriptionRenewal(subscriptionId: string, apiKey?: string): Promise<RecurlySubscription> {
-		const url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/preview_renewal`
+	async previewSubscriptionRenewal(
+		subscriptionId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlySubscription> {
+		const url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/preview_renewal`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Preview Subscription Renewal')

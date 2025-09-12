@@ -1,7 +1,7 @@
-import { RECURLY_API_BASE_URL } from '../../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../../v3.helpers'
 import { RecurlyAccountAcquisitionUpdateDto, RecurlyListAccountAcquisitionQueryDto } from './acquisition.dto'
 import { RecurlyAccountAcquisition, RecurlyAccountAcquisitionListResponse } from './acquisition.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -21,9 +21,9 @@ export class AccountAcquisitionService {
 	 */
 	async listAccountAcquisition(
 		params?: RecurlyListAccountAcquisitionQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyAccountAcquisitionListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/acquisitions`
+		let url = `${getBaseUrl(this.config, config?.location)}/acquisitions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -31,7 +31,7 @@ export class AccountAcquisitionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account Acquisition')
@@ -44,12 +44,12 @@ export class AccountAcquisitionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns An account's acquisition data
 	 */
-	async getAccountAcquisition(accountId: string, apiKey?: string): Promise<RecurlyAccountAcquisition> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/acquisition`
+	async getAccountAcquisition(accountId: string, config?: RecurlyAPIConnection): Promise<RecurlyAccountAcquisition> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/acquisition`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Account Acquisition')
@@ -66,13 +66,13 @@ export class AccountAcquisitionService {
 	async updateAccountAcquisition(
 		accountId: string,
 		acquisitionData: RecurlyAccountAcquisitionUpdateDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyAccountAcquisition> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/acquisition`
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/acquisition`
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(acquisitionData),
 		})
 
@@ -86,12 +86,12 @@ export class AccountAcquisitionService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns void
 	 */
-	async removeAccountAcquisition(accountId: string, apiKey?: string): Promise<void> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/acquisition`
+	async removeAccountAcquisition(accountId: string, config?: RecurlyAPIConnection): Promise<void> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/acquisition`
 
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Remove Account Acquisition')

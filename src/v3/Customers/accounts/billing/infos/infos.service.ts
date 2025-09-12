@@ -1,6 +1,5 @@
 import { RecurlyTransaction } from '../../../../InvoicesPayments/transaction/transaction.types'
-import { RECURLY_API_BASE_URL } from '../../../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../../../v3.helpers'
 import { RecurlyBillingInfo } from '../info/info.types'
 import {
 	RecurlyCreateBillingInfoDto,
@@ -10,6 +9,7 @@ import {
 	RecurlyVerifyBillingInfoDto,
 } from './infos.dto'
 import { RecurlyBillingInfoListResponse } from './infos.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -27,9 +27,9 @@ export class BillingInfosService {
 	async listBillingInfos(
 		accountId: string,
 		params?: RecurlyListBillingInfosQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyBillingInfoListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_infos`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_infos`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -37,7 +37,7 @@ export class BillingInfosService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Billing Infos')
@@ -51,13 +51,16 @@ export class BillingInfosService {
 	async createBillingInfo(
 		accountId: string,
 		data: RecurlyCreateBillingInfoDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyBillingInfo> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_infos`, {
-			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify(data),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_infos`,
+			{
+				method: 'POST',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify(data),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Create Billing Info')
 		return (await response.json()) as RecurlyBillingInfo
@@ -67,11 +70,18 @@ export class BillingInfosService {
 	 * Fetch a billing info
 	 * @see https://recurly.com/developers/api/v2021-02-25/index.html#operation/get_a_billing_info
 	 */
-	async getBillingInfo(accountId: string, billingInfoId: string, apiKey?: string): Promise<RecurlyBillingInfo> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_infos/${billingInfoId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async getBillingInfo(
+		accountId: string,
+		billingInfoId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyBillingInfo> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_infos/${billingInfoId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get Billing Info')
 		return (await response.json()) as RecurlyBillingInfo
@@ -85,13 +95,16 @@ export class BillingInfosService {
 		accountId: string,
 		billingInfoId: string,
 		data: RecurlyUpdateBillingInfoDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyBillingInfo> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_infos/${billingInfoId}`, {
-			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify(data),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_infos/${billingInfoId}`,
+			{
+				method: 'PUT',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify(data),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Update Billing Info')
 		return (await response.json()) as RecurlyBillingInfo
@@ -101,11 +114,14 @@ export class BillingInfosService {
 	 * Remove an account's billing information
 	 * @see https://recurly.com/developers/api/v2021-02-25/index.html#operation/remove_a_billing_info
 	 */
-	async removeBillingInfo(accountId: string, billingInfoId: string, apiKey?: string): Promise<void> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_infos/${billingInfoId}`, {
-			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async removeBillingInfo(accountId: string, billingInfoId: string, config?: RecurlyAPIConnection): Promise<void> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_infos/${billingInfoId}`,
+			{
+				method: 'DELETE',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Remove Billing Info')
 	}
@@ -118,13 +134,13 @@ export class BillingInfosService {
 		accountId: string,
 		billingInfoId: string,
 		data?: RecurlyVerifyBillingInfoDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransaction> {
 		const response = await fetch(
-			`${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_infos/${billingInfoId}/verify`,
+			`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_infos/${billingInfoId}/verify`,
 			{
 				method: 'POST',
-				headers: getHeaders(this.config, apiKey),
+				headers: getHeaders(this.config, config?.key),
 				body: data ? JSON.stringify(data) : undefined,
 			},
 		)
@@ -141,13 +157,13 @@ export class BillingInfosService {
 		accountId: string,
 		billingInfoId: string,
 		data: RecurlyVerifyBillingInfoCVVDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyTransaction> {
 		const response = await fetch(
-			`${RECURLY_API_BASE_URL}/accounts/${accountId}/billing_infos/${billingInfoId}/verify_cvv`,
+			`${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/billing_infos/${billingInfoId}/verify_cvv`,
 			{
 				method: 'POST',
-				headers: getHeaders(this.config, apiKey),
+				headers: getHeaders(this.config, config?.key),
 				body: JSON.stringify(data),
 			},
 		)

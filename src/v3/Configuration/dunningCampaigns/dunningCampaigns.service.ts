@@ -1,11 +1,11 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import { RecurlyListDunningCampaignsQueryDto, RecurlyDunningCampaignsBulkUpdateDto } from './dunningCampaigns.dtos'
 import {
 	RecurlyDunningCampaign,
 	RecurlyDunningCampaignListResponse,
 	RecurlyDunningCampaignsBulkUpdateResponse,
 } from './dunningCampaigns.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -24,9 +24,9 @@ export class DunningCampaignsService {
 	 */
 	async listDunningCampaigns(
 		params?: RecurlyListDunningCampaignsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyDunningCampaignListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/dunning_campaigns`
+		let url = `${getBaseUrl(this.config, config?.location)}/dunning_campaigns`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -34,7 +34,7 @@ export class DunningCampaignsService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Dunning Campaigns')
@@ -47,11 +47,17 @@ export class DunningCampaignsService {
 	 * @param apiKey Optional API key override
 	 * @returns Promise<RecurlyDunningCampaign>
 	 */
-	async getDunningCampaign(dunningCampaignId: string, apiKey?: string): Promise<RecurlyDunningCampaign> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/dunning_campaigns/${dunningCampaignId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+	async getDunningCampaign(
+		dunningCampaignId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyDunningCampaign> {
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/dunning_campaigns/${dunningCampaignId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get Dunning Campaign')
 		return (await response.json()) as RecurlyDunningCampaign
@@ -67,13 +73,16 @@ export class DunningCampaignsService {
 	async bulkUpdateDunningCampaign(
 		dunningCampaignId: string,
 		updateData: RecurlyDunningCampaignsBulkUpdateDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyDunningCampaignsBulkUpdateResponse> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/dunning_campaigns/${dunningCampaignId}/bulk_update`, {
-			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify(updateData),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/dunning_campaigns/${dunningCampaignId}/bulk_update`,
+			{
+				method: 'PUT',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify(updateData),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Bulk Update Dunning Campaign')
 		return (await response.json()) as RecurlyDunningCampaignsBulkUpdateResponse

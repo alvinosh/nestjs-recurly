@@ -1,11 +1,11 @@
-import { RECURLY_API_BASE_URL } from '../../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../../v3.helpers'
 import {
 	RecurlyListShippingAddressesQueryDto,
 	RecurlyAccountShippingAddressCreateDto,
 	RecurlyAccountShippingAddressUpdateDto,
 } from './shippingAddress.dto'
 import { RecurlyShippingAddress, RecurlyShippingAddressList } from './shippingAddress.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -27,9 +27,9 @@ export class ShippingAddressService {
 	async listShippingAddresses(
 		accountId: string,
 		params?: RecurlyListShippingAddressesQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyShippingAddressList> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/shipping_addresses`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/shipping_addresses`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -37,7 +37,7 @@ export class ShippingAddressService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Shipping Addresses')
@@ -54,13 +54,13 @@ export class ShippingAddressService {
 	async createShippingAddress(
 		accountId: string,
 		shippingAddressData: RecurlyAccountShippingAddressCreateDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyShippingAddress> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/shipping_addresses`
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/shipping_addresses`
 
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(shippingAddressData),
 		})
 
@@ -78,13 +78,13 @@ export class ShippingAddressService {
 	async getShippingAddress(
 		accountId: string,
 		shippingAddressId: string,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyShippingAddress> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/shipping_addresses/${shippingAddressId}`
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/shipping_addresses/${shippingAddressId}`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Shipping Address')
@@ -103,13 +103,13 @@ export class ShippingAddressService {
 		accountId: string,
 		shippingAddressId: string,
 		shippingAddressData: RecurlyAccountShippingAddressUpdateDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyShippingAddress> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/shipping_addresses/${shippingAddressId}`
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/shipping_addresses/${shippingAddressId}`
 
 		const response = await fetch(url, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(shippingAddressData),
 		})
 
@@ -124,12 +124,16 @@ export class ShippingAddressService {
 	 * @param apiKey - Optional API key to use for this request
 	 * @returns void
 	 */
-	async removeShippingAddress(accountId: string, shippingAddressId: string, apiKey?: string): Promise<void> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/shipping_addresses/${shippingAddressId}`
+	async removeShippingAddress(
+		accountId: string,
+		shippingAddressId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<void> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/shipping_addresses/${shippingAddressId}`
 
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Remove Shipping Address')

@@ -1,11 +1,11 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import {
 	RecurlyListMeasuredUnitsQueryDto,
 	RecurlyCreateMeasuredUnitDto,
 	RecurlyUpdateMeasuredUnitDto,
 } from './measuredUnit.dto'
 import { RecurlyMeasuredUnit, RecurlyMeasuredUnitList } from './measuredUnit.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -18,9 +18,9 @@ export class MeasuredUnitService {
 
 	async listMeasuredUnits(
 		params?: RecurlyListMeasuredUnitsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyMeasuredUnitList> {
-		let url = `${RECURLY_API_BASE_URL}/measured_units`
+		let url = `${getBaseUrl(this.config, config?.location)}/measured_units`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -28,17 +28,20 @@ export class MeasuredUnitService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Measured Units')
 		return (await response.json()) as RecurlyMeasuredUnitList
 	}
 
-	async createMeasuredUnit(data: RecurlyCreateMeasuredUnitDto, apiKey?: string): Promise<RecurlyMeasuredUnit> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/measured_units`, {
+	async createMeasuredUnit(
+		data: RecurlyCreateMeasuredUnitDto,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyMeasuredUnit> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/measured_units`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -46,10 +49,10 @@ export class MeasuredUnitService {
 		return (await response.json()) as RecurlyMeasuredUnit
 	}
 
-	async getMeasuredUnit(measuredUnitId: string, apiKey?: string): Promise<RecurlyMeasuredUnit> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/measured_units/${measuredUnitId}`, {
+	async getMeasuredUnit(measuredUnitId: string, config?: RecurlyAPIConnection): Promise<RecurlyMeasuredUnit> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/measured_units/${measuredUnitId}`, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Get Measured Unit')
@@ -59,11 +62,11 @@ export class MeasuredUnitService {
 	async updateMeasuredUnit(
 		measuredUnitId: string,
 		data: RecurlyUpdateMeasuredUnitDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyMeasuredUnit> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/measured_units/${measuredUnitId}`, {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/measured_units/${measuredUnitId}`, {
 			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -71,10 +74,10 @@ export class MeasuredUnitService {
 		return (await response.json()) as RecurlyMeasuredUnit
 	}
 
-	async removeMeasuredUnit(measuredUnitId: string, apiKey?: string): Promise<RecurlyMeasuredUnit> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/measured_units/${measuredUnitId}`, {
+	async removeMeasuredUnit(measuredUnitId: string, config?: RecurlyAPIConnection): Promise<RecurlyMeasuredUnit> {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/measured_units/${measuredUnitId}`, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Remove Measured Unit')

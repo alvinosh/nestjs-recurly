@@ -1,7 +1,7 @@
-import { RECURLY_API_BASE_URL } from '../../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../../v3.helpers'
 import { RecurlyListCouponRedemptionsQueryDto, RecurlyCouponRedemptionCreateDto } from './couponRedemption.dto'
 import { RecurlyCouponRedemption, RecurlyCouponRedemptionList } from './couponRedemption.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -22,9 +22,9 @@ export class CouponRedemptionService {
 	async listAccountCouponRedemptions(
 		accountId: string,
 		params?: RecurlyListCouponRedemptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyCouponRedemptionList> {
-		let url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/coupon_redemptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/coupon_redemptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -32,7 +32,7 @@ export class CouponRedemptionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Account Coupon Redemptions')
@@ -45,12 +45,15 @@ export class CouponRedemptionService {
 	 * @param apiKey Optional API key override
 	 * @returns List of active coupon redemptions
 	 */
-	async listActiveCouponRedemptions(accountId: string, apiKey?: string): Promise<RecurlyCouponRedemptionList> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/coupon_redemptions/active`
+	async listActiveCouponRedemptions(
+		accountId: string,
+		config?: RecurlyAPIConnection,
+	): Promise<RecurlyCouponRedemptionList> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/coupon_redemptions/active`
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Active Coupon Redemptions')
@@ -67,13 +70,13 @@ export class CouponRedemptionService {
 	async createCouponRedemption(
 		accountId: string,
 		data: RecurlyCouponRedemptionCreateDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyCouponRedemption> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/coupon_redemptions/active`
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/coupon_redemptions/active`
 
 		const response = await fetch(url, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -87,12 +90,12 @@ export class CouponRedemptionService {
 	 * @param apiKey Optional API key override
 	 * @returns Removed coupon redemption
 	 */
-	async removeCouponRedemption(accountId: string, apiKey?: string): Promise<RecurlyCouponRedemption> {
-		const url = `${RECURLY_API_BASE_URL}/accounts/${accountId}/coupon_redemptions/active`
+	async removeCouponRedemption(accountId: string, config?: RecurlyAPIConnection): Promise<RecurlyCouponRedemption> {
+		const url = `${getBaseUrl(this.config, config?.location)}/accounts/${accountId}/coupon_redemptions/active`
 
 		const response = await fetch(url, {
 			method: 'DELETE',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'Remove Coupon Redemption')
@@ -109,9 +112,9 @@ export class CouponRedemptionService {
 	async listInvoiceCouponRedemptions(
 		invoiceId: string,
 		params?: RecurlyListCouponRedemptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyCouponRedemptionList> {
-		let url = `${RECURLY_API_BASE_URL}/invoices/${invoiceId}/coupon_redemptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}/coupon_redemptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -119,7 +122,7 @@ export class CouponRedemptionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Invoice Coupon Redemptions')
@@ -136,9 +139,9 @@ export class CouponRedemptionService {
 	async listSubscriptionCouponRedemptions(
 		subscriptionId: string,
 		params?: RecurlyListCouponRedemptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyCouponRedemptionList> {
-		let url = `${RECURLY_API_BASE_URL}/subscriptions/${subscriptionId}/coupon_redemptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/subscriptions/${subscriptionId}/coupon_redemptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -146,7 +149,7 @@ export class CouponRedemptionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List Subscription Coupon Redemptions')

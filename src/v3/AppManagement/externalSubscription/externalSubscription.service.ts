@@ -1,11 +1,11 @@
-import { RECURLY_API_BASE_URL } from '../../v3.constants'
-import { buildQueryString, checkResponseIsOk, getHeaders } from '../../v3.helpers'
+import { buildQueryString, checkResponseIsOk, getBaseUrl, getHeaders } from '../../v3.helpers'
 import {
 	RecurlyListExternalSubscriptionsQueryDto,
 	RecurlyCreateExternalSubscriptionDto,
 	RecurlyUpdateExternalSubscriptionDto,
 } from './externalSubscription.dtos'
 import { RecurlyExternalSubscription, RecurlyExternalSubscriptionListResponse } from './externalSubscription.types'
+import { RecurlyAPIConnection } from '@/v3/v3.types'
 import { RecurlyConfigDto } from '@config/config.dto'
 import { InjectConfig } from '@config/config.provider'
 import { Injectable, Logger } from '@nestjs/common'
@@ -18,9 +18,9 @@ export class ExternalSubscriptionService {
 
 	async listExternalSubscriptions(
 		params?: RecurlyListExternalSubscriptionsQueryDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalSubscriptionListResponse> {
-		let url = `${RECURLY_API_BASE_URL}/external_subscriptions`
+		let url = `${getBaseUrl(this.config, config?.location)}/external_subscriptions`
 
 		if (params && Object.keys(params).length > 0) {
 			url += '?' + buildQueryString(params)
@@ -28,7 +28,7 @@ export class ExternalSubscriptionService {
 
 		const response = await fetch(url, {
 			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 		})
 
 		await checkResponseIsOk(response, this.logger, 'List External Subscriptions')
@@ -37,12 +37,15 @@ export class ExternalSubscriptionService {
 
 	async getExternalSubscription(
 		externalSubscriptionId: string,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalSubscription> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/external_subscriptions/${externalSubscriptionId}`, {
-			method: 'GET',
-			headers: getHeaders(this.config, apiKey),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/external_subscriptions/${externalSubscriptionId}`,
+			{
+				method: 'GET',
+				headers: getHeaders(this.config, config?.key),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Get External Subscription')
 		return (await response.json()) as RecurlyExternalSubscription
@@ -50,11 +53,11 @@ export class ExternalSubscriptionService {
 
 	async createExternalSubscription(
 		data: RecurlyCreateExternalSubscriptionDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalSubscription> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/external_subscriptions`, {
+		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/external_subscriptions`, {
 			method: 'POST',
-			headers: getHeaders(this.config, apiKey),
+			headers: getHeaders(this.config, config?.key),
 			body: JSON.stringify(data),
 		})
 
@@ -65,13 +68,16 @@ export class ExternalSubscriptionService {
 	async updateExternalSubscription(
 		externalSubscriptionId: string,
 		data: RecurlyUpdateExternalSubscriptionDto,
-		apiKey?: string,
+		config?: RecurlyAPIConnection,
 	): Promise<RecurlyExternalSubscription> {
-		const response = await fetch(`${RECURLY_API_BASE_URL}/external_subscriptions/${externalSubscriptionId}`, {
-			method: 'PUT',
-			headers: getHeaders(this.config, apiKey),
-			body: JSON.stringify(data),
-		})
+		const response = await fetch(
+			`${getBaseUrl(this.config, config?.location)}/external_subscriptions/${externalSubscriptionId}`,
+			{
+				method: 'PUT',
+				headers: getHeaders(this.config, config?.key),
+				body: JSON.stringify(data),
+			},
+		)
 
 		await checkResponseIsOk(response, this.logger, 'Update External Subscription')
 		return (await response.json()) as RecurlyExternalSubscription
