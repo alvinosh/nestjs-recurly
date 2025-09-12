@@ -141,7 +141,7 @@ export class InvoiceService {
 		const response = await fetch(`${getBaseUrl(this.config, config?.location)}/invoices/${invoiceId}.pdf`, {
 			method: 'GET',
 			headers: {
-				...getHeaders(this.config, apiKey),
+				...getHeaders(this.config, config?.key),
 				Accept: 'application/pdf',
 			},
 		})
