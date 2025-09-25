@@ -36,6 +36,7 @@ export { ExternalProductService } from './v3/AppManagement/externalProduct/exter
 export { ExternalProductReferenceService } from './v3/AppManagement/externalProductReference/externalProductReference.service'
 export { ExternalSubscriptionService } from './v3/AppManagement/externalSubscription/externalSubscription.service'
 export { ExternalAccountService } from './v3/AppManagement/externalAccount/externalAccount.service'
+export { TransactionService } from './v3/InvoicesPayments/transaction/transaction.service'
 
 //Config
 export { RecurlyConfigDto } from '@config/config.dto'
